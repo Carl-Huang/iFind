@@ -8,6 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		C3437E9317EEC79100C67F2C /* Constants.h in Sources */ = {isa = PBXBuildFile; fileRef = C3840BB917EAA9850049FDE5 /* Constants.h */; };
+		C3437E9A17EED1A700C67F2C /* Main_Add_01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3437E9417EED1A700C67F2C /* Main_Add_01@2x.png */; };
+		C3437E9B17EED1A700C67F2C /* Main_Add_02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3437E9517EED1A700C67F2C /* Main_Add_02@2x.png */; };
+		C3437E9C17EED1A700C67F2C /* Main_Bg4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3437E9617EED1A700C67F2C /* Main_Bg4@2x.png */; };
+		C3437E9D17EED1A700C67F2C /* Main_Bt_01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3437E9717EED1A700C67F2C /* Main_Bt_01@2x.png */; };
+		C3437E9E17EED1A700C67F2C /* Main_Bt_02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3437E9817EED1A700C67F2C /* Main_Bt_02@2x.png */; };
+		C3437E9F17EED1A700C67F2C /* Main_Bt_03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3437E9917EED1A700C67F2C /* Main_Bt_03@2x.png */; };
+		C3437EA917EED22300C67F2C /* FPPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EA217EED22300C67F2C /* FPPopoverController.m */; };
+		C3437EAA17EED22300C67F2C /* FPPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EA417EED22300C67F2C /* FPPopoverView.m */; };
+		C3437EAB17EED22300C67F2C /* FPTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EA617EED22300C67F2C /* FPTouchView.m */; };
+		C3437EAC17EED22300C67F2C /* PopUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EA817EED22300C67F2C /* PopUpTableViewController.m */; };
+		C3437EAE17EED28E00C67F2C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3437EAD17EED28D00C67F2C /* SystemConfiguration.framework */; };
+		C3437EB017EED29700C67F2C /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3437EAF17EED29700C67F2C /* AssetsLibrary.framework */; };
+		C3437EB217EED29E00C67F2C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3437EB117EED29E00C67F2C /* AVFoundation.framework */; };
+		C3437EB417EED2C000C67F2C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3437EB317EED2C000C67F2C /* CoreMedia.framework */; };
+		C3437EB617EED2C800C67F2C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3437EB517EED2C800C67F2C /* MediaPlayer.framework */; };
+		C3437EB817EED2E300C67F2C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3437EB717EED2E300C67F2C /* AudioToolbox.framework */; };
+		C3437EBB17EED30C00C67F2C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EBA17EED30C00C67F2C /* ViewController.m */; };
+		C3437EBD17EED32900C67F2C /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3437EBC17EED32900C67F2C /* ViewController.xib */; };
+		C3437EC017EED33500C67F2C /* DeviceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EBF17EED33500C67F2C /* DeviceDetailViewController.m */; };
 		C37C5DDE17EBF30E00FCE5AE /* CRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37C5DDD17EBF30E00FCE5AE /* CRootViewController.m */; };
 		C3810B3317EDD06A006A180D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3810B3217EDD06A006A180D /* CoreTelephony.framework */; };
 		C3840B8C17E9D1E60049FDE5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3840B8B17E9D1E60049FDE5 /* UIKit.framework */; };
@@ -28,6 +47,31 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C3437E9417EED1A700C67F2C /* Main_Add_01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Add_01@2x.png"; sourceTree = "<group>"; };
+		C3437E9517EED1A700C67F2C /* Main_Add_02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Add_02@2x.png"; sourceTree = "<group>"; };
+		C3437E9617EED1A700C67F2C /* Main_Bg4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Bg4@2x.png"; sourceTree = "<group>"; };
+		C3437E9717EED1A700C67F2C /* Main_Bt_01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Bt_01@2x.png"; sourceTree = "<group>"; };
+		C3437E9817EED1A700C67F2C /* Main_Bt_02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Bt_02@2x.png"; sourceTree = "<group>"; };
+		C3437E9917EED1A700C67F2C /* Main_Bt_03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Bt_03@2x.png"; sourceTree = "<group>"; };
+		C3437EA117EED22300C67F2C /* FPPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverController.h; sourceTree = "<group>"; };
+		C3437EA217EED22300C67F2C /* FPPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverController.m; sourceTree = "<group>"; };
+		C3437EA317EED22300C67F2C /* FPPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverView.h; sourceTree = "<group>"; };
+		C3437EA417EED22300C67F2C /* FPPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverView.m; sourceTree = "<group>"; };
+		C3437EA517EED22300C67F2C /* FPTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTouchView.h; sourceTree = "<group>"; };
+		C3437EA617EED22300C67F2C /* FPTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPTouchView.m; sourceTree = "<group>"; };
+		C3437EA717EED22300C67F2C /* PopUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopUpTableViewController.h; sourceTree = "<group>"; };
+		C3437EA817EED22300C67F2C /* PopUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopUpTableViewController.m; sourceTree = "<group>"; };
+		C3437EAD17EED28D00C67F2C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C3437EAF17EED29700C67F2C /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		C3437EB117EED29E00C67F2C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C3437EB317EED2C000C67F2C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		C3437EB517EED2C800C67F2C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		C3437EB717EED2E300C67F2C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		C3437EB917EED30C00C67F2C /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		C3437EBA17EED30C00C67F2C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C3437EBC17EED32900C67F2C /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		C3437EBE17EED33500C67F2C /* DeviceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDetailViewController.h; sourceTree = "<group>"; };
+		C3437EBF17EED33500C67F2C /* DeviceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDetailViewController.m; sourceTree = "<group>"; };
 		C37C5DDC17EBF30E00FCE5AE /* CRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRootViewController.h; sourceTree = "<group>"; };
 		C37C5DDD17EBF30E00FCE5AE /* CRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRootViewController.m; sourceTree = "<group>"; };
 		C3810B3217EDD06A006A180D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -62,6 +106,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3437EB817EED2E300C67F2C /* AudioToolbox.framework in Frameworks */,
+				C3437EB617EED2C800C67F2C /* MediaPlayer.framework in Frameworks */,
+				C3437EB417EED2C000C67F2C /* CoreMedia.framework in Frameworks */,
+				C3437EB217EED29E00C67F2C /* AVFoundation.framework in Frameworks */,
+				C3437EB017EED29700C67F2C /* AssetsLibrary.framework in Frameworks */,
+				C3437EAE17EED28E00C67F2C /* SystemConfiguration.framework in Frameworks */,
 				C3810B3317EDD06A006A180D /* CoreTelephony.framework in Frameworks */,
 				C3840BB817EAA6BE0049FDE5 /* CoreBluetooth.framework in Frameworks */,
 				C3840B8C17E9D1E60049FDE5 /* UIKit.framework in Frameworks */,
@@ -73,10 +123,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C3437EA017EED22300C67F2C /* PopupView */ = {
+			isa = PBXGroup;
+			children = (
+				C3437EA117EED22300C67F2C /* FPPopoverController.h */,
+				C3437EA217EED22300C67F2C /* FPPopoverController.m */,
+				C3437EA317EED22300C67F2C /* FPPopoverView.h */,
+				C3437EA417EED22300C67F2C /* FPPopoverView.m */,
+				C3437EA517EED22300C67F2C /* FPTouchView.h */,
+				C3437EA617EED22300C67F2C /* FPTouchView.m */,
+				C3437EA717EED22300C67F2C /* PopUpTableViewController.h */,
+				C3437EA817EED22300C67F2C /* PopUpTableViewController.m */,
+			);
+			path = PopupView;
+			sourceTree = "<group>";
+		};
+		C3437EC117EED34400C67F2C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C3437EBE17EED33500C67F2C /* DeviceDetailViewController.h */,
+				C3437EBF17EED33500C67F2C /* DeviceDetailViewController.m */,
+				C3437EBC17EED32900C67F2C /* ViewController.xib */,
+				C3437EB917EED30C00C67F2C /* ViewController.h */,
+				C3437EBA17EED30C00C67F2C /* ViewController.m */,
+				C37C5DDC17EBF30E00FCE5AE /* CRootViewController.h */,
+				C37C5DDD17EBF30E00FCE5AE /* CRootViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		C3840B7F17E9D1E60049FDE5 = {
 			isa = PBXGroup;
 			children = (
-				C3810B3217EDD06A006A180D /* CoreTelephony.framework */,
 				C3840B9117E9D1E60049FDE5 /* iFind */,
 				C3840B8A17E9D1E60049FDE5 /* Frameworks */,
 				C3840B8917E9D1E60049FDE5 /* Products */,
@@ -94,6 +172,13 @@
 		C3840B8A17E9D1E60049FDE5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C3437EB717EED2E300C67F2C /* AudioToolbox.framework */,
+				C3437EB517EED2C800C67F2C /* MediaPlayer.framework */,
+				C3437EB317EED2C000C67F2C /* CoreMedia.framework */,
+				C3437EB117EED29E00C67F2C /* AVFoundation.framework */,
+				C3437EAF17EED29700C67F2C /* AssetsLibrary.framework */,
+				C3437EAD17EED28D00C67F2C /* SystemConfiguration.framework */,
+				C3810B3217EDD06A006A180D /* CoreTelephony.framework */,
 				C3840BB717EAA6BE0049FDE5 /* CoreBluetooth.framework */,
 				C3840B8B17E9D1E60049FDE5 /* UIKit.framework */,
 				C3840B8D17E9D1E60049FDE5 /* Foundation.framework */,
@@ -105,6 +190,7 @@
 		C3840B9117E9D1E60049FDE5 /* iFind */ = {
 			isa = PBXGroup;
 			children = (
+				C3437EC117EED34400C67F2C /* Controllers */,
 				C3840BB317E9D8AB0049FDE5 /* Classes */,
 				C3840BB217E9D8A40049FDE5 /* Lib */,
 				C3840BAE17E9D89D0049FDE5 /* Resources */,
@@ -114,8 +200,6 @@
 				C3840BA417E9D1E60049FDE5 /* CViewController.m */,
 				C3840BA617E9D1E60049FDE5 /* CViewController.xib */,
 				C3840B9217E9D1E60049FDE5 /* Supporting Files */,
-				C37C5DDC17EBF30E00FCE5AE /* CRootViewController.h */,
-				C37C5DDD17EBF30E00FCE5AE /* CRootViewController.m */,
 			);
 			path = iFind;
 			sourceTree = "<group>";
@@ -154,6 +238,12 @@
 		C3840BB017E9D89D0049FDE5 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				C3437E9417EED1A700C67F2C /* Main_Add_01@2x.png */,
+				C3437E9517EED1A700C67F2C /* Main_Add_02@2x.png */,
+				C3437E9617EED1A700C67F2C /* Main_Bg4@2x.png */,
+				C3437E9717EED1A700C67F2C /* Main_Bt_01@2x.png */,
+				C3437E9817EED1A700C67F2C /* Main_Bt_02@2x.png */,
+				C3437E9917EED1A700C67F2C /* Main_Bt_03@2x.png */,
 			);
 			path = 2x;
 			sourceTree = "<group>";
@@ -168,6 +258,7 @@
 		C3840BB217E9D8A40049FDE5 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				C3437EA017EED22300C67F2C /* PopupView */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -243,6 +334,13 @@
 				C3840BA017E9D1E60049FDE5 /* Default@2x.png in Resources */,
 				C3840BA217E9D1E60049FDE5 /* Default-568h@2x.png in Resources */,
 				C3840BA817E9D1E60049FDE5 /* CViewController.xib in Resources */,
+				C3437E9A17EED1A700C67F2C /* Main_Add_01@2x.png in Resources */,
+				C3437E9B17EED1A700C67F2C /* Main_Add_02@2x.png in Resources */,
+				C3437E9C17EED1A700C67F2C /* Main_Bg4@2x.png in Resources */,
+				C3437E9D17EED1A700C67F2C /* Main_Bt_01@2x.png in Resources */,
+				C3437E9E17EED1A700C67F2C /* Main_Bt_02@2x.png in Resources */,
+				C3437E9F17EED1A700C67F2C /* Main_Bt_03@2x.png in Resources */,
+				C3437EBD17EED32900C67F2C /* ViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +359,12 @@
 				C3840BBC17EABCA40049FDE5 /* CBLEPeriphral.m in Sources */,
 				C3840BBF17EAE8580049FDE5 /* CUtilsFunc.m in Sources */,
 				C37C5DDE17EBF30E00FCE5AE /* CRootViewController.m in Sources */,
+				C3437EA917EED22300C67F2C /* FPPopoverController.m in Sources */,
+				C3437EAA17EED22300C67F2C /* FPPopoverView.m in Sources */,
+				C3437EAB17EED22300C67F2C /* FPTouchView.m in Sources */,
+				C3437EAC17EED22300C67F2C /* PopUpTableViewController.m in Sources */,
+				C3437EBB17EED30C00C67F2C /* ViewController.m in Sources */,
+				C3437EC017EED33500C67F2C /* DeviceDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
