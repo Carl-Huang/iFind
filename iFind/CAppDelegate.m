@@ -58,7 +58,9 @@
 #ifdef TestDeviceDetailViewcontroller
     DeviceDetailViewController * viewcontroller = [[[DeviceDetailViewController alloc]init]autorelease];
     [viewcontroller initializationDefaultValue:nil];
-    self.window.rootViewController = viewcontroller;
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:viewcontroller];
+
+    self.window.rootViewController = nav;
 #endif
     
 #ifdef TestCRootViewController

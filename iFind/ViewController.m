@@ -21,12 +21,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIImageView *backgoundImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Main_Bg4"]];
+    UIImageView *backgoundImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Main_Bg"]];
     [backgoundImg setContentMode:UIViewContentModeScaleAspectFill];
     [backgoundImg setFrame:CGRectMake(0, 0, 320,460)];
     [self.view addSubview:backgoundImg];
     [backgoundImg release];
-    UIImageView *titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Main_Top_Bar"]];
+    UIImageView *titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Main_TopBar"]];
     [titleView setContentMode:UIViewContentModeScaleToFill];
     [titleView setFrame:CGRectMake(0, 0, 320,44)];
     [self.view addSubview:titleView];
@@ -67,7 +67,7 @@
 {
     CGRect rect = CGRectMake(20, 50, 130, 130);
     firstItemView = [[UIImageView alloc]initWithFrame:rect];
-    [firstItemView setImage:[UIImage imageNamed:@"Main_Add_01"]];
+    [firstItemView setImage:[UIImage imageNamed:@"Main_Icon_Wallet_N"]];
     [firstItemView setBackgroundColor:[UIColor clearColor]];
     [firstItemView setContentMode:UIViewContentModeScaleAspectFit];
     firstItemView.userInteractionEnabled = YES;
@@ -75,7 +75,7 @@
     [firstItemView release];
     
     secondItemView = [[UIImageView alloc]initWithFrame:CGRectOffset(rect, 150, 0)];
-    [secondItemView setImage:[UIImage imageNamed:@"Main_Add_01"]];
+    [secondItemView setImage:[UIImage imageNamed:@"Main_Icon_Key_N"]];
     [secondItemView setBackgroundColor:[UIColor clearColor]];
     [secondItemView setContentMode:UIViewContentModeScaleAspectFit];
     secondItemView.userInteractionEnabled = YES;
@@ -83,7 +83,7 @@
     [secondItemView release];
     
     thirdItemView = [[UIImageView alloc]initWithFrame:CGRectOffset(rect, 0, 140)];
-    [thirdItemView setImage:[UIImage imageNamed:@"Main_Add_01"]];
+    [thirdItemView setImage:[UIImage imageNamed:@"Main_Icon_Bag_N"]];
     [thirdItemView setBackgroundColor:[UIColor clearColor]];
     [thirdItemView setContentMode:UIViewContentModeScaleAspectFit];
     thirdItemView.userInteractionEnabled = YES;
@@ -91,7 +91,7 @@
     [thirdItemView release];
     
     fourthItemView = [[UIImageView alloc]initWithFrame:CGRectOffset(rect, 150, 140)];
-    [fourthItemView setImage:[UIImage imageNamed:@"Main_Add_01"]];
+    [fourthItemView setImage:[UIImage imageNamed:@"Main_Icon_Kid_H"]];
     [fourthItemView setBackgroundColor:[UIColor clearColor]];
     [fourthItemView setContentMode:UIViewContentModeScaleAspectFit];
     fourthItemView.userInteractionEnabled = YES;
@@ -102,7 +102,7 @@
     findBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [findBtn setFrame:btnRect];
     findBtn.backgroundColor = [UIColor clearColor];
-    [findBtn setBackgroundImage:[UIImage imageNamed:@"Main_Bt_01"] forState:UIControlStateNormal];
+    [findBtn setBackgroundImage:[UIImage imageNamed:@"Main_Bt_Find"] forState:UIControlStateNormal];
     [findBtn.titleLabel setTextColor:[UIColor whiteColor]];
     [findBtn addTarget:self action:@selector(findBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     findBtn.titleLabel.font = [UIFont systemFontOfSize:20];
