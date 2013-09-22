@@ -40,7 +40,17 @@ typedef void (^DidSelectTableviewRowCongigureBlock) (id item);
 @property (retain ,nonatomic)UIButton * chooseMode;
 @property (retain ,nonatomic)UIImageView * userPhoto;
 @property (retain ,nonatomic)UIImageView * signalPic;
+
+
+//信号图标
+@property (retain ,nonatomic)UIImageView *scopeImage;
+@property (retain ,nonatomic)UIImageView *wifiImage;
 @property (retain ,nonatomic)UIImageView * devPowerPic;
+
+//信号值label
+@property (retain ,nonatomic)UILabel *scopeLabel;
+@property (retain ,nonatomic)UILabel *wifiLabel;
+@property (retain ,nonatomic)UILabel *devPowerLabel;
 
 
 //数据源类别

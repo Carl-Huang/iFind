@@ -5,9 +5,7 @@
 //  Created by vedon on 20/9/13.
 //  Copyright (c) 2013 com.vedon. All rights reserved.
 //
-#define ShadowColorR    14
-#define ShadowColorG    113
-#define ShadowColorB    202
+
 #import "ViewController.h"
 #import "DeviceDetailViewController.h"
 #import <QuartzCore/QuartzCore.h>

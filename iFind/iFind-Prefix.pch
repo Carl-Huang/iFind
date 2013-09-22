@@ -9,7 +9,9 @@
 #define DeviceMode    @"DeviceMode"
 #define BluetoothMode @"BluetoothMode"
 
-
+#define ShadowColorR    14
+#define ShadowColorG    113
+#define ShadowColorB    202
 
 #import <Availability.h>
 

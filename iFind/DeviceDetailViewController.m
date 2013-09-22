@@ -5,7 +5,7 @@
 //  Created by vedon on 20/9/13.
 //  Copyright (c) 2013 com.vedon. All rights reserved.
 //
-#define FontSize 14
+#define FontSize 15
 
 #define DefaultDistanceValue    @"提醒距离选择:远"
 #define DefaultAlertTime        @"报警时长:30秒"
@@ -35,9 +35,10 @@
 
 @implementation DeviceDetailViewController
 
-@synthesize chooseAlertDistance,chooseAlertMusic,chooseAlertTime,chooseDeviceAlertMode,chooseMode,choosePhoneAlertMode,userPhoto,devPowerPic,signalPic;
+@synthesize chooseAlertDistance,chooseAlertMusic,chooseAlertTime,chooseDeviceAlertMode,chooseMode,choosePhoneAlertMode,userPhoto,signalPic;
 @synthesize photoManager;
-
+@synthesize scopeImage,wifiImage,devPowerPic;
+@synthesize scopeLabel,wifiLabel,devPowerLabel;
 -(void)loadView
 {
     [super loadView];
@@ -102,70 +103,138 @@
 
 -(void)initializationInterface
 {
-    CGRect rect = CGRectMake(170, 120, 130, 40);
+    UIColor *shadowColor = [UIColor colorWithRed:ShadowColorR green:ShadowColorG blue:ShadowColorB alpha:1.0];
+    CGRect rect = CGRectMake(170, 140, 135, 45);
+    //提醒距离
     chooseAlertDistance = [UIButton buttonWithType:UIButtonTypeCustom];
-    [chooseAlertDistance setFrame:rect];
+    [chooseAlertDistance setFrame:CGRectOffset(rect, -150, 45)];
     chooseAlertDistance.backgroundColor = [UIColor blueColor];
     [chooseAlertDistance addTarget:self action:@selector(chooseDistanceAction:) forControlEvents:UIControlEventTouchUpInside];
     chooseAlertDistance.titleLabel.font = [UIFont systemFontOfSize:FontSize];
     [chooseAlertDistance setTitle:defaultDistanceValue forState:UIControlStateNormal];
+   
+    [chooseAlertDistance setTitleShadowColor:shadowColor forState:UIControlStateNormal];
+    [chooseAlertDistance.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
+
     [self.view addSubview:chooseAlertDistance];
     
+    //报警音
     chooseAlertMusic = [UIButton buttonWithType:UIButtonTypeCustom];
-    [chooseAlertMusic setFrame:CGRectOffset(rect, 0, 50)];
+    [chooseAlertMusic setFrame:CGRectOffset(rect, -150, 100)];
     chooseAlertMusic.backgroundColor = [UIColor blueColor];
     [chooseAlertMusic addTarget:self action:@selector(chooseAlertMusicAction:) forControlEvents:UIControlEventTouchUpInside];
     chooseAlertMusic.titleLabel.font = [UIFont systemFontOfSize:FontSize];
     [chooseAlertMusic setTitle:defaultAlertMusic forState:UIControlStateNormal];
+  
+    [chooseAlertMusic setTitleShadowColor:shadowColor forState:UIControlStateNormal];
+    [chooseAlertMusic.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
+
     [self.view addSubview:chooseAlertMusic];
     
-    chooseDeviceAlertMode = [UIButton buttonWithType:UIButtonTypeCustom];
-    [chooseDeviceAlertMode setFrame:CGRectOffset(rect, 0, 100)];
-    chooseDeviceAlertMode.backgroundColor = [UIColor blueColor];
-    [chooseDeviceAlertMode addTarget:self action:@selector(chooseDeviceAlertModeAction:) forControlEvents:UIControlEventTouchUpInside];
-    chooseDeviceAlertMode.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-    [chooseDeviceAlertMode setTitle:defaultDeviceAlertMOde forState:UIControlStateNormal];
-    [self.view addSubview:chooseDeviceAlertMode];
-    
-    
+       
+    //警报时间
     chooseAlertTime = [UIButton buttonWithType:UIButtonTypeCustom];
-    [chooseAlertTime setFrame:CGRectOffset(rect, -150, 50)];
+    [chooseAlertTime setFrame:CGRectOffset(rect, 0, 45)];
     chooseAlertTime.backgroundColor = [UIColor blueColor];
     [chooseAlertTime addTarget:self action:@selector(chooseAlertTimeAction:) forControlEvents:UIControlEventTouchUpInside];
     chooseAlertTime.titleLabel.font = [UIFont systemFontOfSize:FontSize];
     [chooseAlertTime setTitle:defaultAlertTime forState:UIControlStateNormal];
+    [chooseAlertTime setTitleShadowColor:shadowColor forState:UIControlStateNormal];
+    [chooseAlertTime.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
     [self.view addSubview:chooseAlertTime];
     
+    //设备工作模式
+    chooseDeviceAlertMode = [UIButton buttonWithType:UIButtonTypeCustom];
+    [chooseDeviceAlertMode setFrame:CGRectMake(20, chooseAlertMusic.frame.origin.y+chooseAlertMusic.frame.size.height+10, 285, 45)];
+    chooseDeviceAlertMode.backgroundColor = [UIColor blueColor];
+    [chooseDeviceAlertMode addTarget:self action:@selector(chooseDeviceAlertModeAction:) forControlEvents:UIControlEventTouchUpInside];
+    chooseDeviceAlertMode.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+    [chooseDeviceAlertMode setTitle:defaultDeviceAlertMOde forState:UIControlStateNormal];
+    [chooseDeviceAlertMode setTitleShadowColor:shadowColor forState:UIControlStateNormal];
+    [chooseDeviceAlertMode.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
+    [self.view addSubview:chooseDeviceAlertMode];
+
+    
+    //手机工作模式
     choosePhoneAlertMode = [UIButton buttonWithType:UIButtonTypeCustom];
-    [choosePhoneAlertMode setFrame:CGRectOffset(rect, -150, 100)];
+    [choosePhoneAlertMode setFrame:CGRectOffset(rect, 0, 100)];
     choosePhoneAlertMode.backgroundColor = [UIColor blueColor];
     [choosePhoneAlertMode addTarget:self action:@selector(choosePhoneAlertModeAction:) forControlEvents:UIControlEventTouchUpInside];
     choosePhoneAlertMode.titleLabel.font = [UIFont systemFontOfSize:FontSize];
     [choosePhoneAlertMode setTitle:defaultPhoneAlertMode forState:UIControlStateNormal];
+    [choosePhoneAlertMode setTitleShadowColor:shadowColor forState:UIControlStateNormal];
+    [choosePhoneAlertMode.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
     [self.view addSubview:choosePhoneAlertMode];
     
+    
     chooseMode = [UIButton buttonWithType:UIButtonTypeCustom];
-    [chooseMode setFrame:CGRectMake(140, 370, 160, 40)];
+    [chooseMode setFrame:CGRectMake(150, 370, 155, 45)];
     chooseMode.backgroundColor = [UIColor blueColor];
     [chooseMode addTarget:self action:@selector(chooseModeAction:) forControlEvents:UIControlEventTouchUpInside];
     chooseMode.titleLabel.font = [UIFont systemFontOfSize:FontSize];
     [chooseMode setTitle:defaultMode forState:UIControlStateNormal];
+    [chooseMode setTitleShadowColor:shadowColor forState:UIControlStateNormal];
+    [chooseMode.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
     [self.view addSubview:chooseMode];
     
-    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectOffset(rect, -160, 250)];
+    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, chooseMode.frame.origin.y, 120, 45)];
     textLabel.text = @"进入安全范围后:";
+    textLabel.font = [UIFont systemFontOfSize:FontSize];
+    textLabel.textColor = shadowColor;
+    textLabel.shadowOffset = CGSizeMake(-0.5,-0.5);
     [self.view addSubview:textLabel];
     [textLabel release];
     
     //是否在范围内，信号量，蓝牙电量
-    
-    userPhoto = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 120, 130)];
+    CGSize size = CGSizeMake(20, 20);
+    CGRect rect2 = CGRectMake(20, 40, 120, 120);
+    userPhoto = [[UIImageView alloc]initWithFrame:rect2];
     userPhoto.backgroundColor = [UIColor blueColor];
     userPhoto.userInteractionEnabled = YES;
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(takePhoto)];
     [userPhoto addGestureRecognizer:tapGesture];
     [self.view addSubview:userPhoto];
     [tapGesture release];
+    
+    scopeImage = [[UIImageView alloc]initWithFrame:CGRectMake(userPhoto.frame.origin.x+userPhoto.frame.size.width+30, userPhoto.frame.origin.y+10, size.width, size.height)];
+    [scopeImage setContentMode:UIViewContentModeScaleAspectFit];
+    [scopeImage setBackgroundColor:[UIColor redColor]];
+    [self.view addSubview:scopeImage];
+    [scopeImage release];
+    scopeLabel = [[UILabel alloc]initWithFrame:CGRectMake(220, scopeImage.frame.origin.y-5, 90, 30)];
+    scopeLabel.shadowOffset = CGSizeMake(-0.5, -0.5);
+    [scopeLabel setTextAlignment:NSTextAlignmentLeft];
+    scopeLabel.textColor = shadowColor;
+    [scopeLabel setBackgroundColor:[UIColor redColor]];
+    [scopeLabel setText:@"在范围内"];
+    [self.view addSubview:scopeLabel];
+    
+    wifiImage = [[UIImageView alloc]initWithFrame:CGRectMake(scopeImage.frame.origin.x, scopeImage.frame.origin.y+scopeImage.frame.size.height+20, size.width, size.height)];
+    [wifiImage setContentMode:UIViewContentModeScaleAspectFit];
+    [wifiImage setBackgroundColor:[UIColor redColor]];
+    [self.view addSubview:wifiImage];
+    [wifiImage release];
+    wifiLabel = [[UILabel alloc]initWithFrame:CGRectMake(220, wifiImage.frame.origin.y-5, 90, 30)];
+    wifiLabel.shadowOffset = CGSizeMake(-0.5, -0.5);
+    [wifiLabel setTextAlignment:NSTextAlignmentLeft];
+    [wifiLabel setBackgroundColor:[UIColor redColor]];
+    wifiLabel.textColor = shadowColor;
+    [wifiLabel setText:@"100db"];
+    [self.view addSubview:wifiLabel];
+    
+    devPowerPic = [[UIImageView alloc]initWithFrame:CGRectMake(wifiImage.frame.origin.x, wifiImage.frame.origin.y+wifiImage.frame.size.height+20,size.width, size.height)];
+    [devPowerPic setContentMode:UIViewContentModeScaleAspectFit];
+    [devPowerPic setBackgroundColor:[UIColor redColor]];
+    [self.view addSubview:devPowerPic];
+    [devPowerPic release];
+    devPowerLabel = [[UILabel alloc]initWithFrame:CGRectMake(220, devPowerPic.frame.origin.y-5, 90, 30)];
+    devPowerLabel.shadowOffset = CGSizeMake(-0.5, -0.5);
+    [devPowerLabel setTextAlignment:NSTextAlignmentLeft];
+    devPowerLabel.textColor = shadowColor;
+    [devPowerLabel setBackgroundColor:[UIColor redColor]];
+    [devPowerLabel setText:@"%51"];
+    [self.view addSubview:devPowerLabel];
+
 }
 
 
