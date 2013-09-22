@@ -100,7 +100,7 @@
     [self.view addSubview:fourthItemView];
     [fourthItemView release];
     
-    CGRect btnRect = CGRectMake(20, fourthItemView.frame.origin.y+fourthItemView.frame.size.height+10, 280, 50);
+    CGRect btnRect = CGRectMake(110, 135, 100, 100);
     findBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [findBtn setFrame:btnRect];
     findBtn.backgroundColor = [UIColor clearColor];
@@ -112,8 +112,6 @@
     UIColor *shadowColor = [UIColor colorWithRed:ShadowColorR green:ShadowColorG blue:ShadowColorB alpha:1.0];
     [findBtn setTitleShadowColor:shadowColor forState:UIControlStateNormal];
     [findBtn.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
-    findBtn.titleLabel.layer.shadowRadius = 120.0;
-    [findBtn.titleLabel.layer setShadowOpacity:1.0];
     [self.view addSubview:findBtn];
   
     
