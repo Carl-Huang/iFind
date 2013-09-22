@@ -10,6 +10,11 @@
 #import "CBLEManager.h"
 #import "CRootViewController.h"
 #import "CBLEPeriphral.h"
+
+#import "ViewController.h"
+#import "DeviceDetailViewController.h"
+#define TestDeviceDetailViewcontroller
+//#define TestCRootViewController
 @implementation CAppDelegate
 
 - (void)dealloc
@@ -50,7 +55,15 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     CRootViewController * rootViewController = [[CRootViewController alloc] initWithNibName:nil bundle:nil];
+#ifdef TestDeviceDetailViewcontroller
+    DeviceDetailViewController * viewcontroller = [[[DeviceDetailViewController alloc]init]autorelease];
+    [viewcontroller initializationDefaultValue:nil];
+    self.window.rootViewController = viewcontroller;
+#endif
+    
+#ifdef TestCRootViewController
     self.window.rootViewController = rootViewController;
+#endif
     [rootViewController release];
     [self.window makeKeyAndVisible];
     return YES;
