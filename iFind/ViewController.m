@@ -115,12 +115,7 @@
     findBtn.titleLabel.layer.shadowRadius = 120.0;
     [findBtn.titleLabel.layer setShadowOpacity:1.0];
     [self.view addSubview:findBtn];
-    if (iPhone5) {
-        NSLog(@"Iphone 5");
-    }else
-    {
-        NSLog(@"Not Iphone 5");
-    }
+  
     
     
 }
