@@ -27,6 +27,12 @@
 		C3437EBB17EED30C00C67F2C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EBA17EED30C00C67F2C /* ViewController.m */; };
 		C3437EBD17EED32900C67F2C /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3437EBC17EED32900C67F2C /* ViewController.xib */; };
 		C3437EC017EED33500C67F2C /* DeviceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EBF17EED33500C67F2C /* DeviceDetailViewController.m */; };
+		C3437ECE17EED99D00C67F2C /* AlarmPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EC317EED99D00C67F2C /* AlarmPlayer.m */; };
+		C3437ECF17EED99D00C67F2C /* AudioRecordUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EC517EED99D00C67F2C /* AudioRecordUtility.m */; };
+		C3437ED017EED99D00C67F2C /* MonitorTelephoneStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EC717EED99D00C67F2C /* MonitorTelephoneStatus.m */; };
+		C3437ED117EED99D00C67F2C /* PhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EC917EED99D00C67F2C /* PhotoManager.m */; };
+		C3437ED217EED99D00C67F2C /* VAudioHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437ECB17EED99D00C67F2C /* VAudioHelper.m */; };
+		C3437ED317EED99D00C67F2C /* WifiInfoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437ECD17EED99D00C67F2C /* WifiInfoHelper.m */; };
 		C37C5DDE17EBF30E00FCE5AE /* CRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37C5DDD17EBF30E00FCE5AE /* CRootViewController.m */; };
 		C3810B3317EDD06A006A180D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3810B3217EDD06A006A180D /* CoreTelephony.framework */; };
 		C3840B8C17E9D1E60049FDE5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3840B8B17E9D1E60049FDE5 /* UIKit.framework */; };
@@ -72,6 +78,18 @@
 		C3437EBC17EED32900C67F2C /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		C3437EBE17EED33500C67F2C /* DeviceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDetailViewController.h; sourceTree = "<group>"; };
 		C3437EBF17EED33500C67F2C /* DeviceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDetailViewController.m; sourceTree = "<group>"; };
+		C3437EC217EED99D00C67F2C /* AlarmPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmPlayer.h; sourceTree = "<group>"; };
+		C3437EC317EED99D00C67F2C /* AlarmPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmPlayer.m; sourceTree = "<group>"; };
+		C3437EC417EED99D00C67F2C /* AudioRecordUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRecordUtility.h; sourceTree = "<group>"; };
+		C3437EC517EED99D00C67F2C /* AudioRecordUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioRecordUtility.m; sourceTree = "<group>"; };
+		C3437EC617EED99D00C67F2C /* MonitorTelephoneStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorTelephoneStatus.h; sourceTree = "<group>"; };
+		C3437EC717EED99D00C67F2C /* MonitorTelephoneStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorTelephoneStatus.m; sourceTree = "<group>"; };
+		C3437EC817EED99D00C67F2C /* PhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoManager.h; sourceTree = "<group>"; };
+		C3437EC917EED99D00C67F2C /* PhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoManager.m; sourceTree = "<group>"; };
+		C3437ECA17EED99D00C67F2C /* VAudioHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VAudioHelper.h; sourceTree = "<group>"; };
+		C3437ECB17EED99D00C67F2C /* VAudioHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VAudioHelper.m; sourceTree = "<group>"; };
+		C3437ECC17EED99D00C67F2C /* WifiInfoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiInfoHelper.h; sourceTree = "<group>"; };
+		C3437ECD17EED99D00C67F2C /* WifiInfoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiInfoHelper.m; sourceTree = "<group>"; };
 		C37C5DDC17EBF30E00FCE5AE /* CRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRootViewController.h; sourceTree = "<group>"; };
 		C37C5DDD17EBF30E00FCE5AE /* CRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRootViewController.m; sourceTree = "<group>"; };
 		C3810B3217EDD06A006A180D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -266,6 +284,18 @@
 		C3840BB317E9D8AB0049FDE5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C3437EC217EED99D00C67F2C /* AlarmPlayer.h */,
+				C3437EC317EED99D00C67F2C /* AlarmPlayer.m */,
+				C3437EC417EED99D00C67F2C /* AudioRecordUtility.h */,
+				C3437EC517EED99D00C67F2C /* AudioRecordUtility.m */,
+				C3437EC617EED99D00C67F2C /* MonitorTelephoneStatus.h */,
+				C3437EC717EED99D00C67F2C /* MonitorTelephoneStatus.m */,
+				C3437EC817EED99D00C67F2C /* PhotoManager.h */,
+				C3437EC917EED99D00C67F2C /* PhotoManager.m */,
+				C3437ECA17EED99D00C67F2C /* VAudioHelper.h */,
+				C3437ECB17EED99D00C67F2C /* VAudioHelper.m */,
+				C3437ECC17EED99D00C67F2C /* WifiInfoHelper.h */,
+				C3437ECD17EED99D00C67F2C /* WifiInfoHelper.m */,
 				C3840BB417EA9A890049FDE5 /* CBLEManager.h */,
 				C3840BB517EA9A890049FDE5 /* CBLEManager.m */,
 				C3840BB917EAA9850049FDE5 /* Constants.h */,
@@ -365,6 +395,12 @@
 				C3437EAC17EED22300C67F2C /* PopUpTableViewController.m in Sources */,
 				C3437EBB17EED30C00C67F2C /* ViewController.m in Sources */,
 				C3437EC017EED33500C67F2C /* DeviceDetailViewController.m in Sources */,
+				C3437ECE17EED99D00C67F2C /* AlarmPlayer.m in Sources */,
+				C3437ECF17EED99D00C67F2C /* AudioRecordUtility.m in Sources */,
+				C3437ED017EED99D00C67F2C /* MonitorTelephoneStatus.m in Sources */,
+				C3437ED117EED99D00C67F2C /* PhotoManager.m in Sources */,
+				C3437ED217EED99D00C67F2C /* VAudioHelper.m in Sources */,
+				C3437ED317EED99D00C67F2C /* WifiInfoHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
