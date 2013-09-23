@@ -406,7 +406,6 @@
 			children = (
 				4E0F312517EF3CD8006FC754 /* 1x */,
 				C3840BB017E9D89D0049FDE5 /* 2x */,
-				C3840BB117E9D89D0049FDE5 /* i5 */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -440,13 +439,6 @@
 				4E0F316D17EF3CE1006FC754 /* Settings_Icon_Wallet@2x.png */,
 			);
 			path = 2x;
-			sourceTree = "<group>";
-		};
-		C3840BB117E9D89D0049FDE5 /* i5 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = i5;
 			sourceTree = "<group>";
 		};
 		C3840BB217E9D8A40049FDE5 /* Lib */ = {
