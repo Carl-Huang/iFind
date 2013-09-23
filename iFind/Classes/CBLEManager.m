@@ -105,7 +105,11 @@
 
 -(void)addFoundPeripheral:(CBPeripheral *)peripheral
 {
-
+    
+    if([_foundPeripherals count] >= 4)
+    {
+        return ;
+    }
     BOOL isContained = NO;
     for(CBLEPeriphral * blePeriphral in _foundPeripherals)
     {

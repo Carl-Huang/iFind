@@ -95,6 +95,7 @@
 		C3840BB817EAA6BE0049FDE5 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3840BB717EAA6BE0049FDE5 /* CoreBluetooth.framework */; };
 		C3840BBC17EABCA40049FDE5 /* CBLEPeriphral.m in Sources */ = {isa = PBXBuildFile; fileRef = C3840BBB17EABCA40049FDE5 /* CBLEPeriphral.m */; };
 		C3840BBF17EAE8580049FDE5 /* CUtilsFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = C3840BBE17EAE8580049FDE5 /* CUtilsFunc.m */; };
+		C3DC073117F073E40066B88C /* SBTableAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC073017F073E40066B88C /* SBTableAlert.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -209,6 +210,8 @@
 		C3840BBB17EABCA40049FDE5 /* CBLEPeriphral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBLEPeriphral.m; sourceTree = "<group>"; };
 		C3840BBD17EAE8580049FDE5 /* CUtilsFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUtilsFunc.h; sourceTree = "<group>"; };
 		C3840BBE17EAE8580049FDE5 /* CUtilsFunc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUtilsFunc.m; sourceTree = "<group>"; };
+		C3DC072F17F073E40066B88C /* SBTableAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTableAlert.h; sourceTree = "<group>"; };
+		C3DC073017F073E40066B88C /* SBTableAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBTableAlert.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -413,6 +416,8 @@
 		C3840BB217E9D8A40049FDE5 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				C3DC072F17F073E40066B88C /* SBTableAlert.h */,
+				C3DC073017F073E40066B88C /* SBTableAlert.m */,
 				C3437EA017EED22300C67F2C /* PopupView */,
 			);
 			path = Lib;
@@ -585,6 +590,7 @@
 				C3437ED317EED99D00C67F2C /* WifiInfoHelper.m in Sources */,
 				C382631017EF501C00D66B77 /* CScanViewController.m in Sources */,
 				C382631717EF5ACF00D66B77 /* CBLEButton.m in Sources */,
+				C3DC073117F073E40066B88C /* SBTableAlert.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
