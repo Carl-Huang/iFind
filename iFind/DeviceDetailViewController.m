@@ -333,7 +333,7 @@
 }
 
 
-
+#pragma mark - 点击Button事件
 -(void)chooseDistanceAction:(id)sender
 {
      //选择距离事件
@@ -388,6 +388,18 @@
     
     //选取照片
     [self presentViewController:photoManager.pickingImageView animated:YES completion:nil];
+}
+
+#pragma mark - 更新：范围值，信号量值，电量值
+-(void)updateScopeValue:(NSString *)scopeV signalValue:(NSString *)signalV powerVaule:(NSString *)powerV
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *signalStrFormat = [NSString stringWithFormat:@"%@db",signalV];
+        NSString *powerStrFormat = [NSString stringWithFormat:@"%@%%",powerV];
+        self.scopeLabel.text    = scopeV;
+        self.wifiLabel.text     = signalStrFormat;
+        self.devPowerLabel.text = powerStrFormat;
+    });
 }
 
 #pragma mark - Public method

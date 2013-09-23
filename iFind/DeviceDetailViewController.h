@@ -59,7 +59,9 @@ typedef void (^DidSelectTableviewRowCongigureBlock) (id item);
 //拍照
 @property (retain ,nonatomic)PhotoManager *photoManager;
 
-
 //初始化
 -(void)initializationDefaultValue:(NSDictionary *)dic;
+
+//更新范围值，信号量值，电量值
+-(void)updateScopeValue:(NSString *)scopeV signalValue:(NSString *)signalV powerVaule:(NSString *)powerV;
 @end
