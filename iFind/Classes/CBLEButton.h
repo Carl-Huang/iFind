@@ -14,7 +14,7 @@
     UILabel * _textLabel;
 }
 
-- (id)initWithFrame:(CGRect)frame withImage:(UIImage *)image withTitle:(NSString *)title;
+- (id)initWithFrame:(CGRect)frame withImage:(UIImage *)image withHighLight:(UIImage *)highlightImage withTitle:(NSString *)title;
 
 
 @end
