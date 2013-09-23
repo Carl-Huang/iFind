@@ -48,7 +48,8 @@ typedef enum {
        //取得蓝牙的信号
        self.rssi = [peripheral.RSSI intValue];
        //取得蓝牙的uuid
-       self.UUID = [CUtilsFunc convertCFUUIDIntoString:peripheral.UUID];
+       if(peripheral.UUID != NULL)
+           self.UUID = [CUtilsFunc convertCFUUIDIntoString:peripheral.UUID];
        
 
        

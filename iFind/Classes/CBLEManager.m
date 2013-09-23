@@ -28,7 +28,7 @@
     {
         _connectedPeripherals = [[NSMutableArray alloc] init];
         _foundPeripherals = [[NSMutableArray alloc] init];
-        _bleCentralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+        _bleCentralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
     }
     
     return self;
@@ -105,14 +105,7 @@
 
 -(void)addFoundPeripheral:(CBPeripheral *)peripheral
 {
-    /*
-    if(![_foundPeripherals containsObject:peripheral])
-    {
-        [_foundPeripherals addObject:peripheral];
-        if(self.discoverHandler)
-            self.discoverHandler();
-    }
-    */
+
     BOOL isContained = NO;
     for(CBLEPeriphral * blePeriphral in _foundPeripherals)
     {
@@ -128,20 +121,16 @@
         CBLEPeriphral * blePeriphral = [[[CBLEPeriphral alloc] initWithPeripheral:peripheral] autorelease];
         [_foundPeripherals addObject:blePeriphral];
         if(self.discoverHandler)
-            self.discoverHandler();
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.discoverHandler();
+            });
+        }
     }
 
 }
 -(void)removeFoundPeripheral:(CBPeripheral *)peripheral
 {
-    /*
-    if([_foundPeripherals containsObject:peripheral])
-    {
-        [_foundPeripherals removeObject:peripheral];
-        if(self.discoverHandler)
-            self.discoverHandler();
-    }
-    */
     
     CBLEPeriphral * instance = nil;
     for(CBLEPeriphral * blePeriphral in _foundPeripherals)
@@ -156,7 +145,11 @@
     {
         [_foundPeripherals removeObject:instance];
         if(self.discoverHandler)
-            self.discoverHandler();
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.discoverHandler();
+            });
+        }
     }
     
 }
@@ -190,7 +183,7 @@
 
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    NSLog(@"Discover peripheral,name:%@,RSSI:%d,UUID:%@",peripheral.name,[RSSI intValue],[CUtilsFunc convertCFUUIDIntoString:peripheral.UUID]);
+    NSLog(@"Discover peripheral,name:%@,RSSI:%d",peripheral.name,[RSSI intValue]);
     if([RSSI intValue] < -100)
     {
         NSLog(@"The rssi is weak.");
@@ -211,22 +204,6 @@
 -(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
     NSLog(@"CBCentralManager did connect peripheral %@",peripheral.name);
-    /*
-    BOOL isContained = NO;
-    for(CBLEPeriphral * blePeripheral in _connectedPeripherals)
-    {
-        if(blePeripheral.peripheral == peripheral)
-        {
-            isContained = YES;
-            break;
-        }
-    }
-    if(!isContained)
-    {
-        CBLEPeriphral * blePeripheral = [[[CBLEPeriphral alloc] initWithPeripheral:peripheral] autorelease];
-        [_connectedPeripherals addObject:blePeripheral];
-    }
-     */
     
     CBLEPeriphral * instance = nil;
     for(CBLEPeriphral * blePeriphral in _foundPeripherals)

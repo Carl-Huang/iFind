@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  iFind
+
+  Created by Carl on 13-9-23.
+  Copyright (c) 2013年 iFind. All rights reserved.
+*/
+"MainSceneTitle"="BlueBerry蓝牙放丢保镖";
+"Help"="帮助";
+"RemoteControl"="手机遥控";
+"Setting"="设置";
