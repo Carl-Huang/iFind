@@ -39,6 +39,7 @@
 @synthesize photoManager;
 @synthesize scopeImage,wifiImage,devPowerPic;
 @synthesize scopeLabel,wifiLabel,devPowerLabel;
+@synthesize sqlMng;
 -(void)loadView
 {
     [super loadView];
@@ -213,7 +214,6 @@
     [userPhoto addGestureRecognizer:tapGesture];
     [self.view addSubview:userPhoto];
     [tapGesture release];
-    [userPhoto release];
     scopeImage = [[UIImageView alloc]initWithFrame:CGRectMake(userPhoto.frame.origin.x+userPhoto.frame.size.width+30, userPhoto.frame.origin.y+10, size.width, size.height)];
     [scopeImage setContentMode:UIViewContentModeScaleAspectFit];
     [scopeImage setBackgroundColor:[UIColor clearColor]];
@@ -270,31 +270,37 @@
     switch (_type) {
         case PopUpTableViewDataSourceDistance:
             //距离按钮
+            popUpTableviewController.title = @"选择距离";
             [popUpTableviewController setDataSource:@[@"近",@"中",@"远"]];
             descriptionStr = @"提醒距离选择:";
             break;
         case PopUpTableViewDataSourceMusic:
             //声音按钮
+            popUpTableviewController.title = @"手机提醒音";
             [popUpTableviewController setDataSource:@[@"近",@"中",@"远"]];
             descriptionStr = @"选择手机提醒音:";
             break;
         case PopUpTableViewDataSourceTime:
             //时间按钮
+            popUpTableviewController.title = @"报警时长";
             [popUpTableviewController setDataSource:@[@"10秒",@"20秒",@"30秒"]];
             descriptionStr = @"报警时长:";
             break;
         case PopUpTableViewDataSourcePhoneAlertMode:
             //手机警报模式按钮
+            popUpTableviewController.title = @"手机提醒模式";
             [popUpTableviewController setDataSource:@[@"关闭手机提醒",@"手机震动提醒",@"手机震动声光提醒"]];
             descriptionStr = @"";
             break;
         case PopUpTableViewDataSourceDeviceAlertMode:
             //设备警报模式按钮按钮
+            popUpTableviewController.title = @"设备警报模式";
             [popUpTableviewController setDataSource:@[@"关闭blueberry提醒",@"发光提醒",@"声音提醒",@"声光提醒"]];
             descriptionStr = @"";
             break;
         case PopUpTableViewDataSourceMode:
             //双向报警按钮
+            popUpTableviewController.title = @"警报选项";
             [popUpTableviewController setDataSource:@[@"自动关闭双向报警",@"自动关闭blueberry报警",@"自动关闭手机报警"]];
             descriptionStr = @"";
             break;
@@ -422,5 +428,7 @@
     [wifiLabel release];
     [scopeLabel release];
     [devPowerLabel release];
+    [sqlMng release];
+    [userPhoto release];
 }
 @end
