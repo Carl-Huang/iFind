@@ -190,7 +190,7 @@
 
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    NSLog(@"Discover peripheral,name:%@,RSSI:%d,UUID:%@",peripheral.name,[RSSI intValue],[CUtilsFunc convertCFUUIDIntoString:peripheral.UUID]);
+//    NSLog(@"Discover peripheral,name:%@,RSSI:%d,UUID:%@",peripheral.name,[RSSI intValue],[CUtilsFunc convertCFUUIDIntoString:peripheral.UUID]);
     if([RSSI intValue] < -100)
     {
         NSLog(@"The rssi is weak.");

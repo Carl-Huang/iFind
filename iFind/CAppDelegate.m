@@ -34,23 +34,23 @@
 {
     
     
-    _callCenter = [[CTCallCenter alloc] init];
-    _callCenter.callEventHandler = ^(CTCall * call){
-        if([call.callState isEqualToString:CTCallStateIncoming])
-        {
-            NSLog(@"Call incoming");
-            [[NSNotificationCenter defaultCenter] postNotificationName:kCallIncomingNotification object:self];
-        }
-        
-    };
-    
-    //定时读取蓝牙的信号值
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        _foregroudTimer = [[NSTimer alloc] initWithFireDate:[NSDate date] interval:1.0 target:self selector:@selector(readRSSI:) userInfo:nil repeats:YES];
-        [_foregroudTimer fire];
-        [[NSRunLoop currentRunLoop] addTimer:_foregroudTimer forMode:NSRunLoopCommonModes];
-        [[NSRunLoop currentRunLoop] run];
-    });
+//    _callCenter = [[CTCallCenter alloc] init];
+//    _callCenter.callEventHandler = ^(CTCall * call){
+//        if([call.callState isEqualToString:CTCallStateIncoming])
+//        {
+//            NSLog(@"Call incoming");
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kCallIncomingNotification object:self];
+//        }
+//        
+//    };
+//    
+//    //定时读取蓝牙的信号值
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        _foregroudTimer = [[NSTimer alloc] initWithFireDate:[NSDate date] interval:1.0 target:self selector:@selector(readRSSI:) userInfo:nil repeats:YES];
+//        [_foregroudTimer fire];
+//        [[NSRunLoop currentRunLoop] addTimer:_foregroudTimer forMode:NSRunLoopCommonModes];
+//        [[NSRunLoop currentRunLoop] run];
+//    });
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.

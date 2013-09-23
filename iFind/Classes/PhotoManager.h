@@ -16,6 +16,8 @@ typedef void(^ConfigureImageBlock) (id item);
     NSInteger qualityNum;
     BOOL isSaveToLibrary;
     NSString *saveToDiskFileName;
+    NSString *saveToDiskPath;
+    
 }
 @property (retain,  nonatomic)      UIImagePickerController *camera;
 @property (retain,  nonatomic)      UIImagePickerController *pickingImageView;

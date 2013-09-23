@@ -20,6 +20,8 @@
         [self initCamera];
         [self initlizationPickImageView];
         self.configureBlock = [block copy];
+        saveToDiskPath = nil;
+        [self createDirectory];
     }
     return  self;
 }
@@ -113,6 +115,7 @@
         //获取照片实例
 		UIImage *image = [[info objectForKey:UIImagePickerControllerOriginalImage] retain];
 		self.configureBlock(image);
+        [self saveImage:image];
 		if (isSaveToLibrary)
 		{
 			ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -158,6 +161,7 @@
 {
 	NSLog(@"Review Image");
     self.configureBlock(image);
+    [self saveImage:image];
 }
 
 -(void)saveImage:(UIImage *)image
@@ -170,18 +174,22 @@
     NSDate* now = [NSDate date];
     NSDateFormatter* fmt = [[NSDateFormatter alloc] init];
     fmt.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
-    fmt.dateFormat = @"yyyy/MM/dd-HH:mm";
+    fmt.dateFormat = @"yyyyMMddHHmm";
     saveToDiskFileName = [[[fmt stringFromDate:now]stringByAppendingPathExtension:@"png"] retain];
-    NSURL *saveURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:_fileName];
-    [imageData writeToURL:saveURL atomically:YES];
+    if ([imageData writeToFile:[saveToDiskPath stringByAppendingPathComponent:saveToDiskFileName] atomically:YES]) {
+        NSLog(@"successfully write image to local disk");
+    }else
+    {
+        NSLog(@"Failed to write image to locatl");
+    }
 }
 
 //创建本地图片目录
--(void)createDirectory:(NSString *)directoryName
+-(void)createDirectory
 {
     NSFileManager * defaultManager = [NSFileManager defaultManager];
     NSString * path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
-    NSString *fileDirectory = [path stringByAppendingPathComponent:directoryName];
+    NSString *fileDirectory = [path stringByAppendingPathComponent:@"PicFolder"];
     
     if (![defaultManager fileExistsAtPath:fileDirectory]) {
         [defaultManager createDirectoryAtPath:fileDirectory withIntermediateDirectories:YES attributes:nil error:nil];
@@ -189,20 +197,9 @@
     {
         NSLog(@"Directory already exists");
     }
-    [self setAudioDirectory:fileDirectory];
+    saveToDiskPath = [[fileDirectory stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]retain];
 }
 
-//录音文件位置,在delegate处可以更改文件的名字后保存
--(NSString *)saveRecordFileWithName:(NSString *)name
-{
-    if (audioDirectory == nil) {
-        [self createDirectory:AudioFolderName];
-    }
-    NSString * formatName = [[NSString alloc]initWithFormat:@"%@.caf",name];
-    NSString * saveFileName = [audioDirectory stringByAppendingPathComponent:formatName];
-    saveFileName = [saveFileName stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-    return saveFileName;
-}
 
 -(void)dealloc
 {
@@ -215,5 +212,6 @@
         [pickingImageView release];
         pickingImageView = nil;
     }
+    [saveToDiskFileName release];
 }
 @end
