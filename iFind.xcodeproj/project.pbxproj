@@ -13,6 +13,7 @@
 		4E040DBD17F053DB00C1E6A3 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E040DB717F053DB00C1E6A3 /* FMDatabaseQueue.m */; };
 		4E040DBE17F053DB00C1E6A3 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E040DB917F053DB00C1E6A3 /* FMResultSet.m */; };
 		4E040DC017F053E700C1E6A3 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E040DBF17F053E700C1E6A3 /* libsqlite3.0.dylib */; };
+		4E040DC617F0748900C1E6A3 /* SQLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E040DC517F0748900C1E6A3 /* SQLManager.m */; };
 		4E0F313E17EF3CD8006FC754 /* Main_Bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F312617EF3CD8006FC754 /* Main_Bg.png */; };
 		4E0F313F17EF3CD8006FC754 /* Main_Bt_Find.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F312717EF3CD8006FC754 /* Main_Bt_Find.png */; };
 		4E0F314017EF3CD8006FC754 /* Main_Bt_Help.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F312817EF3CD8006FC754 /* Main_Bt_Help.png */; };
@@ -115,6 +116,8 @@
 		4E040DB817F053DB00C1E6A3 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		4E040DB917F053DB00C1E6A3 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		4E040DBF17F053E700C1E6A3 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		4E040DC417F0748900C1E6A3 /* SQLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLManager.h; sourceTree = "<group>"; };
+		4E040DC517F0748900C1E6A3 /* SQLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLManager.m; sourceTree = "<group>"; };
 		4E0F312617EF3CD8006FC754 /* Main_Bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_Bg.png; sourceTree = "<group>"; };
 		4E0F312717EF3CD8006FC754 /* Main_Bt_Find.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_Bt_Find.png; sourceTree = "<group>"; };
 		4E0F312817EF3CD8006FC754 /* Main_Bt_Help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_Bt_Help.png; sourceTree = "<group>"; };
@@ -458,6 +461,8 @@
 		C3840BB317E9D8AB0049FDE5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4E040DC417F0748900C1E6A3 /* SQLManager.h */,
+				4E040DC517F0748900C1E6A3 /* SQLManager.m */,
 				C3437EC217EED99D00C67F2C /* AlarmPlayer.h */,
 				C3437EC317EED99D00C67F2C /* AlarmPlayer.m */,
 				C3437EC417EED99D00C67F2C /* AudioRecordUtility.h */,
@@ -627,6 +632,7 @@
 				4E040DBC17F053DB00C1E6A3 /* FMDatabasePool.m in Sources */,
 				4E040DBD17F053DB00C1E6A3 /* FMDatabaseQueue.m in Sources */,
 				4E040DBE17F053DB00C1E6A3 /* FMResultSet.m in Sources */,
+				4E040DC617F0748900C1E6A3 /* SQLManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
