@@ -53,8 +53,7 @@
     });
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
-    CRootViewController * rootViewController = [[CRootViewController alloc] initWithNibName:nil bundle:nil];
+
 #ifdef TestDeviceDetailViewcontroller
     DeviceDetailViewController * viewcontroller = [[[DeviceDetailViewController alloc]init]autorelease];
     [viewcontroller initializationDefaultValue:nil];
@@ -64,9 +63,18 @@
 #endif
     
 #ifdef TestCRootViewController
+    CRootViewController * rootViewController = [[CRootViewController alloc] initWithNibName:nil bundle:nil];
     self.window.rootViewController = rootViewController;
-#endif
     [rootViewController release];
+#endif
+    
+    CScanViewController * scanViewController = [[CScanViewController alloc] initWithNibName:nil bundle:nil];
+    UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:scanViewController];
+    [scanViewController release];
+    [self.window setRootViewController:navController];
+    [navController release];
+    
+    [self customUI];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -143,6 +151,16 @@
 -(void)readRSSI:(NSTimer *)timer
 {
     [[[CBLEManager sharedManager] foundPeripherals] makeObjectsPerformSelector:@selector(readRSSI:) withObject:timer];
+}
+
+- (void)customUI
+{
+    //全屏显示，取消状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    //设置导航栏的背景颜色
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"Main_TopBar"] forBarMetrics:UIBarMetricsDefault];
+    NSDictionary * textAttribute = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:20],UITextAttributeFont,[UIColor whiteColor],UITextAttributeTextColor,[UIColor grayColor],UITextAttributeTextShadowColor,[NSValue valueWithUIOffset:UIOffsetMake(-1, -1)],UITextAttributeTextShadowOffset,nil];
+    [[UINavigationBar appearance] setTitleTextAttributes:textAttribute];
 }
 
 @end
