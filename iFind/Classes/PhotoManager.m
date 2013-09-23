@@ -150,15 +150,60 @@
     CGImageRef image = [gen copyCGImageAtTime:time actualTime:&actualTime error:&error];
     UIImage *img = [[UIImage alloc] initWithCGImage:image];
     CGImageRelease(image);
-    [self performSelector:@selector(saveImg:) withObject:img afterDelay:0.1];
+    [self performSelector:@selector(configureImageBlock:) withObject:img afterDelay:0.1];
     [img release];
 }
 
--(void)saveImg:(UIImage *) image
+-(void)configureImageBlock:(UIImage *) image
 {
 	NSLog(@"Review Image");
     self.configureBlock(image);
 }
+
+-(void)saveImage:(UIImage *)image
+{
+    NSData *imageData = UIImagePNGRepresentation(image);
+    if(imageData == nil)
+    {
+        imageData = UIImageJPEGRepresentation(image, 1.0);
+    }
+    NSDate* now = [NSDate date];
+    NSDateFormatter* fmt = [[NSDateFormatter alloc] init];
+    fmt.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+    fmt.dateFormat = @"yyyy/MM/dd-HH:mm";
+    saveToDiskFileName = [[[fmt stringFromDate:now]stringByAppendingPathExtension:@"png"] retain];
+    NSURL *saveURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:_fileName];
+    [imageData writeToURL:saveURL atomically:YES];
+}
+
+//创建本地图片目录
+-(void)createDirectory:(NSString *)directoryName
+{
+    NSFileManager * defaultManager = [NSFileManager defaultManager];
+    NSString * path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
+    NSString *fileDirectory = [path stringByAppendingPathComponent:directoryName];
+    
+    if (![defaultManager fileExistsAtPath:fileDirectory]) {
+        [defaultManager createDirectoryAtPath:fileDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+    }else
+    {
+        NSLog(@"Directory already exists");
+    }
+    [self setAudioDirectory:fileDirectory];
+}
+
+//录音文件位置,在delegate处可以更改文件的名字后保存
+-(NSString *)saveRecordFileWithName:(NSString *)name
+{
+    if (audioDirectory == nil) {
+        [self createDirectory:AudioFolderName];
+    }
+    NSString * formatName = [[NSString alloc]initWithFormat:@"%@.caf",name];
+    NSString * saveFileName = [audioDirectory stringByAppendingPathComponent:formatName];
+    saveFileName = [saveFileName stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    return saveFileName;
+}
+
 -(void)dealloc
 {
     [super dealloc];
