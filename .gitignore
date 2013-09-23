@@ -16,3 +16,5 @@ profile
 *.moved-aside
 DerivedData
 .idea/
+iFind.xcodeproj/*
+iFind.xcodeproj/project.xcworkspace/xcuserdata/Carl.xcuserdatad/UserInterfaceState.xcuserstate
