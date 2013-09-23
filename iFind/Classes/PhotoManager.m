@@ -115,7 +115,9 @@
         //获取照片实例
 		UIImage *image = [[info objectForKey:UIImagePickerControllerOriginalImage] retain];
 		self.configureBlock(image);
-        [self saveImage:image];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self saveImage:image];
+        });
 		if (isSaveToLibrary)
 		{
 			ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -161,7 +163,10 @@
 {
 	NSLog(@"Review Image");
     self.configureBlock(image);
-    [self saveImage:image];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, YES), ^{
+            [self saveImage:image];
+    });
+
 }
 
 -(void)saveImage:(UIImage *)image
