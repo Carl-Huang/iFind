@@ -12,6 +12,9 @@
 #import "CScanViewController.h"
 #import "CBLEButton.h"
 #import "CBLEManager.h"
+#import "PopUpTableViewController.h"
+#import "FPPopoverController.h"
+#import "DeviceDetailViewController.h"
 @interface CScanViewController ()
 @property (nonatomic,retain) NSArray * defaultImages;
 @property (nonatomic,retain) NSArray * defaultHightlighImages;
@@ -181,12 +184,30 @@
 //响应手机遥控按钮点击事件
 - (void)remoteControl:(id)sender
 {
-
+    PopUpTableViewController * popupTableViewController = [[PopUpTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    popupTableViewController.title = NSLocalizedString(@"RemoteControl", nil);
+    popupTableViewController.dataSource = @[@"音乐",@"拍照",@"视频",@"录音"];
+    [popupTableViewController.view setFrame:CGRectMake(0, 0, 200, 250)];
+    [popupTableViewController setConfigureBlock:^(id item){
+        UIButton * controlButton = (UIButton *)[self.view viewWithTag:CONTROL_BUTTON_TAG];
+        [controlButton setTitle:(NSString *)item forState:UIControlStateNormal];
+    }];
+    
+    FPPopoverController * popoverController = [[FPPopoverController alloc] initWithViewController:popupTableViewController];
+    [popupTableViewController release];
+    popoverController.tint = FPPopoverDefaultTint;
+    popoverController.arrowDirection = FPPopoverArrowDirectionAny;
+    [popoverController presentPopoverFromView:sender];
+    [popoverController release];
+    
 }
 //响应设置按钮点击事件
 - (void)showSettingScene:(id)sender
 {
-    
+    DeviceDetailViewController * detailViewController = [[DeviceDetailViewController alloc] initWithNibName:nil bundle:nil];
+    [detailViewController initializationDefaultValue:nil];
+    [self.navigationController pushViewController:detailViewController animated:YES];
+    [detailViewController release];
 }
 
 @end
