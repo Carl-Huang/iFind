@@ -7,6 +7,10 @@
 //
 #define BUTTON_WIDTH 137.0
 #define BUTTON_HEIGHT 137.0
+#define BUTTON_TAG_1 1
+#define BUTTON_TAG_2 2
+#define BUTTON_TAG_3 3
+#define BUTTON_TAG_4 4
 #define FIND_BUTTON_TAG 10
 #define CONTROL_BUTTON_TAG 11
 #import "CScanViewController.h"
@@ -15,6 +19,7 @@
 #import "PopUpTableViewController.h"
 #import "FPPopoverController.h"
 #import "DeviceDetailViewController.h"
+#import "SBTableAlert.h"
 @interface CScanViewController ()
 @property (nonatomic,retain) NSArray * defaultImages;
 @property (nonatomic,retain) NSArray * defaultHightlighImages;
@@ -56,7 +61,28 @@
     [super viewWillAppear:YES];
     CBLEManager * bleManager = [CBLEManager sharedManager];
     bleManager.discoverHandler = ^(void){
-        NSLog(@"Found Peripheral");
+        int index = [[bleManager foundPeripherals] count];
+        if(index == 0) return;
+        for(int i = 1; i < index; i++)
+        {
+            id sender = [self.view viewWithTag:i];
+            if([sender isKindOfClass:[CBLEButton class]])
+            {
+                CBLEButton * bleButton = (CBLEButton *)sender;
+                [bleButton setHighlight:YES];
+            }
+        }
+        
+        for(int i = index; i < 4; i++)
+        {
+            id sender = [self.view viewWithTag:i];
+            if([sender isKindOfClass:[CBLEButton class]])
+            {
+                CBLEButton * bleButton = (CBLEButton *)sender;
+                [bleButton setHighlight:NO];
+            }
+        }
+        
     };
 }
 
@@ -103,26 +129,32 @@
     UIImage * image_1 = [_defaultImages objectAtIndex:0];
     UIImage * highlight_1 = [_defaultHightlighImages objectAtIndex:0];
     CBLEButton * bleButton_1 = [[CBLEButton alloc] initWithFrame:rect_1 withImage:image_1 withHighLight:highlight_1 withTitle:nil];
-    bleButton_1.tag = 1;
+    bleButton_1.tag = BUTTON_TAG_1;
+    bleButton_1.tapHandler = ^(id sender){
+        if([sender isKindOfClass:[CBLEButton class]])
+        {
+            NSLog(@"CBLEButton");
+        }
+    };
     [self.view addSubview:bleButton_1];
     [bleButton_1 release];
     //Button2
     UIImage * image_2 = [_defaultImages objectAtIndex:1];
     UIImage * highlight_2 = [_defaultHightlighImages objectAtIndex:1];
     CBLEButton * bleButton_2 = [[CBLEButton alloc] initWithFrame:rect_2 withImage:image_2 withHighLight:highlight_2 withTitle:nil];
-    bleButton_2.tag = 2;
+    bleButton_2.tag = BUTTON_TAG_2;
     [self.view addSubview:bleButton_2];
     //Button3
     UIImage * image_3 = [_defaultImages objectAtIndex:2];
     UIImage * highlight_3 = [_defaultHightlighImages objectAtIndex:2];
     CBLEButton * bleButton_3 = [[CBLEButton alloc] initWithFrame:rect_3 withImage:image_3 withHighLight:highlight_3 withTitle:nil];
-    bleButton_3.tag = 3;
+    bleButton_3.tag = BUTTON_TAG_3;
     [self.view addSubview:bleButton_3];
     //Button4
     UIImage * image_4 = [_defaultImages objectAtIndex:3];
     UIImage * highlight_4 = [_defaultHightlighImages objectAtIndex:3];
     CBLEButton * bleButton_4 = [[CBLEButton alloc] initWithFrame:rect_4 withImage:image_4 withHighLight:highlight_4 withTitle:nil];
-    bleButton_4.tag = 4;
+    bleButton_4.tag = BUTTON_TAG_4;
     [self.view addSubview:bleButton_4];
     
     //添加找设备按钮

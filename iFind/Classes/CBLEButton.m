@@ -35,10 +35,31 @@
             [_imageView setHighlightedImage:highlightImage];
         }
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
-        
         [self addSubview:_imageView];
+        
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSelf:)];
+        tap.numberOfTapsRequired = 1;
+        tap.numberOfTouchesRequired = 1;
+        [self addGestureRecognizer:tap];
+        [tap release];
     }
     return self;
+}
+
+
+- (void)setHighlight:(BOOL)isHighlight
+{
+    if(_imageView)
+    {
+        [_imageView setHighlighted:isHighlight];
+    }
+}
+
+- (void)tapSelf:(UITapGestureRecognizer *)gesture
+{
+    NSLog(@"Tap");
+    if(self.tapHandler)
+        self.tapHandler(gesture.view);
 }
 
 @end
