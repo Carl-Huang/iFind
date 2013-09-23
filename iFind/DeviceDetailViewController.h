@@ -23,13 +23,16 @@ typedef void (^DidSelectTableviewRowCongigureBlock) (id item);
 @class PopUpTableViewController;
 @class FPPopoverController;
 @class PhotoManager;
-
+@class SQLManager;
 
 @interface DeviceDetailViewController : UIViewController
 {
     PopUpTableViewController *popUpTableviewController;
     FPPopoverController *popover;
 }
+
+//数据库操作
+@property (retain ,nonatomic)SQLManager *sqlMng;
 
 //界面按钮
 @property (retain ,nonatomic)UIButton * chooseAlertDistance;
