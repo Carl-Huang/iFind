@@ -19,7 +19,7 @@
 #import "DeviceDetailViewController.h"
 #import "FPPopoverController.h"
 #import "PopUpTableViewController.h"
-
+#import "OrderType.h"
 //Utility class
 #import "PhotoManager.h"
 @interface DeviceDetailViewController ()
@@ -126,7 +126,7 @@
    
     [chooseAlertDistance setTitleShadowColor:shadowColor forState:UIControlStateNormal];
     [chooseAlertDistance.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
-
+    chooseAlertDistance.tag = DistanceTag;
     [self.view addSubview:chooseAlertDistance];
     
     //报警音
@@ -140,7 +140,7 @@
   
     [chooseAlertMusic setTitleShadowColor:shadowColor forState:UIControlStateNormal];
     [chooseAlertMusic.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
-
+    chooseAlertMusic.tag = AlertMusicTag;
     [self.view addSubview:chooseAlertMusic];
     
        
@@ -154,6 +154,7 @@
     [chooseAlertTime setTitle:defaultAlertTime forState:UIControlStateNormal];
     [chooseAlertTime setTitleShadowColor:shadowColor forState:UIControlStateNormal];
     [chooseAlertTime.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
+    chooseAlertTime.tag = AlertTimeTag;
     [self.view addSubview:chooseAlertTime];
     
     //设备工作模式
@@ -166,6 +167,7 @@
     [chooseDeviceAlertMode setTitle:defaultDeviceAlertMOde forState:UIControlStateNormal];
     [chooseDeviceAlertMode setTitleShadowColor:shadowColor forState:UIControlStateNormal];
     [chooseDeviceAlertMode.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
+    chooseDeviceAlertMode.tag = DeviceModeTag;
     [self.view addSubview:chooseDeviceAlertMode];
 
     
@@ -179,6 +181,7 @@
     [choosePhoneAlertMode setTitle:defaultPhoneAlertMode forState:UIControlStateNormal];
     [choosePhoneAlertMode setTitleShadowColor:shadowColor forState:UIControlStateNormal];
     [choosePhoneAlertMode.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
+    choosePhoneAlertMode.tag = PhoneModeTag;
     [self.view addSubview:choosePhoneAlertMode];
     
     //设置蓝牙模式
@@ -191,6 +194,7 @@
     [chooseMode setTitle:defaultMode forState:UIControlStateNormal];
     [chooseMode setTitleShadowColor:shadowColor forState:UIControlStateNormal];
     [chooseMode.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
+    chooseMode.tag = ModeTag;
     [self.view addSubview:chooseMode];
     
     UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, chooseMode.frame.origin.y, 120, 45)];
@@ -275,7 +279,8 @@
             break;
         case PopUpTableViewDataSourceMusic:
             //声音按钮
-            [popUpTableviewController setDataSource:@[@"近",@"中",@"远"]];
+            popUpTableviewController.title = @"手机提醒音";
+            [popUpTableviewController setDataSource:@[@"Alchemy",@"AudibleAlarm",@"Bird",@"CS",@"Ericsson ring",@"Howl",@"ICQ sms sound",@"Jumping Cat",@"Laughter",@"Sent",@"Siren"]];
             descriptionStr = @"选择手机提醒音:";
             break;
         case PopUpTableViewDataSourceTime:
@@ -305,7 +310,80 @@
     DidSelectTableviewRowCongigureBlock block = ^(id item)
     {
         UIButton *btn = (UIButton *)sender;
+        NSLog(@"%d",btn.tag);
         NSString * title = (NSString *)item;
+        int i = 0;
+        for (;i< [popUpTableviewController.dataSource count];i++) {
+            NSString * str = [popUpTableviewController.dataSource objectAtIndex:i];
+            if ([item isEqualToString:str]) {
+                NSLog(@"Select Index:%d",i);
+                break;
+            }
+        }
+        switch (btn.tag) {
+            case DistanceTag:
+                if (i == 0) {
+                    NSLog(@"Distance Order: %d",DistanceNear);
+                }else if(i == 1)
+                {
+                    NSLog(@"Distance Order: %d",DistanceMid);
+                }else if(i == 2)
+                {
+                    NSLog(@"Distance Order: %d",DistanceFar);
+                }
+                break;
+            case AlertMusicTag:
+                break;
+            case AlertTimeTag:
+                if (i == 0) {
+                    NSLog(@"Alert Time Order: %d",AlertTime10);
+                }else if(i == 1)
+                {
+                   NSLog(@"Alert Time Order: %d",AlertTime20);
+                }else if(i == 2)
+                {
+                   NSLog(@"Alert Time Order: %d",AlertTime30);
+                }
+                break;
+            case PhoneModeTag:
+                if (i == 0) {
+                    NSLog(@"PhoneMode Order: %@",PhoneModeStopAlert);
+                }else if(i == 1)
+                {
+                    NSLog(@"PhoneMode Order: %@",PhoneModeVibrate);
+                }else if(i == 2)
+                {
+                    NSLog(@"PhoneMode Order: %@",PhoneModeVibrateAndSound);
+                }
+                break;
+            case DeviceModeTag:
+                if (i == 0) {
+                    NSLog(@"DeviceMode Order: %@",DeviceModeStopAlert);
+                }else if(i == 1)
+                {
+                    NSLog(@"DeviceMode Order: %@",DeviceModeLight);
+                }else if(i == 2)
+                {
+                    NSLog(@"DeviceMode Order: %@",DeviceModeSound);
+                }else if (i == 3)
+                {
+                    NSLog(@"DeviceMode Order: %@",DeviceModeLightSound);
+                }
+                break;
+            case ModeTag:
+                if (i == 0) {
+                    NSLog(@"Mode Order: %@",ModeMutualAlertStop);
+                }else if(i == 1)
+                {
+                    NSLog(@"Mode Order: %@",ModePhoneAlertStop);
+                }else if(i == 2)
+                {
+                    NSLog(@"Mode Order: %@",ModeDeviceAlertStop);
+                }
+                break;
+            default:
+                break;
+        }
         title = [descriptionStr stringByAppendingString:title];
         [btn setTitle:title forState:UIControlStateNormal];
         title = nil;
