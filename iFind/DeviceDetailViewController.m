@@ -41,7 +41,7 @@
 
 @implementation DeviceDetailViewController
 
-@synthesize chooseAlertDistance,chooseAlertMusic,chooseAlertTime,chooseDeviceAlertMode,chooseMode,choosePhoneAlertMode,userPhoto,signalPic;
+@synthesize chooseAlertDistance,chooseAlertMusic,chooseAlertTime,chooseDeviceAlertMode,chooseMode,choosePhoneAlertMode,userPhoto,signalPic,photoBackground;
 @synthesize photoManager;
 @synthesize scopeImage,wifiImage,devPowerPic;
 @synthesize scopeLabel,wifiLabel,devPowerLabel;
@@ -154,6 +154,7 @@
         defaultMode             = [deviceInfo objectForKey:BluetoothMode];
         defaultName             = [deviceInfo objectForKey:DeviceName];
         defaultImage            = [deviceInfo objectForKey:ImageName];
+        [self updateScopeValue:nil signalValue:nil powerVaule:nil];
     }
 }
 
@@ -254,16 +255,22 @@
     
     //是否在范围内，信号量，蓝牙电量
     CGSize size = CGSizeMake(20, 20);
-    CGRect rect2 = CGRectMake(20, 25, 120, 120);
+    CGRect rect2 = CGRectMake(50, 50, 60, 60);
     userPhoto = [[UIImageView alloc]initWithFrame:rect2];
     userPhoto.backgroundColor = [UIColor clearColor];
-    [userPhoto setImage:[UIImage imageNamed:@"Settings_Icon_Key"]];
+    [userPhoto setImage:[UIImage imageNamed:@"Main_Icon_Wallet_H"]];
     userPhoto.userInteractionEnabled = YES;
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(takePhoto)];
     [userPhoto addGestureRecognizer:tapGesture];
+    photoBackground = [[UIImageView alloc]initWithFrame:CGRectMake(20, 25, 120, 120)];
+    [photoBackground setBackgroundColor:[UIColor clearColor]];
+    [photoBackground setImage:[UIImage imageNamed:@"Settings_Frame"]];
+    [self.view addSubview:photoBackground];
+    [photoBackground release];
     [self.view addSubview:userPhoto];
+    
     [tapGesture release];
-    scopeImage = [[UIImageView alloc]initWithFrame:CGRectMake(userPhoto.frame.origin.x+userPhoto.frame.size.width+30, userPhoto.frame.origin.y+10, size.width, size.height)];
+    scopeImage = [[UIImageView alloc]initWithFrame:CGRectMake(photoBackground.frame.origin.x+photoBackground.frame.size.width+30, photoBackground.frame.origin.y+10, size.width, size.height)];
     [scopeImage setContentMode:UIViewContentModeScaleAspectFit];
     [scopeImage setBackgroundColor:[UIColor clearColor]];
     [scopeImage setImage:[UIImage imageNamed:@"Settings_Icon_Scope"]];
@@ -374,6 +381,7 @@
             case DistanceTag:
                 if (i == 0) {
                     NSLog(@"Distance Order: %d",DistanceNear);
+                  
                 }else if(i == 1)
                 {
                     NSLog(@"Distance Order: %d",DistanceMid);

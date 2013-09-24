@@ -43,7 +43,7 @@ typedef void (^DidSelectTableviewRowCongigureBlock) (id item);
 @property (retain ,nonatomic)UIButton * chooseMode;
 @property (retain ,nonatomic)UIImageView * userPhoto;
 @property (retain ,nonatomic)UIImageView * signalPic;
-
+@property (retain ,nonatomic)UIImageView * photoBackground;
 
 //信号图标
 @property (retain ,nonatomic)UIImageView *scopeImage;
