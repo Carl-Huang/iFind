@@ -31,6 +31,11 @@ typedef void (^DidSelectTableviewRowCongigureBlock) (id item);
     FPPopoverController *popover;
 }
 
+//数据库操作
+@property (retain ,nonatomic)SQLManager *sqlMng;
+
+
+
 //界面按钮
 @property (retain ,nonatomic)UIButton * chooseAlertDistance;
 @property (retain ,nonatomic)UIButton * chooseAlertMusic;
