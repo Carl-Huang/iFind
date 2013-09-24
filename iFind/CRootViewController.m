@@ -83,14 +83,12 @@
     
     if(cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
     }
     
-    CBLEPeriphral * blePeriphral = [[_bleManager foundPeripherals] objectAtIndex:indexPath.row];
-    
-    
-    [cell.textLabel setText:blePeriphral.peripheral.name];
-    
+    CBPeripheral * blePeriphral = [[_bleManager foundPeripherals] objectAtIndex:indexPath.row];
+    [cell.textLabel setText:blePeriphral.name];
+//    [cell.detailTextLabel setText:[NSString stringWithFormat:@"RSSI:%d",blePeriphral.RSSI.intValue]];
     return cell;
 }
 
@@ -138,15 +136,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    CBLEPeriphral * blePeriphral = [[_bleManager foundPeripherals] objectAtIndex:indexPath.row];
-    if([blePeriphral.peripheral isConnected])
-    {
-        [blePeriphral writeAlertLevelHigh];
-    }
-    else
-    {
-        [_bleManager connectToPeripheral:blePeriphral.peripheral];
-    }
+//    CBLEPeriphral * blePeriphral = [[_bleManager foundPeripherals] objectAtIndex:indexPath.row];
+//    if([blePeriphral.peripheral isConnected])
+//    {
+//        [blePeriphral writeAlertLevelHigh];
+//    }
+//    else
+//    {
+//        [_bleManager connectToPeripheral:blePeriphral.peripheral];
+//    }
  
 }
 

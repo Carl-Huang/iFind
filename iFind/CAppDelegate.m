@@ -150,7 +150,7 @@
 
 -(void)readRSSI:(NSTimer *)timer
 {
-    [[[CBLEManager sharedManager] foundPeripherals] makeObjectsPerformSelector:@selector(readRSSI:) withObject:timer];
+    [[[CBLEManager sharedManager] connectedPeripherals] makeObjectsPerformSelector:@selector(readRSSI:) withObject:timer];
 }
 
 - (void)customUI
