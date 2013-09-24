@@ -52,7 +52,7 @@
 {
     [super loadView];
     self.view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
-    UIImageView *backgroundImage = [[UIImageView alloc]initWithFrame:self.view.frame];
+    UIImageView *backgroundImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, -10, 320, 460)];
     [backgroundImage setContentMode:UIViewContentModeScaleAspectFit];
     [backgroundImage setImage:[UIImage imageNamed:@"Settings_Bg"]];
     [self.view addSubview:backgroundImage];
