@@ -45,6 +45,9 @@
 @synthesize photoManager;
 @synthesize scopeImage,wifiImage,devPowerPic;
 @synthesize scopeLabel,wifiLabel,devPowerLabel;
+
+@synthesize sqlMng;
+
 -(void)loadView
 {
     [super loadView];
