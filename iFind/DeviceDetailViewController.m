@@ -7,19 +7,23 @@
 //
 #define FontSize 15
 
+#define DistancePre             @"提醒距离选择:"
+#define AlertTimePre            @"报警时长:"
+#define AlertMusicePre          @"选择手机提醒音:"
+
+
 #define DefaultDistanceValue    @"提醒距离选择:远"
 #define DefaultAlertTime        @"报警时长:30秒"
-#define DefaultAlertMusic       @"选择手机提醒音:"
+#define DefaultAlertMusic       @"选择手机提醒音:Alchemy"
 #define DefaultPhoneAlertMode   @"手机震动声光提醒"
 #define DefaultDeviceAlertMode  @"声光提醒"
 #define DefaultMode             @"自动关闭手机报警"
-#define DefaultUserPhoto        @""
-
 
 #import "DeviceDetailViewController.h"
 #import "FPPopoverController.h"
 #import "PopUpTableViewController.h"
 #import "OrderType.h"
+#import "SQLManager.h"
 //Utility class
 #import "PhotoManager.h"
 @interface DeviceDetailViewController ()
@@ -30,6 +34,8 @@
     NSString *defaultPhoneAlertMode;
     NSString *defaultDeviceAlertMOde;
     NSString *defaultMode;
+    NSString *defaultImage;
+    NSString *defaultName;
 }
 @end
 
@@ -77,6 +83,10 @@
     [super viewDidLoad];
     [self initializationInterface];
     
+    //数据库处理类
+    sqlMng  = [[SQLManager alloc]initDataBase];
+    [sqlMng createTable];
+    
     //相片处理类
     ConfigureImageBlock block = ^(id item){
         [userPhoto setImage:(UIImage *)item];
@@ -108,6 +118,40 @@
         defaultPhoneAlertMode   = [dic objectForKey:PhoneMode];
         defaultDeviceAlertMOde  = [dic objectForKey:DeviceMode];
         defaultMode             = [dic objectForKey:BluetoothMode];
+    }
+}
+
+-(void)initializationDeviceWithUUID:(NSString *)uuid
+{
+    defaultAlertMusic       = AlertMusicePre;
+    defaultDistanceValue    = DistancePre;
+    defaultAlertTime        = AlertTimePre;
+
+    NSDictionary * deviceInfo = nil;
+    //返回的是数据库中之前保存过相应的uuid设备的配置信息
+    deviceInfo = [sqlMng queryDatabaseWithUUID:uuid];
+    
+    if (deviceInfo == nil) {
+        NSLog(@"Database did not have the record with uuid:%@",uuid);
+        defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:@"Alchemy"];
+        defaultDistanceValue    = [defaultDistanceValue stringByAppendingString:@"近"];
+        defaultAlertTime        = [defaultAlertTime stringByAppendingString:@"30"];
+        defaultPhoneAlertMode   = DefaultPhoneAlertMode;
+        defaultDeviceAlertMOde  = DefaultDeviceAlertMode;
+        defaultMode             = DefaultMode;
+        defaultName             = nil;
+        defaultImage            = nil;
+    }else
+    {
+        defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:[deviceInfo objectForKey:AlertMusic]];;
+        defaultDistanceValue    = [defaultDistanceValue stringByAppendingString:[deviceInfo objectForKey:DistanceValue]];
+
+        defaultAlertTime        = [defaultAlertTime stringByAppendingString:[deviceInfo objectForKey:AlertTime]];
+        defaultPhoneAlertMode   = [deviceInfo objectForKey:PhoneMode];
+        defaultDeviceAlertMOde  = [deviceInfo objectForKey:DeviceMode];
+        defaultMode             = [deviceInfo objectForKey:BluetoothMode];
+        defaultName             = [deviceInfo objectForKey:DeviceName];
+        defaultImage            = [deviceInfo objectForKey:ImageName];
     }
 }
 

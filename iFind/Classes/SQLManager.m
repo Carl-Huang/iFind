@@ -8,6 +8,7 @@
 
 #import "SQLManager.h"
 #import "FMDatabase.h"
+#import "OrderType.h"
 @implementation SQLManager
 @synthesize db;
 
@@ -23,19 +24,22 @@
  */
 
 //创建数据库
--(void)initDataBase
+-(id)initDataBase
 {
-    NSString *dataPath = [self initializationFilePath];
-    NSLog(@"%@",dataPath);
-    self.db = [FMDatabase databaseWithPath:dataPath];
-    if (![db open]) {
-        NSLog(@"Open db error");
-        return;
-    }else
-    {
-        NSLog(@"open db successfully");
+    self = [super init];
+    if (self) {
+        NSString *dataPath = [self initializationFilePath];
+        NSLog(@"%@",dataPath);
+        self.db = [FMDatabase databaseWithPath:dataPath];
+        if (![db open]) {
+            NSLog(@"Open db error");
+        }else
+        {
+            NSLog(@"open db successfully");
+        }
+
     }
-    
+    return  self;
 }
 //创建数据表
 -(void)createTable
@@ -71,7 +75,24 @@
         NSLog(@"Failer to update value to table,Error: %@",[db lastError]);
     }
 }
-
+//查询记录
+-(NSDictionary *)queryDatabaseWithUUID:(NSString *)uuid
+{
+    NSMutableDictionary * deviceInfoDic = [NSMutableDictionary dictionary];
+    FMResultSet *rs = [db executeQuery:@"select * from iFindTable where uuid=?",uuid];
+    while ([rs next]) {
+        [deviceInfoDic setObject:[rs stringForColumn:@"uuid"]   forKey:UUIDStr];
+        [deviceInfoDic setObject:[rs stringForColumn:@"name"]   forKey:DeviceName];
+        [deviceInfoDic setObject:[rs stringForColumn:@"image"]  forKey:ImageName];
+        [deviceInfoDic setObject:[rs stringForColumn:@"alertDistance"]  forKey:DistanceValue];
+        [deviceInfoDic setObject:[rs stringForColumn:@"alertTime"]   forKey:AlertTime];
+        [deviceInfoDic setObject:[rs stringForColumn:@"alertMusic"]   forKey:AlertMusic];
+        [deviceInfoDic setObject:[rs stringForColumn:@"phoneMode"]   forKey:PhoneMode];
+        [deviceInfoDic setObject:[rs stringForColumn:@"deviceMode"]   forKey:DeviceMode];
+        [deviceInfoDic setObject:[rs stringForColumn:@"blueMode"]   forKey:BluetoothMode];
+    }
+    return deviceInfoDic;
+}
 //删除行记录
 -(void)deleteDatabaseRowWithUUID:(NSString *)uuid
 {

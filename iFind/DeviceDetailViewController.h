@@ -61,6 +61,7 @@ typedef void (^DidSelectTableviewRowCongigureBlock) (id item);
 
 //初始化
 -(void)initializationDefaultValue:(NSDictionary *)dic;
+-(void)initializationDeviceWithUUID:(NSString *)uuid;
 
 //更新范围值，信号量值，电量值
 -(void)updateScopeValue:(NSString *)scopeV signalValue:(NSString *)signalV powerVaule:(NSString *)powerV;

@@ -38,6 +38,14 @@
 #define ModeDeviceAlertStop         @"b2"
 #define ModePhoneAlertStop          @"b3"
 
-
+#define DeviceName                  @"DeviceName"
+#define UUIDStr                     @"UUID"
+#define ImageName                   @"ImageName"
+#define DistanceValue               @"DistanceValue"
+#define AlertMusic                  @"AlertMusic"
+#define AlertTime                   @"AlertTime"
+#define PhoneMode                   @"PhoneMode"
+#define DeviceMode                  @"DeviceMode"
+#define BluetoothMode               @"BluetoothMode"
 
 #endif
