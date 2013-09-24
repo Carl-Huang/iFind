@@ -14,7 +14,8 @@ typedef void (^TapHandler)(id sender);
     UILabel * _textLabel;
 }
 @property (nonatomic,copy) TapHandler  tapHandler;
+@property (nonatomic,retain) NSString * uuid;
 - (id)initWithFrame:(CGRect)frame withImage:(UIImage *)image withHighLight:(UIImage *)highlightImage withTitle:(NSString *)title;
 - (void)setHighlight:(BOOL)isHighlight;
-
+- (void)setUuid:(NSString *)uuid;
 @end

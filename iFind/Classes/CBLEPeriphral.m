@@ -138,13 +138,13 @@ typedef enum {
             if([service.UUID isEqual:[CBUUID UUIDWithString:Service_Immediate_Alert]])
             {
                 _characteristicForAlert = characteristic;
-                [self writeAlertLevelMid];
+                [self writeAlertLevelHigh];
 
             }
             else if ([service.UUID isEqual:[CBUUID UUIDWithString:Service_Link_Loss]])
             {
                 _characteristicForAlertLevel = characteristic;
-                [self writeAlertLevel:ALERT_LEVEL_NONE];
+//                [self writeAlertLevel:ALERT_LEVEL_NONE];
             }
             
         }

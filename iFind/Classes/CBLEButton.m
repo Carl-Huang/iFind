@@ -9,14 +9,16 @@
 #import "CBLEButton.h"
 
 @implementation CBLEButton
-
+@synthesize uuid = _uuid;
 - (void)dealloc
 {
     [super dealloc];
     [_imageView release];
     [_textLabel release];
+    [_uuid release];
     _imageView = nil;
     _textLabel = nil;
+    _uuid = nil;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -60,6 +62,16 @@
     NSLog(@"Tap");
     if(self.tapHandler)
         self.tapHandler(gesture.view);
+}
+
+
+- (void)setUuid:(NSString *)uuid
+{
+    if(_uuid != nil)
+    {
+        [_uuid release];
+    }
+    _uuid = [uuid retain];
 }
 
 @end

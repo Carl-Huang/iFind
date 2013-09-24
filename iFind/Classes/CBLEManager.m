@@ -106,7 +106,18 @@
 
 -(void)addFoundPeripheral:(CBPeripheral *)peripheral
 {
-    
+    if(peripheral.name == nil) return ;
+    if(![_foundPeripherals containsObject:peripheral])
+    {
+        [_foundPeripherals addObject:peripheral];
+        if(self.discoverHandler)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.discoverHandler();
+            });
+        }
+    }
+    /*
     if([_foundPeripherals count] >= 4)
     {
         return ;
@@ -132,11 +143,23 @@
             });
         }
     }
+    */
 
 }
 -(void)removeFoundPeripheral:(CBPeripheral *)peripheral
 {
     
+    if([_foundPeripherals containsObject:peripheral])
+    {
+        [_foundPeripherals removeObject:peripheral];
+        if(self.discoverHandler)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.discoverHandler();
+            });
+        }
+    }
+    /*
     CBLEPeriphral * instance = nil;
     for(CBLEPeriphral * blePeriphral in _foundPeripherals)
     {
@@ -156,7 +179,7 @@
             });
         }
     }
-    
+    */
 }
 
 
@@ -212,20 +235,19 @@
 {
     NSLog(@"CBCentralManager did connect peripheral %@",peripheral.name);
     
-    CBLEPeriphral * instance = nil;
-    for(CBLEPeriphral * blePeriphral in _foundPeripherals)
-    {
-        if(blePeriphral.peripheral == peripheral)
-        {
-            instance = blePeriphral;
-            break;
-        }
-    }
+    CBLEPeriphral * instance = [[[CBLEPeriphral alloc] initWithPeripheral:peripheral] autorelease];
     if(instance)
     {
         [instance discoverServices];
     }
     
+    if(self.connectedHandler)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.connectedHandler(peripheral);
+        });
+    }
+
 }
 
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
