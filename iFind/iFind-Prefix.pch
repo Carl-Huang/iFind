@@ -1,14 +1,6 @@
 //
 // Prefix header for all source files of the 'iFind' target in the 'iFind' project
 //
-
-#define DistanceValue @"DistanceValue"
-#define AlertMusic    @"AlertMusic"
-#define AlertTime     @"AlertTime"
-#define PhoneMode     @"PhoneMode"
-#define DeviceMode    @"DeviceMode"
-#define BluetoothMode @"BluetoothMode"
-
 #define ShadowColorR    14
 #define ShadowColorG    113
 #define ShadowColorB    202

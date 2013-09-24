@@ -10,4 +10,10 @@
 @class FMDatabase;
 @interface SQLManager : NSObject
 @property (retain ,nonatomic)FMDatabase *db;
+-(id)initDataBase;
+-(void)createTable;
+-(void)insertValueToExistedTableWithArguments:(NSArray *)array;
+-(void)updateKey:(NSString *)key value:(NSString *)value withUUID:(NSString *)uuid;
+-(void)deleteDatabaseRowWithUUID:(NSString *)uuid;
+-(NSDictionary *)queryDatabaseWithUUID:(NSString *)uuid;
 @end
