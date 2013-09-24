@@ -15,6 +15,18 @@
 		4E040DC017F053E700C1E6A3 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E040DBF17F053E700C1E6A3 /* libsqlite3.0.dylib */; };
 		4E040DC617F0748900C1E6A3 /* SQLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E040DC517F0748900C1E6A3 /* SQLManager.m */; };
 		4E040DC917F0822C00C1E6A3 /* SBTableAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E040DC817F0822C00C1E6A3 /* SBTableAlert.m */; };
+		4E040DCB17F130F400C1E6A3 /* OrderType.h in Sources */ = {isa = PBXBuildFile; fileRef = 4E040DCA17F1309E00C1E6A3 /* OrderType.h */; };
+		4E040DD817F1362200C1E6A3 /* Alchemy.MP3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E040DCD17F1362200C1E6A3 /* Alchemy.MP3 */; };
+		4E040DD917F1362200C1E6A3 /* AudibleAlarm.MP3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E040DCE17F1362200C1E6A3 /* AudibleAlarm.MP3 */; };
+		4E040DDA17F1362200C1E6A3 /* Bird.MP3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E040DCF17F1362200C1E6A3 /* Bird.MP3 */; };
+		4E040DDB17F1362200C1E6A3 /* CS.MP3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E040DD017F1362200C1E6A3 /* CS.MP3 */; };
+		4E040DDC17F1362200C1E6A3 /* Ericsson ring.MP3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E040DD117F1362200C1E6A3 /* Ericsson ring.MP3 */; };
+		4E040DDD17F1362200C1E6A3 /* Howl.MP3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E040DD217F1362200C1E6A3 /* Howl.MP3 */; };
+		4E040DDE17F1362200C1E6A3 /* ICQ sms sound.MP3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E040DD317F1362200C1E6A3 /* ICQ sms sound.MP3 */; };
+		4E040DDF17F1362200C1E6A3 /* Jumping Cat.MP3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E040DD417F1362200C1E6A3 /* Jumping Cat.MP3 */; };
+		4E040DE017F1362200C1E6A3 /* Laughter.MP3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E040DD517F1362200C1E6A3 /* Laughter.MP3 */; };
+		4E040DE117F1362200C1E6A3 /* Sent.MP3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E040DD617F1362200C1E6A3 /* Sent.MP3 */; };
+		4E040DE217F1362200C1E6A3 /* Siren.MP3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E040DD717F1362200C1E6A3 /* Siren.MP3 */; };
 		4E0F313E17EF3CD8006FC754 /* Main_Bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F312617EF3CD8006FC754 /* Main_Bg.png */; };
 		4E0F313F17EF3CD8006FC754 /* Main_Bt_Find.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F312717EF3CD8006FC754 /* Main_Bt_Find.png */; };
 		4E0F314017EF3CD8006FC754 /* Main_Bt_Help.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F312817EF3CD8006FC754 /* Main_Bt_Help.png */; };
@@ -121,6 +133,18 @@
 		4E040DC517F0748900C1E6A3 /* SQLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLManager.m; sourceTree = "<group>"; };
 		4E040DC717F0822C00C1E6A3 /* SBTableAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTableAlert.h; sourceTree = "<group>"; };
 		4E040DC817F0822C00C1E6A3 /* SBTableAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBTableAlert.m; sourceTree = "<group>"; };
+		4E040DCA17F1309E00C1E6A3 /* OrderType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderType.h; sourceTree = "<group>"; };
+		4E040DCD17F1362200C1E6A3 /* Alchemy.MP3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Alchemy.MP3; sourceTree = "<group>"; };
+		4E040DCE17F1362200C1E6A3 /* AudibleAlarm.MP3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudibleAlarm.MP3; sourceTree = "<group>"; };
+		4E040DCF17F1362200C1E6A3 /* Bird.MP3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Bird.MP3; sourceTree = "<group>"; };
+		4E040DD017F1362200C1E6A3 /* CS.MP3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CS.MP3; sourceTree = "<group>"; };
+		4E040DD117F1362200C1E6A3 /* Ericsson ring.MP3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Ericsson ring.MP3"; sourceTree = "<group>"; };
+		4E040DD217F1362200C1E6A3 /* Howl.MP3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Howl.MP3; sourceTree = "<group>"; };
+		4E040DD317F1362200C1E6A3 /* ICQ sms sound.MP3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ICQ sms sound.MP3"; sourceTree = "<group>"; };
+		4E040DD417F1362200C1E6A3 /* Jumping Cat.MP3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Jumping Cat.MP3"; sourceTree = "<group>"; };
+		4E040DD517F1362200C1E6A3 /* Laughter.MP3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Laughter.MP3; sourceTree = "<group>"; };
+		4E040DD617F1362200C1E6A3 /* Sent.MP3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Sent.MP3; sourceTree = "<group>"; };
+		4E040DD717F1362200C1E6A3 /* Siren.MP3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Siren.MP3; sourceTree = "<group>"; };
 		4E0F312617EF3CD8006FC754 /* Main_Bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_Bg.png; sourceTree = "<group>"; };
 		4E0F312717EF3CD8006FC754 /* Main_Bt_Find.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_Bt_Find.png; sourceTree = "<group>"; };
 		4E0F312817EF3CD8006FC754 /* Main_Bt_Help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_Bt_Help.png; sourceTree = "<group>"; };
@@ -274,6 +298,25 @@
 			path = "FMDB Class";
 			sourceTree = "<group>";
 		};
+		4E040DCC17F1362200C1E6A3 /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				4E040DCD17F1362200C1E6A3 /* Alchemy.MP3 */,
+				4E040DCE17F1362200C1E6A3 /* AudibleAlarm.MP3 */,
+				4E040DCF17F1362200C1E6A3 /* Bird.MP3 */,
+				4E040DD017F1362200C1E6A3 /* CS.MP3 */,
+				4E040DD117F1362200C1E6A3 /* Ericsson ring.MP3 */,
+				4E040DD217F1362200C1E6A3 /* Howl.MP3 */,
+				4E040DD317F1362200C1E6A3 /* ICQ sms sound.MP3 */,
+				4E040DD417F1362200C1E6A3 /* Jumping Cat.MP3 */,
+				4E040DD517F1362200C1E6A3 /* Laughter.MP3 */,
+				4E040DD617F1362200C1E6A3 /* Sent.MP3 */,
+				4E040DD717F1362200C1E6A3 /* Siren.MP3 */,
+			);
+			name = audio;
+			path = iFind/Resources/audio;
+			sourceTree = "<group>";
+		};
 		4E0F312517EF3CD8006FC754 /* 1x */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +382,7 @@
 		C3840B7F17E9D1E60049FDE5 = {
 			isa = PBXGroup;
 			children = (
+				4E040DCC17F1362200C1E6A3 /* audio */,
 				C3840B9117E9D1E60049FDE5 /* iFind */,
 				C3840B8A17E9D1E60049FDE5 /* Frameworks */,
 				C3840B8917E9D1E60049FDE5 /* Products */,
@@ -447,6 +491,7 @@
 		C3840BB217E9D8A40049FDE5 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				4E040DCA17F1309E00C1E6A3 /* OrderType.h */,
 				4E040DC717F0822C00C1E6A3 /* SBTableAlert.h */,
 				4E040DC817F0822C00C1E6A3 /* SBTableAlert.m */,
 				4E040DAF17F053DB00C1E6A3 /* FMDB Class */,
@@ -592,6 +637,17 @@
 				C382631417EF596300D66B77 /* Localizable.strings in Resources */,
 				C382631E17EF657C00D66B77 /* Main_Icon_Kid_H.png in Resources */,
 				C382631F17EF657C00D66B77 /* Main_Icon_Kid_N.png in Resources */,
+				4E040DD817F1362200C1E6A3 /* Alchemy.MP3 in Resources */,
+				4E040DD917F1362200C1E6A3 /* AudibleAlarm.MP3 in Resources */,
+				4E040DDA17F1362200C1E6A3 /* Bird.MP3 in Resources */,
+				4E040DDB17F1362200C1E6A3 /* CS.MP3 in Resources */,
+				4E040DDC17F1362200C1E6A3 /* Ericsson ring.MP3 in Resources */,
+				4E040DDD17F1362200C1E6A3 /* Howl.MP3 in Resources */,
+				4E040DDE17F1362200C1E6A3 /* ICQ sms sound.MP3 in Resources */,
+				4E040DDF17F1362200C1E6A3 /* Jumping Cat.MP3 in Resources */,
+				4E040DE017F1362200C1E6A3 /* Laughter.MP3 in Resources */,
+				4E040DE117F1362200C1E6A3 /* Sent.MP3 in Resources */,
+				4E040DE217F1362200C1E6A3 /* Siren.MP3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,6 +658,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E040DCB17F130F400C1E6A3 /* OrderType.h in Sources */,
 				C3437E9317EEC79100C67F2C /* Constants.h in Sources */,
 				C3840B9817E9D1E60049FDE5 /* main.m in Sources */,
 				C3840B9C17E9D1E60049FDE5 /* CAppDelegate.m in Sources */,
