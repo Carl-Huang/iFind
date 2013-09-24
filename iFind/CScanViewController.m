@@ -160,7 +160,7 @@
     //Button1
     UIImage * image_1 = [_defaultImages objectAtIndex:0];
     UIImage * highlight_1 = [_defaultHightlighImages objectAtIndex:0];
-    CBLEButton * bleButton_1 = [[CBLEButton alloc] initWithFrame:rect_1 withImage:image_1 withHighLight:highlight_1 withTitle:nil];
+    CBLEButton * bleButton_1 = [[CBLEButton alloc] initWithFrame:rect_1 withImage:image_1 withHighLight:highlight_1 withTitle:nil withTag:BUTTON_TAG_1];
     bleButton_1.tag = BUTTON_TAG_1;
     bleButton_1.tapHandler = tapHandler;
     [self.view addSubview:bleButton_1];
@@ -168,21 +168,21 @@
     //Button2
     UIImage * image_2 = [_defaultImages objectAtIndex:1];
     UIImage * highlight_2 = [_defaultHightlighImages objectAtIndex:1];
-    CBLEButton * bleButton_2 = [[CBLEButton alloc] initWithFrame:rect_2 withImage:image_2 withHighLight:highlight_2 withTitle:nil];
+    CBLEButton * bleButton_2 = [[CBLEButton alloc] initWithFrame:rect_2 withImage:image_2 withHighLight:highlight_2 withTitle:nil withTag:BUTTON_TAG_2];
     bleButton_2.tag = BUTTON_TAG_2;
     bleButton_2.tapHandler = tapHandler;
     [self.view addSubview:bleButton_2];
     //Button3
     UIImage * image_3 = [_defaultImages objectAtIndex:2];
     UIImage * highlight_3 = [_defaultHightlighImages objectAtIndex:2];
-    CBLEButton * bleButton_3 = [[CBLEButton alloc] initWithFrame:rect_3 withImage:image_3 withHighLight:highlight_3 withTitle:nil];
+    CBLEButton * bleButton_3 = [[CBLEButton alloc] initWithFrame:rect_3 withImage:image_3 withHighLight:highlight_3 withTitle:nil withTag:BUTTON_TAG_3];
     bleButton_3.tag = BUTTON_TAG_3;
     bleButton_2.tapHandler = tapHandler;
     [self.view addSubview:bleButton_3];
     //Button4
     UIImage * image_4 = [_defaultImages objectAtIndex:3];
     UIImage * highlight_4 = [_defaultHightlighImages objectAtIndex:3];
-    CBLEButton * bleButton_4 = [[CBLEButton alloc] initWithFrame:rect_4 withImage:image_4 withHighLight:highlight_4 withTitle:nil];
+    CBLEButton * bleButton_4 = [[CBLEButton alloc] initWithFrame:rect_4 withImage:image_4 withHighLight:highlight_4 withTitle:nil withTag:BUTTON_TAG_4];
     bleButton_4.tag = BUTTON_TAG_4;
     bleButton_2.tapHandler = tapHandler;
     [self.view addSubview:bleButton_4];

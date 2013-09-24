@@ -24,13 +24,41 @@
 - (id)initWithFrame:(CGRect)frame
           withImage:(UIImage *)image
       withHighLight:(UIImage *)highlightImage
-          withTitle:(NSString *)title
+          withTitle:(NSString *)title withTag:(int)tag
 {
     self = [super initWithFrame:frame];
     if(self)
     {
         self.userInteractionEnabled = YES;
-        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        self.tag = tag;
+        _bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        NSString * bgImageName = nil,* bgHlImageName = nil;
+        switch (tag) {
+            case 1:
+                bgImageName = @"Main_Frame_Wallet_N";
+                bgHlImageName = @"Main_Frame_Wallet_H";
+                break;
+             case 2:
+                bgImageName = @"Main_Frame_Key_N";
+                bgHlImageName = @"Main_Frame_Key_H";
+                break;
+             case 3:
+                bgImageName = @"Main_Frame_Bag_N";
+                bgHlImageName = @"Main_Frame_Bag_H";
+                break;
+             case 4:
+                bgImageName = @"Main_Frame_Kid_N";
+                bgHlImageName = @"Main_Frame_Kid_H";
+                break;
+            default:
+                break;
+        }
+
+        [_bgView setImage:[UIImage imageNamed:bgImageName]];
+        [_bgView setHighlightedImage:[UIImage imageNamed:bgHlImageName]];
+        [self addSubview:_bgView];
+        
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake((frame.size.width - 70)*.5f, (frame.size.height - 70)*.5f, 70, 70)];
         [_imageView setImage:image];
         if(highlightImage)
         {
@@ -55,6 +83,7 @@
     {
         [_imageView setHighlighted:isHighlight];
     }
+    [_bgView setHighlighted:isHighlight];
 }
 
 - (void)tapSelf:(UITapGestureRecognizer *)gesture
