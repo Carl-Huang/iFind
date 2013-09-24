@@ -45,7 +45,7 @@
 @synthesize photoManager;
 @synthesize scopeImage,wifiImage,devPowerPic;
 @synthesize scopeLabel,wifiLabel,devPowerLabel;
-
+@synthesize vUUID;
 @synthesize sqlMng;
 
 -(void)loadView
@@ -53,6 +53,7 @@
     [super loadView];
     self.view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
     UIImageView *backgroundImage = [[UIImageView alloc]initWithFrame:self.view.frame];
+    [backgroundImage setContentMode:UIViewContentModeScaleAspectFit];
     [backgroundImage setImage:[UIImage imageNamed:@"Settings_Bg"]];
     [self.view addSubview:backgroundImage];
     [backgroundImage release];
@@ -86,10 +87,7 @@
     [super viewDidLoad];
     [self initializationInterface];
     
-    //数据库处理类
-    sqlMng  = [[SQLManager alloc]initDataBase];
-    [sqlMng createTable];
-    
+       
     //相片处理类
     ConfigureImageBlock block = ^(id item){
         [userPhoto setImage:(UIImage *)item];
@@ -122,6 +120,11 @@
         defaultDeviceAlertMOde  = [dic objectForKey:DeviceMode];
         defaultMode             = [dic objectForKey:BluetoothMode];
     }
+    //数据库处理类
+    sqlMng  = [[SQLManager alloc]initDataBase];
+    [sqlMng createTable];
+    self.vUUID = @"carl";
+    [sqlMng insertValueToExistedTableWithArguments:@[@"carl",@"carl",@"carl",@"carl",[NSNumber numberWithInt:24],[NSNumber numberWithInt:24],@"男",@"男",@"男"]];
 }
 
 -(void)initializationDeviceWithUUID:(NSString *)uuid
@@ -271,12 +274,8 @@
     [self.view addSubview:userPhoto];
     
     [tapGesture release];
-<<<<<<< HEAD
-    [userPhoto release];
-    scopeImage = [[UIImageView alloc]initWithFrame:CGRectMake(userPhoto.frame.origin.x+userPhoto.frame.size.width+30, userPhoto.frame.origin.y+10, size.width, size.height)];
-=======
+
     scopeImage = [[UIImageView alloc]initWithFrame:CGRectMake(photoBackground.frame.origin.x+photoBackground.frame.size.width+30, photoBackground.frame.origin.y+10, size.width, size.height)];
->>>>>>> new-ui-module
     [scopeImage setContentMode:UIViewContentModeScaleAspectFit];
     [scopeImage setBackgroundColor:[UIColor clearColor]];
     [scopeImage setImage:[UIImage imageNamed:@"Settings_Icon_Scope"]];
@@ -378,67 +377,90 @@
                 break;
             }
         }
+        NSString * str = nil;
         switch (btn.tag) {
             case DistanceTag:
+                
                 if (i == 0) {
-                    NSLog(@"Distance Order: %d",DistanceNear);
-                  
+                    str = DistanceNear;
+                    NSLog(@"Distance Order: %@",DistanceNear);
+                   
                 }else if(i == 1)
                 {
-                    NSLog(@"Distance Order: %d",DistanceMid);
+                    str = DistanceMid;
+                    NSLog(@"Distance Order: %@",DistanceMid);
                 }else if(i == 2)
                 {
-                    NSLog(@"Distance Order: %d",DistanceFar);
+                    str = DistanceFar;
+                    NSLog(@"Distance Order: %@",DistanceFar);
                 }
+                 [sqlMng updateKey:DistanceValue value:str withUUID:self.vUUID];
                 break;
             case AlertMusicTag:
                 break;
             case AlertTimeTag:
                 if (i == 0) {
-                    NSLog(@"Alert Time Order: %d",AlertTime10);
+                    str = AlertTime10;
+                    NSLog(@"Alert Time Order: %@",AlertTime10);
                 }else if(i == 1)
                 {
-                   NSLog(@"Alert Time Order: %d",AlertTime20);
+                    str = AlertTime20;
+                   NSLog(@"Alert Time Order: %@",AlertTime20);
                 }else if(i == 2)
                 {
-                   NSLog(@"Alert Time Order: %d",AlertTime30);
+                    str = AlertTime30;
+                   NSLog(@"Alert Time Order: %@",AlertTime30);
                 }
+                [sqlMng updateKey:AlertTime value:str withUUID:self.vUUID];
                 break;
             case PhoneModeTag:
                 if (i == 0) {
+                    str = PhoneModeStopAlert;
                     NSLog(@"PhoneMode Order: %@",PhoneModeStopAlert);
                 }else if(i == 1)
                 {
+                    str = PhoneModeVibrate;
                     NSLog(@"PhoneMode Order: %@",PhoneModeVibrate);
                 }else if(i == 2)
                 {
+                    str = PhoneModeVibrateAndSound;
                     NSLog(@"PhoneMode Order: %@",PhoneModeVibrateAndSound);
                 }
+                [sqlMng updateKey:PhoneMode value:str withUUID:self.vUUID];
                 break;
             case DeviceModeTag:
                 if (i == 0) {
+                    str = DeviceModeStopAlert;
                     NSLog(@"DeviceMode Order: %@",DeviceModeStopAlert);
                 }else if(i == 1)
                 {
+                    str = DeviceModeLight;
                     NSLog(@"DeviceMode Order: %@",DeviceModeLight);
                 }else if(i == 2)
                 {
+                    str = DeviceModeSound;
                     NSLog(@"DeviceMode Order: %@",DeviceModeSound);
                 }else if (i == 3)
                 {
+                    str = DeviceModeLightSound;
                     NSLog(@"DeviceMode Order: %@",DeviceModeLightSound);
                 }
+                [sqlMng updateKey:DeviceMode value:str withUUID:self.vUUID];
                 break;
             case ModeTag:
                 if (i == 0) {
+                    str = ModeMutualAlertStop;
                     NSLog(@"Mode Order: %@",ModeMutualAlertStop);
                 }else if(i == 1)
                 {
+                    str = ModePhoneAlertStop;
                     NSLog(@"Mode Order: %@",ModePhoneAlertStop);
                 }else if(i == 2)
                 {
+                    str = ModeDeviceAlertStop;
                     NSLog(@"Mode Order: %@",ModeDeviceAlertStop);
                 }
+                [sqlMng updateKey:BluetoothMode value:str withUUID:self.vUUID];
                 break;
             default:
                 break;

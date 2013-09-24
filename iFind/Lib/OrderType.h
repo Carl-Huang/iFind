@@ -18,13 +18,13 @@
 #define ModeTag         1006
 
 //定义命令宏
-#define DistanceNear    80
-#define DistanceMid     90
-#define DistanceFar     100
+#define DistanceNear    @"80"
+#define DistanceMid     @"90"
+#define DistanceFar     @"100"
 
-#define AlertTime10     10
-#define AlertTime20     20
-#define AlertTime30     30
+#define AlertTime10     @"10"
+#define AlertTime20     @"20"
+#define AlertTime30     @"30"
 #define PhoneModeStopAlert          @"p1"
 #define PhoneModeVibrate            @"p2"
 #define PhoneModeVibrateAndSound    @"p3"
@@ -38,14 +38,14 @@
 #define ModeDeviceAlertStop         @"b2"
 #define ModePhoneAlertStop          @"b3"
 
-#define DeviceName                  @"DeviceName"
-#define UUIDStr                     @"UUID"
-#define ImageName                   @"ImageName"
-#define DistanceValue               @"DistanceValue"
-#define AlertMusic                  @"AlertMusic"
-#define AlertTime                   @"AlertTime"
-#define PhoneMode                   @"PhoneMode"
-#define DeviceMode                  @"DeviceMode"
-#define BluetoothMode               @"BluetoothMode"
+#define DeviceName                  @"name"
+#define UUIDStr                     @"uuid"
+#define ImageName                   @"image"
+#define DistanceValue               @"alertDistance"
+#define AlertMusic                  @"alertMusic"
+#define AlertTime                   @"alertTime"
+#define PhoneMode                   @"phoneMode"
+#define DeviceMode                  @"deviceMode"
+#define BluetoothMode               @"blueMode"
 
 #endif

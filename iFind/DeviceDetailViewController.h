@@ -31,6 +31,8 @@ typedef void (^DidSelectTableviewRowCongigureBlock) (id item);
     FPPopoverController *popover;
 }
 
+
+@property (retain ,nonatomic)NSString *vUUID;
 //数据库操作
 @property (retain ,nonatomic)SQLManager *sqlMng;
 
