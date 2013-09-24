@@ -24,7 +24,6 @@ typedef void (^DidSelectTableviewRowCongigureBlock) (id item);
 @class FPPopoverController;
 @class PhotoManager;
 @class SQLManager;
-
 @interface DeviceDetailViewController : UIViewController
 {
     PopUpTableViewController *popUpTableviewController;
