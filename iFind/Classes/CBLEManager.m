@@ -8,6 +8,7 @@
 
 #import "CBLEManager.h"
 #import "CUtilsFunc.h"
+#import "Constants.h"
 @implementation CBLEManager
 
 #pragma mark - Class Methods
@@ -51,7 +52,7 @@
 
 -(void)startScan
 {
-    [self startScan:nil];
+    [self startScan:@[Service_Immediate_Alert]];
 }
 
 

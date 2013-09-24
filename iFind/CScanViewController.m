@@ -134,6 +134,20 @@
         if([sender isKindOfClass:[CBLEButton class]])
         {
             NSLog(@"CBLEButton");
+            CBLEButton * bleButton = (CBLEButton *)sender;
+            int index = bleButton.tag - 1;
+            CBLEPeriphral * blePeriphral = [[[CBLEManager sharedManager] foundPeripherals] objectAtIndex:index];
+            if(![blePeriphral.peripheral isConnected])
+            {
+                [[CBLEManager sharedManager] connectToPeripheral:blePeriphral.peripheral];
+            }
+            else
+            {
+                DeviceDetailViewController * detailViewController = [[DeviceDetailViewController alloc] initWithNibName:nil bundle:nil];
+                [detailViewController initializationDefaultValue:nil];
+                [self.navigationController pushViewController:detailViewController animated:YES];
+                [detailViewController release];
+            }
         }
     };
     [self.view addSubview:bleButton_1];
