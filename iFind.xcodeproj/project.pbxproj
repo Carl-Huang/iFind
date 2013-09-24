@@ -103,6 +103,7 @@
 		C3840BB817EAA6BE0049FDE5 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3840BB717EAA6BE0049FDE5 /* CoreBluetooth.framework */; };
 		C3840BBC17EABCA40049FDE5 /* CBLEPeriphral.m in Sources */ = {isa = PBXBuildFile; fileRef = C3840BBB17EABCA40049FDE5 /* CBLEPeriphral.m */; };
 		C3840BBF17EAE8580049FDE5 /* CUtilsFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = C3840BBE17EAE8580049FDE5 /* CUtilsFunc.m */; };
+		C385AEFA17F13DE6001DBCF0 /* CDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C385AEF917F13DE6001DBCF0 /* CDataSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -232,6 +233,8 @@
 		C3840BBB17EABCA40049FDE5 /* CBLEPeriphral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBLEPeriphral.m; sourceTree = "<group>"; };
 		C3840BBD17EAE8580049FDE5 /* CUtilsFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUtilsFunc.h; sourceTree = "<group>"; };
 		C3840BBE17EAE8580049FDE5 /* CUtilsFunc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUtilsFunc.m; sourceTree = "<group>"; };
+		C385AEF817F13DE6001DBCF0 /* CDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataSource.h; sourceTree = "<group>"; };
+		C385AEF917F13DE6001DBCF0 /* CDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataSource.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -458,6 +461,8 @@
 		C3840BB317E9D8AB0049FDE5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C385AEF817F13DE6001DBCF0 /* CDataSource.h */,
+				C385AEF917F13DE6001DBCF0 /* CDataSource.m */,
 				4E040DC417F0748900C1E6A3 /* SQLManager.h */,
 				4E040DC517F0748900C1E6A3 /* SQLManager.m */,
 				C3437EC217EED99D00C67F2C /* AlarmPlayer.h */,
@@ -631,6 +636,7 @@
 				4E040DBE17F053DB00C1E6A3 /* FMResultSet.m in Sources */,
 				4E040DC617F0748900C1E6A3 /* SQLManager.m in Sources */,
 				4E040DC917F0822C00C1E6A3 /* SBTableAlert.m in Sources */,
+				C385AEFA17F13DE6001DBCF0 /* CDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -697,7 +703,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Xtreme Programming Group, Inc.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Xtreme Programming Group, Inc.";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -705,6 +712,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "C32EBE52-640A-4B6F-B51C-E84A9888D894";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C32EBE52-640A-4B6F-B51C-E84A9888D894";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -725,11 +734,15 @@
 		C3840BAD17E9D1E60049FDE5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Xtreme Programming Group, Inc.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Xtreme Programming Group, Inc.";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iFind/iFind-Prefix.pch";
 				INFOPLIST_FILE = "iFind/iFind-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "C32EBE52-640A-4B6F-B51C-E84A9888D894";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C32EBE52-640A-4B6F-B51C-E84A9888D894";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
