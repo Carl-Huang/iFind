@@ -7,7 +7,7 @@
 //
 #define FontSize 15
 
-#define DistancePre        g     @"提醒距离选择:"
+#define DistancePre             @"提醒距离选择:"
 #define AlertTimePre            @"报警时长:"
 #define AlertMusicePre          @"选择手机提醒音:"
 
