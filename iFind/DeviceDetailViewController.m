@@ -24,6 +24,7 @@
 #import "PopUpTableViewController.h"
 #import "OrderType.h"
 #import "SQLManager.h"
+#import "CustomiseActionSheet.h"
 //Utility class
 #import "PhotoManager.h"
 @interface DeviceDetailViewController ()
@@ -90,6 +91,7 @@
        
     //相片处理类
     ConfigureImageBlock block = ^(id item){
+        [userPhoto setFrame:CGRectMake(30, 35, 100, 100)];
         [userPhoto setImage:(UIImage *)item];
     };
     photoManager = [[PhotoManager alloc]initWithBlock:block];
@@ -542,12 +544,28 @@
 -(void)takePhoto
 {
     NSLog(@"take photo action");
-    //拍照
-    [self presentViewController:photoManager.camera animated:YES completion:nil];
-    
-    //选取照片
-    [self presentViewController:photoManager.pickingImageView animated:YES completion:nil];
+    CustomiseActionSheet * synActionSheet = [[CustomiseActionSheet alloc] init];
+    synActionSheet.titles = [NSArray arrayWithObjects:@"From Camera", @"From Album",@"Cancel", nil];
+    synActionSheet.destructiveButtonIndex = -1;
+    synActionSheet.cancelButtonIndex = 2;
+    NSUInteger result = [synActionSheet showInView:self.view];
+    if (result==0) {
+        //拍照
+        NSLog(@"From Camera");
+        [self presentViewController:photoManager.camera animated:YES completion:nil];
+        
+    }else if(result ==1)
+    {
+        //从相册选择
+        NSLog(@"From Album");
+        [self presentViewController:photoManager.pickingImageView animated:YES completion:nil];
+       
+    }else
+    {
+        NSLog(@"Cancel");
+    }
 }
+
 
 #pragma mark - 更新：范围值，信号量值，电量值
 -(void)updateScopeValue:(NSString *)scopeV signalValue:(NSString *)signalV powerVaule:(NSString *)powerV
