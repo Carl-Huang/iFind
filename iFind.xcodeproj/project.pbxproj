@@ -107,8 +107,8 @@
 		C37AE3B717F196B80026ADA2 /* Main_Frame_Bag_N@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37AE3AF17F196A10026ADA2 /* Main_Frame_Bag_N@2x.png */; };
 		C37AE3B817F196B80026ADA2 /* Main_Frame_Key_H@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37AE3B017F196A40026ADA2 /* Main_Frame_Key_H@2x.png */; };
 		C37AE3B917F196B80026ADA2 /* Main_Frame_Key_N@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37AE3B117F196A70026ADA2 /* Main_Frame_Key_N@2x.png */; };
-		C37AE3BA17F196B80026ADA2 /* Main_Frame_Kid_H@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37AE3B217F196A90026ADA2 /* Main_Frame_Kid_H@2x.png */; };
-		C37AE3BB17F196B80026ADA2 /* Main_Frame_Kid_N@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37AE3B317F196AB0026ADA2 /* Main_Frame_Kid_N@2x.png */; };
+		C37AE3BA17F196B80026ADA2 /* Main_Frame_Kid_N@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37AE3B217F196A90026ADA2 /* Main_Frame_Kid_N@2x.png */; };
+		C37AE3BB17F196B80026ADA2 /* Main_Frame_Kid_H@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37AE3B317F196AB0026ADA2 /* Main_Frame_Kid_H@2x.png */; };
 		C37AE3BC17F196B80026ADA2 /* Main_Frame_Wallet_H@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37AE3B417F196B10026ADA2 /* Main_Frame_Wallet_H@2x.png */; };
 		C37AE3BD17F196B80026ADA2 /* Main_Frame_Wallet_N@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37AE3B517F196B50026ADA2 /* Main_Frame_Wallet_N@2x.png */; };
 		C37C5DDE17EBF30E00FCE5AE /* CRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37C5DDD17EBF30E00FCE5AE /* CRootViewController.m */; };
@@ -253,8 +253,8 @@
 		C37AE3AF17F196A10026ADA2 /* Main_Frame_Bag_N@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Frame_Bag_N@2x.png"; sourceTree = "<group>"; };
 		C37AE3B017F196A40026ADA2 /* Main_Frame_Key_H@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Frame_Key_H@2x.png"; sourceTree = "<group>"; };
 		C37AE3B117F196A70026ADA2 /* Main_Frame_Key_N@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Frame_Key_N@2x.png"; sourceTree = "<group>"; };
-		C37AE3B217F196A90026ADA2 /* Main_Frame_Kid_H@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Frame_Kid_H@2x.png"; sourceTree = "<group>"; };
-		C37AE3B317F196AB0026ADA2 /* Main_Frame_Kid_N@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Frame_Kid_N@2x.png"; sourceTree = "<group>"; };
+		C37AE3B217F196A90026ADA2 /* Main_Frame_Kid_N@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Frame_Kid_N@2x.png"; sourceTree = "<group>"; };
+		C37AE3B317F196AB0026ADA2 /* Main_Frame_Kid_H@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Frame_Kid_H@2x.png"; sourceTree = "<group>"; };
 		C37AE3B417F196B10026ADA2 /* Main_Frame_Wallet_H@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Frame_Wallet_H@2x.png"; sourceTree = "<group>"; };
 		C37AE3B517F196B50026ADA2 /* Main_Frame_Wallet_N@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Frame_Wallet_N@2x.png"; sourceTree = "<group>"; };
 		C37C5DDC17EBF30E00FCE5AE /* CRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRootViewController.h; sourceTree = "<group>"; };
@@ -507,8 +507,8 @@
 				C37AE3AF17F196A10026ADA2 /* Main_Frame_Bag_N@2x.png */,
 				C37AE3B017F196A40026ADA2 /* Main_Frame_Key_H@2x.png */,
 				C37AE3B117F196A70026ADA2 /* Main_Frame_Key_N@2x.png */,
-				C37AE3B217F196A90026ADA2 /* Main_Frame_Kid_H@2x.png */,
-				C37AE3B317F196AB0026ADA2 /* Main_Frame_Kid_N@2x.png */,
+				C37AE3B217F196A90026ADA2 /* Main_Frame_Kid_N@2x.png */,
+				C37AE3B317F196AB0026ADA2 /* Main_Frame_Kid_H@2x.png */,
 				C37AE3B417F196B10026ADA2 /* Main_Frame_Wallet_H@2x.png */,
 				C37AE3B517F196B50026ADA2 /* Main_Frame_Wallet_N@2x.png */,
 				4E0F315617EF3CE1006FC754 /* Main_Bg@2x.png */,
@@ -713,8 +713,8 @@
 				C37AE3B717F196B80026ADA2 /* Main_Frame_Bag_N@2x.png in Resources */,
 				C37AE3B817F196B80026ADA2 /* Main_Frame_Key_H@2x.png in Resources */,
 				C37AE3B917F196B80026ADA2 /* Main_Frame_Key_N@2x.png in Resources */,
-				C37AE3BA17F196B80026ADA2 /* Main_Frame_Kid_H@2x.png in Resources */,
-				C37AE3BB17F196B80026ADA2 /* Main_Frame_Kid_N@2x.png in Resources */,
+				C37AE3BA17F196B80026ADA2 /* Main_Frame_Kid_N@2x.png in Resources */,
+				C37AE3BB17F196B80026ADA2 /* Main_Frame_Kid_H@2x.png in Resources */,
 				C37AE3BC17F196B80026ADA2 /* Main_Frame_Wallet_H@2x.png in Resources */,
 				C37AE3BD17F196B80026ADA2 /* Main_Frame_Wallet_N@2x.png in Resources */,
 			);
@@ -862,8 +862,8 @@
 				INFOPLIST_FILE = "iFind/iFind-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "C32EBE52-640A-4B6F-B51C-E84A9888D894";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C32EBE52-640A-4B6F-B51C-E84A9888D894";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
