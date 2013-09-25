@@ -157,23 +157,57 @@
         defaultMode             = DefaultMode;
         defaultName             = nil;
         defaultImage            = nil;
-//        [sqlMng insertValueToExistedTableWithArguments:@[self.vUUID,@"carl",@"carl",@"carl",[NSNumber numberWithInt:24],[NSNumber numberWithInt:24],@"男",@"男",@"男"]];
+
     }else
     {
-        defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:[deviceInfo objectForKey:AlertMusic]];;
-        defaultDistanceValue    = [defaultDistanceValue stringByAppendingString:[deviceInfo objectForKey:DistanceValue]];
-        defaultAlertTime        = [defaultAlertTime stringByAppendingString:[deviceInfo objectForKey:AlertTime]];
+        defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:[deviceInfo objectForKey:AlertMusic]];
+        defaultDistanceValue    = [deviceInfo objectForKey:DistanceValue];
+        if ([defaultDistanceValue isEqualToString:@"80"]) {
+            defaultDistanceValue = @"近";
+        }else if ([defaultDistanceValue isEqualToString:@"90"])
+        {
+            defaultDistanceValue = @"中";
+        }else
+        {
+            defaultDistanceValue = @"远";
+        }
+        defaultDistanceValue = [DistancePre stringByAppendingString:defaultDistanceValue];
+
+        defaultAlertTime  = [deviceInfo objectForKey:AlertTime];
+        if ([defaultAlertTime isEqualToString:@"10"]) {
+            defaultAlertTime = @"10秒";
+        }else if ([defaultAlertTime isEqualToString:@"20"])
+        {
+            defaultAlertTime = @"20秒";
+        }else
+        {
+            defaultAlertTime = @"30秒";
+        }
+        defaultAlertTime = [AlertTimePre stringByAppendingString:defaultAlertTime ];
+        
         defaultPhoneAlertMode   = [deviceInfo objectForKey:PhoneMode];
+        if ([defaultPhoneAlertMode isEqualToString:@"p1"]) {
+            defaultPhoneAlertMode = @"关闭手机提醒";
+        }else if ([defaultPhoneAlertMode isEqualToString:@"p2"])
+        {
+            defaultPhoneAlertMode = @"手机震动提醒";
+        }else
+        {
+            defaultPhoneAlertMode = @"手机震动声光提醒";
+        }
         
         defaultDeviceAlertMOde  = [deviceInfo objectForKey:DeviceMode];
         if ([defaultDeviceAlertMOde isEqualToString:@"d1"]) {
-            defaultDeviceAlertMOde = @"自动关闭双向警报";
+            defaultDeviceAlertMOde = @"关闭blueberry提醒";
         }else if ([defaultDeviceAlertMOde isEqualToString:@"d2"])
         {
-            defaultDeviceAlertMOde = @"自动关闭blueberry报警";
+            defaultDeviceAlertMOde = @"发光提醒";
+        }else if([defaultDeviceAlertMOde isEqualToString:@"d3"])
+        {
+            defaultDeviceAlertMOde = @"声音提醒";
         }else
         {
-            defaultDeviceAlertMOde = @"自动关闭手机报警";
+            defaultDeviceAlertMOde = @"声光提醒";
         }
         
         defaultMode  = [deviceInfo objectForKey:BluetoothMode];

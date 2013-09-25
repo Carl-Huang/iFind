@@ -10,7 +10,7 @@
 #import <CoreMedia/CoreMedia.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AVFoundation/AVFoundation.h>
-typedef void(^ConfigureImageBlock) (id item);
+typedef void(^ConfigureImageBlock) (id item,id name);
 @interface PhotoManager : NSObject<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     NSInteger qualityNum;

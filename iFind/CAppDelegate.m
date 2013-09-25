@@ -13,7 +13,7 @@
 
 #import "ViewController.h"
 #import "DeviceDetailViewController.h"
-#define TestDeviceDetailViewcontroller
+//#define TestDeviceDetailViewcontroller
 //#define TestCRootViewController
 @implementation CAppDelegate
 
