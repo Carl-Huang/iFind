@@ -24,6 +24,7 @@
 #import "PopUpTableViewController.h"
 #import "OrderType.h"
 #import "SQLManager.h"
+#import "CustomiseActionSheet.h"
 //Utility class
 #import "PhotoManager.h"
 @interface DeviceDetailViewController ()
@@ -47,7 +48,7 @@
 @synthesize scopeLabel,wifiLabel,devPowerLabel;
 @synthesize vUUID;
 @synthesize sqlMng;
-
+@synthesize imageDiskPath;
 -(void)loadView
 {
     [super loadView];
@@ -85,13 +86,17 @@
 {
   
     [super viewDidLoad];
-    [self initializationInterface];
+    [self initDirectory];
     
        
     //相片处理类
-    ConfigureImageBlock block = ^(id item){
+    ConfigureImageBlock block = ^(id item,id name){
+        [userPhoto setFrame:CGRectMake(30, 35, 100, 100)];
         [userPhoto setImage:(UIImage *)item];
+        //图片名写入数据库
+        [sqlMng updateKey:ImageName value:name withUUID:self.vUUID];
     };
+    [self initializationInterface];
     photoManager = [[PhotoManager alloc]initWithBlock:block];
 
 }
@@ -129,6 +134,11 @@
 
 -(void)initializationDeviceWithUUID:(NSString *)uuid
 {
+    //数据库处理类
+    sqlMng  = [[SQLManager alloc]initDataBase];
+    [sqlMng createTable];
+    self.vUUID = uuid;
+    
     defaultAlertMusic       = AlertMusicePre;
     defaultDistanceValue    = DistancePre;
     defaultAlertTime        = AlertTimePre;
@@ -147,18 +157,72 @@
         defaultMode             = DefaultMode;
         defaultName             = nil;
         defaultImage            = nil;
+
     }else
     {
-        defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:[deviceInfo objectForKey:AlertMusic]];;
-        defaultDistanceValue    = [defaultDistanceValue stringByAppendingString:[deviceInfo objectForKey:DistanceValue]];
+        defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:[deviceInfo objectForKey:AlertMusic]];
+        defaultDistanceValue    = [deviceInfo objectForKey:DistanceValue];
+        if ([defaultDistanceValue isEqualToString:@"80"]) {
+            defaultDistanceValue = @"近";
+        }else if ([defaultDistanceValue isEqualToString:@"90"])
+        {
+            defaultDistanceValue = @"中";
+        }else
+        {
+            defaultDistanceValue = @"远";
+        }
+        defaultDistanceValue = [DistancePre stringByAppendingString:defaultDistanceValue];
 
-        defaultAlertTime        = [defaultAlertTime stringByAppendingString:[deviceInfo objectForKey:AlertTime]];
+        defaultAlertTime  = [deviceInfo objectForKey:AlertTime];
+        if ([defaultAlertTime isEqualToString:@"10"]) {
+            defaultAlertTime = @"10秒";
+        }else if ([defaultAlertTime isEqualToString:@"20"])
+        {
+            defaultAlertTime = @"20秒";
+        }else
+        {
+            defaultAlertTime = @"30秒";
+        }
+        defaultAlertTime = [AlertTimePre stringByAppendingString:defaultAlertTime ];
+        
         defaultPhoneAlertMode   = [deviceInfo objectForKey:PhoneMode];
+        if ([defaultPhoneAlertMode isEqualToString:@"p1"]) {
+            defaultPhoneAlertMode = @"关闭手机提醒";
+        }else if ([defaultPhoneAlertMode isEqualToString:@"p2"])
+        {
+            defaultPhoneAlertMode = @"手机震动提醒";
+        }else
+        {
+            defaultPhoneAlertMode = @"手机震动声光提醒";
+        }
+        
         defaultDeviceAlertMOde  = [deviceInfo objectForKey:DeviceMode];
-        defaultMode             = [deviceInfo objectForKey:BluetoothMode];
+        if ([defaultDeviceAlertMOde isEqualToString:@"d1"]) {
+            defaultDeviceAlertMOde = @"关闭blueberry提醒";
+        }else if ([defaultDeviceAlertMOde isEqualToString:@"d2"])
+        {
+            defaultDeviceAlertMOde = @"发光提醒";
+        }else if([defaultDeviceAlertMOde isEqualToString:@"d3"])
+        {
+            defaultDeviceAlertMOde = @"声音提醒";
+        }else
+        {
+            defaultDeviceAlertMOde = @"声光提醒";
+        }
+        
+        defaultMode  = [deviceInfo objectForKey:BluetoothMode];
+        if ([defaultMode isEqualToString:@"b1"]) {
+            defaultMode = @"自动关闭双向警报";
+        }else if ([defaultMode isEqualToString:@"b2"])
+        {
+            defaultMode = @"自动关闭blueberry报警";
+        }else
+        {
+            defaultMode = @"自动关闭手机报警";
+        }
         defaultName             = [deviceInfo objectForKey:DeviceName];
         defaultImage            = [deviceInfo objectForKey:ImageName];
-        [self updateScopeValue:nil signalValue:nil powerVaule:nil];
+        [self updateScopeValue:@"" signalValue:@"" powerVaule:@""];
     }
 }
 
@@ -259,10 +323,23 @@
     
     //是否在范围内，信号量，蓝牙电量
     CGSize size = CGSizeMake(20, 20);
-    CGRect rect2 = CGRectMake(50, 50, 60, 60);
-    userPhoto = [[UIImageView alloc]initWithFrame:rect2];
+    CGRect rectD1 = CGRectMake(50, 50, 60, 60);
+    CGRect rectD2 = CGRectMake(30, 35, 100, 100);
+    userPhoto = [[UIImageView alloc]init];
     userPhoto.backgroundColor = [UIColor clearColor];
-    [userPhoto setImage:[UIImage imageNamed:@"Main_Icon_Wallet_H"]];
+    UIImage * userImage =nil;
+    if (defaultImage) {
+        [userPhoto setFrame:rectD2];
+        NSString * userPhotoPath = [[NSString alloc]initWithFormat:@"%@/%@",imageDiskPath,defaultImage];
+        NSData *data = [[NSData alloc]initWithContentsOfFile:userPhotoPath];
+        userImage = [[[UIImage alloc]initWithData:data]autorelease];
+        [data release];
+    }else
+    {
+        [userPhoto setFrame:rectD1];
+        userImage = [UIImage imageNamed:@"Main_Icon_Wallet_H"];
+    }
+    [userPhoto setImage:userImage];
     userPhoto.userInteractionEnabled = YES;
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(takePhoto)];
     [userPhoto addGestureRecognizer:tapGesture];
@@ -453,12 +530,12 @@
                     NSLog(@"Mode Order: %@",ModeMutualAlertStop);
                 }else if(i == 1)
                 {
-                    str = ModePhoneAlertStop;
-                    NSLog(@"Mode Order: %@",ModePhoneAlertStop);
-                }else if(i == 2)
-                {
                     str = ModeDeviceAlertStop;
                     NSLog(@"Mode Order: %@",ModeDeviceAlertStop);
+                }else if(i == 2)
+                {
+                    str = ModePhoneAlertStop;
+                    NSLog(@"Mode Order: %@",ModePhoneAlertStop);
                 }
                 [sqlMng updateKey:BluetoothMode value:str withUUID:self.vUUID];
                 break;
@@ -542,12 +619,28 @@
 -(void)takePhoto
 {
     NSLog(@"take photo action");
-    //拍照
-    [self presentViewController:photoManager.camera animated:YES completion:nil];
-    
-    //选取照片
-    [self presentViewController:photoManager.pickingImageView animated:YES completion:nil];
+    CustomiseActionSheet * synActionSheet = [[CustomiseActionSheet alloc] init];
+    synActionSheet.titles = [NSArray arrayWithObjects:@"From Camera", @"From Album",@"Cancel", nil];
+    synActionSheet.destructiveButtonIndex = -1;
+    synActionSheet.cancelButtonIndex = 2;
+    NSUInteger result = [synActionSheet showInView:self.view];
+    if (result==0) {
+        //拍照
+        NSLog(@"From Camera");
+        [self presentViewController:photoManager.camera animated:YES completion:nil];
+        
+    }else if(result ==1)
+    {
+        //从相册选择
+        NSLog(@"From Album");
+        [self presentViewController:photoManager.pickingImageView animated:YES completion:nil];
+       
+    }else
+    {
+        NSLog(@"Cancel");
+    }
 }
+
 
 #pragma mark - 更新：范围值，信号量值，电量值
 -(void)updateScopeValue:(NSString *)scopeV signalValue:(NSString *)signalV powerVaule:(NSString *)powerV
@@ -562,6 +655,26 @@
 }
 
 #pragma mark - Public method
+-(void)initDirectory
+{
+    NSFileManager * defaultManager = [NSFileManager defaultManager];
+    NSString * path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
+    NSString *fileDirectory = [path stringByAppendingPathComponent:@"PicFolder"];
+    
+    if (![defaultManager fileExistsAtPath:fileDirectory]) {
+        [defaultManager createDirectoryAtPath:fileDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+    }else
+    {
+        NSLog(@"Directory already exists");
+    }
+    if (imageDiskPath ) {
+        [imageDiskPath release];
+        imageDiskPath = nil;
+    }
+    imageDiskPath = [[fileDirectory stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]retain];
+}
+
+
 -(void)backTo
 {
     [self.navigationController popViewControllerAnimated:YES];

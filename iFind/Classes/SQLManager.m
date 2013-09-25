@@ -78,6 +78,7 @@
 //查询记录
 -(NSDictionary *)queryDatabaseWithUUID:(NSString *)uuid
 {
+    NSLog(@"%s",__func__);
     NSMutableDictionary * deviceInfoDic = [NSMutableDictionary dictionary];
     FMResultSet *rs = [db executeQuery:@"select * from iFindTable where uuid=?",uuid];
     while ([rs next]) {
