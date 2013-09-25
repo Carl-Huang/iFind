@@ -48,7 +48,7 @@
 @synthesize scopeLabel,wifiLabel,devPowerLabel;
 @synthesize vUUID;
 @synthesize sqlMng;
-
+@synthesize imageDiskPath;
 -(void)loadView
 {
     [super loadView];
@@ -86,14 +86,17 @@
 {
   
     [super viewDidLoad];
-    [self initializationInterface];
+    [self initDirectory];
     
        
     //相片处理类
-    ConfigureImageBlock block = ^(id item){
+    ConfigureImageBlock block = ^(id item,id name){
         [userPhoto setFrame:CGRectMake(30, 35, 100, 100)];
         [userPhoto setImage:(UIImage *)item];
+        //图片名写入数据库
+        [sqlMng updateKey:ImageName value:name withUUID:self.vUUID];
     };
+    [self initializationInterface];
     photoManager = [[PhotoManager alloc]initWithBlock:block];
 
 }
@@ -131,6 +134,11 @@
 
 -(void)initializationDeviceWithUUID:(NSString *)uuid
 {
+    //数据库处理类
+    sqlMng  = [[SQLManager alloc]initDataBase];
+    [sqlMng createTable];
+    self.vUUID = uuid;
+    
     defaultAlertMusic       = AlertMusicePre;
     defaultDistanceValue    = DistancePre;
     defaultAlertTime        = AlertTimePre;
@@ -149,18 +157,38 @@
         defaultMode             = DefaultMode;
         defaultName             = nil;
         defaultImage            = nil;
+//        [sqlMng insertValueToExistedTableWithArguments:@[self.vUUID,@"carl",@"carl",@"carl",[NSNumber numberWithInt:24],[NSNumber numberWithInt:24],@"男",@"男",@"男"]];
     }else
     {
         defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:[deviceInfo objectForKey:AlertMusic]];;
         defaultDistanceValue    = [defaultDistanceValue stringByAppendingString:[deviceInfo objectForKey:DistanceValue]];
-
         defaultAlertTime        = [defaultAlertTime stringByAppendingString:[deviceInfo objectForKey:AlertTime]];
         defaultPhoneAlertMode   = [deviceInfo objectForKey:PhoneMode];
+        
         defaultDeviceAlertMOde  = [deviceInfo objectForKey:DeviceMode];
-        defaultMode             = [deviceInfo objectForKey:BluetoothMode];
+        if ([defaultDeviceAlertMOde isEqualToString:@"d1"]) {
+            defaultDeviceAlertMOde = @"自动关闭双向警报";
+        }else if ([defaultDeviceAlertMOde isEqualToString:@"d2"])
+        {
+            defaultDeviceAlertMOde = @"自动关闭blueberry报警";
+        }else
+        {
+            defaultDeviceAlertMOde = @"自动关闭手机报警";
+        }
+        
+        defaultMode  = [deviceInfo objectForKey:BluetoothMode];
+        if ([defaultMode isEqualToString:@"b1"]) {
+            defaultMode = @"自动关闭双向警报";
+        }else if ([defaultMode isEqualToString:@"b2"])
+        {
+            defaultMode = @"自动关闭blueberry报警";
+        }else
+        {
+            defaultMode = @"自动关闭手机报警";
+        }
         defaultName             = [deviceInfo objectForKey:DeviceName];
         defaultImage            = [deviceInfo objectForKey:ImageName];
-        [self updateScopeValue:nil signalValue:nil powerVaule:nil];
+        [self updateScopeValue:@"" signalValue:@"" powerVaule:@""];
     }
 }
 
@@ -261,10 +289,23 @@
     
     //是否在范围内，信号量，蓝牙电量
     CGSize size = CGSizeMake(20, 20);
-    CGRect rect2 = CGRectMake(50, 50, 60, 60);
-    userPhoto = [[UIImageView alloc]initWithFrame:rect2];
+    CGRect rectD1 = CGRectMake(50, 50, 60, 60);
+    CGRect rectD2 = CGRectMake(30, 35, 100, 100);
+    userPhoto = [[UIImageView alloc]init];
     userPhoto.backgroundColor = [UIColor clearColor];
-    [userPhoto setImage:[UIImage imageNamed:@"Main_Icon_Wallet_H"]];
+    UIImage * userImage =nil;
+    if (defaultImage) {
+        [userPhoto setFrame:rectD2];
+        NSString * userPhotoPath = [[NSString alloc]initWithFormat:@"%@/%@",imageDiskPath,defaultImage];
+        NSData *data = [[NSData alloc]initWithContentsOfFile:userPhotoPath];
+        userImage = [[[UIImage alloc]initWithData:data]autorelease];
+        [data release];
+    }else
+    {
+        [userPhoto setFrame:rectD1];
+        userImage = [UIImage imageNamed:@"Main_Icon_Wallet_H"];
+    }
+    [userPhoto setImage:userImage];
     userPhoto.userInteractionEnabled = YES;
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(takePhoto)];
     [userPhoto addGestureRecognizer:tapGesture];
@@ -455,12 +496,12 @@
                     NSLog(@"Mode Order: %@",ModeMutualAlertStop);
                 }else if(i == 1)
                 {
-                    str = ModePhoneAlertStop;
-                    NSLog(@"Mode Order: %@",ModePhoneAlertStop);
-                }else if(i == 2)
-                {
                     str = ModeDeviceAlertStop;
                     NSLog(@"Mode Order: %@",ModeDeviceAlertStop);
+                }else if(i == 2)
+                {
+                    str = ModePhoneAlertStop;
+                    NSLog(@"Mode Order: %@",ModePhoneAlertStop);
                 }
                 [sqlMng updateKey:BluetoothMode value:str withUUID:self.vUUID];
                 break;
@@ -580,6 +621,26 @@
 }
 
 #pragma mark - Public method
+-(void)initDirectory
+{
+    NSFileManager * defaultManager = [NSFileManager defaultManager];
+    NSString * path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
+    NSString *fileDirectory = [path stringByAppendingPathComponent:@"PicFolder"];
+    
+    if (![defaultManager fileExistsAtPath:fileDirectory]) {
+        [defaultManager createDirectoryAtPath:fileDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+    }else
+    {
+        NSLog(@"Directory already exists");
+    }
+    if (imageDiskPath ) {
+        [imageDiskPath release];
+        imageDiskPath = nil;
+    }
+    imageDiskPath = [[fileDirectory stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]retain];
+}
+
+
 -(void)backTo
 {
     [self.navigationController popViewControllerAnimated:YES];
