@@ -16,4 +16,5 @@
 -(void)updateKey:(NSString *)key value:(NSString *)value withUUID:(NSString *)uuid;
 -(void)deleteDatabaseRowWithUUID:(NSString *)uuid;
 -(NSDictionary *)queryDatabaseWithUUID:(NSString *)uuid;
+-(NSString *)getValue:(NSString *)value ByUUID:(NSString *)uuid;
 @end

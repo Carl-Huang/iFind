@@ -82,17 +82,41 @@
     NSMutableDictionary * deviceInfoDic = [NSMutableDictionary dictionary];
     FMResultSet *rs = [db executeQuery:@"select * from iFindTable where uuid=?",uuid];
     while ([rs next]) {
-        [deviceInfoDic setObject:[rs stringForColumn:@"uuid"]   forKey:UUIDStr];
-        [deviceInfoDic setObject:[rs stringForColumn:@"name"]   forKey:DeviceName];
-        [deviceInfoDic setObject:[rs stringForColumn:@"image"]  forKey:ImageName];
-        [deviceInfoDic setObject:[rs stringForColumn:@"alertDistance"]  forKey:DistanceValue];
-        [deviceInfoDic setObject:[rs stringForColumn:@"alertTime"]   forKey:AlertTime];
-        [deviceInfoDic setObject:[rs stringForColumn:@"alertMusic"]   forKey:AlertMusic];
-        [deviceInfoDic setObject:[rs stringForColumn:@"phoneMode"]   forKey:PhoneMode];
-        [deviceInfoDic setObject:[rs stringForColumn:@"deviceMode"]   forKey:DeviceMode];
-        [deviceInfoDic setObject:[rs stringForColumn:@"blueMode"]   forKey:BluetoothMode];
+//        [deviceInfoDic setObject:[rs stringForColumn:@"uuid"]   forKey:UUIDStr];
+//        [deviceInfoDic setObject:[rs stringForColumn:@"name"]   forKey:DeviceName];
+//        [deviceInfoDic setObject:[rs stringForColumn:@"image"]  forKey:ImageName];
+//        [deviceInfoDic setObject:[rs stringForColumn:@"alertDistance"]  forKey:DistanceValue];
+//        [deviceInfoDic setObject:[rs stringForColumn:@"alertTime"]   forKey:AlertTime];
+//        [deviceInfoDic setObject:[rs stringForColumn:@"alertMusic"]   forKey:AlertMusic];
+//        [deviceInfoDic setObject:[rs stringForColumn:@"phoneMode"]   forKey:PhoneMode];
+//        [deviceInfoDic setObject:[rs stringForColumn:@"deviceMode"]   forKey:DeviceMode];
+//        [deviceInfoDic setObject:[rs stringForColumn:@"blueMode"]   forKey:BluetoothMode];
+        [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"uuid"]   forKey:UUIDStr];
+        [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"name"]   forKey:DeviceName];
+        [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"image"]  forKey:ImageName];
+        [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"alertDistance"] forKey:DistanceValue];
+        [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"alertTime"]  forKey:AlertTime];
+        [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"alertMusic"]   forKey:AlertMusic];
+        [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"phoneMode"]   forKey:PhoneMode];
+        [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"deviceMode"]   forKey:DeviceMode];
+        [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"blueMode"]   forKey:BluetoothMode];
     }
     return deviceInfoDic;
+}
+
+-(NSString *)returnDataObjWith:(FMResultSet *)resultSet keyWord:(NSString *)keyStr
+{
+
+    NSString *tempStr = nil;
+    tempStr = [resultSet stringForColumn:keyStr];
+    if (tempStr) {
+        return tempStr;
+    }else
+    {
+        tempStr = @"NULL";
+        return tempStr;
+    }
+
 }
 //删除行记录
 -(void)deleteDatabaseRowWithUUID:(NSString *)uuid
@@ -103,6 +127,18 @@
     {
         NSLog(@"Failer to update value to table,Error: %@",[db lastError]);
     }
+}
+
+//返回对应uuid 的value 值
+-(NSString *)getValue:(NSString *)value ByUUID:(NSString *)uuid
+{
+    NSString *quertStr = [[NSString alloc]initWithFormat:@"select %@ from iFindTable where uuid=?",value];
+    FMResultSet *rs = [db executeQuery:quertStr,uuid];
+    while ([rs next])
+    {
+        return  [rs stringForColumn:value];
+    }
+    return nil;
 }
 
 //数据库文件路径

@@ -147,11 +147,14 @@
     //返回的是数据库中之前保存过相应的uuid设备的配置信息
     deviceInfo = [sqlMng queryDatabaseWithUUID:uuid];
     
-    if (deviceInfo == nil) {
+    if ([deviceInfo count]==0) {
+        //insert Default value
+        [sqlMng insertValueToExistedTableWithArguments:@[@"Default",@"hello",@"Main_Icon_Wallet_H",DistanceFar,AlertTime30,@"Alchemy",PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop]];
+        self.vUUID = @"Default";
         NSLog(@"Database did not have the record with uuid:%@",uuid);
         defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:@"Alchemy"];
         defaultDistanceValue    = [defaultDistanceValue stringByAppendingString:@"近"];
-        defaultAlertTime        = [defaultAlertTime stringByAppendingString:@"30"];
+        defaultAlertTime        = [defaultAlertTime stringByAppendingString:@"30秒"];
         defaultPhoneAlertMode   = DefaultPhoneAlertMode;
         defaultDeviceAlertMOde  = DefaultDeviceAlertMode;
         defaultMode             = DefaultMode;
@@ -414,7 +417,7 @@
         case PopUpTableViewDataSourceMusic:
             //声音按钮
             popUpTableviewController.title = @"手机提醒音";
-            [popUpTableviewController setDataSource:@[@"Alchemy",@"AudibleAlarm",@"Bird",@"CS",@"Ericsson ring",@"Howl",@"ICQ sms sound",@"Jumping Cat",@"Laughter",@"Sent",@"Siren"]];
+            [popUpTableviewController setDataSource:@[@"Alchemy",@"AudibleAlarm",@"Bird",@"CS",@"Ericsson ring",@"Howl",@"ICQ sms sound",@"Jumping Cat",@"Laughter",@"Sent",@"Siren",@"震动"]];
             descriptionStr = @"选择手机提醒音:";
             break;
         case PopUpTableViewDataSourceTime:
@@ -457,7 +460,6 @@
         NSString * str = nil;
         switch (btn.tag) {
             case DistanceTag:
-                
                 if (i == 0) {
                     str = DistanceNear;
                     NSLog(@"Distance Order: %@",DistanceNear);
@@ -474,6 +476,8 @@
                  [sqlMng updateKey:DistanceValue value:str withUUID:self.vUUID];
                 break;
             case AlertMusicTag:
+                str = [popUpTableviewController.dataSource objectAtIndex:i];
+                [sqlMng updateKey:AlertMusic value:str withUUID:self.vUUID];
                 break;
             case AlertTimeTag:
                 if (i == 0) {
