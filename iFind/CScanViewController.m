@@ -273,7 +273,8 @@
 - (void)showSettingScene:(id)sender
 {
     DeviceDetailViewController * detailViewController = [[DeviceDetailViewController alloc] initWithNibName:nil bundle:nil];
-    [detailViewController initializationDefaultValue:nil];
+    
+    [detailViewController initializationDeviceWithUUID:@"carl"];
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
 }

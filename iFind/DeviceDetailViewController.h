@@ -25,7 +25,7 @@ typedef void (^DidSelectTableviewRowCongigureBlock) (id item);
 @class PhotoManager;
 @class SQLManager;
 
-@interface DeviceDetailViewController : UIViewController
+@interface DeviceDetailViewController : UIViewController<UIActionSheetDelegate>
 {
     PopUpTableViewController *popUpTableviewController;
     FPPopoverController *popover;
@@ -59,6 +59,8 @@ typedef void (^DidSelectTableviewRowCongigureBlock) (id item);
 @property (retain ,nonatomic)UILabel *wifiLabel;
 @property (retain ,nonatomic)UILabel *devPowerLabel;
 
+//图片路径
+@property (retain ,nonatomic)NSString *imageDiskPath;
 
 //数据源类别
 @property (assign ,nonatomic)PopUpTableViewDataSourceType dataSourceType;

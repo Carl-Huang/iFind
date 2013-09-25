@@ -92,7 +92,15 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
 	[picker dismissViewControllerAnimated:YES completion:nil];
-    
+    NSDate* now = [NSDate date];
+    NSDateFormatter* fmt = [[NSDateFormatter alloc] init];
+    fmt.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+    fmt.dateFormat = @"yyyyMMddHHmm";
+    if (saveToDiskFileName) {
+        [saveToDiskFileName release];
+        saveToDiskFileName = nil;
+    }
+    saveToDiskFileName = [[[fmt stringFromDate:now]stringByAppendingPathExtension:@"png"]retain];
     NSLog(@"info = %@",info);
     
 	NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
@@ -114,7 +122,8 @@
 	{
         //获取照片实例
 		UIImage *image = [[info objectForKey:UIImagePickerControllerOriginalImage] retain];
-		self.configureBlock(image);
+        
+		self.configureBlock(image,saveToDiskFileName);
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self saveImage:image];
         });
@@ -162,7 +171,7 @@
 -(void)configureImageBlock:(UIImage *) image
 {
 	NSLog(@"Review Image");
-    self.configureBlock(image);
+    self.configureBlock(image,saveToDiskFileName);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, YES), ^{
             [self saveImage:image];
     });
@@ -176,11 +185,7 @@
     {
         imageData = UIImageJPEGRepresentation(image, 1.0);
     }
-    NSDate* now = [NSDate date];
-    NSDateFormatter* fmt = [[NSDateFormatter alloc] init];
-    fmt.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
-    fmt.dateFormat = @"yyyyMMddHHmm";
-    saveToDiskFileName = [[[fmt stringFromDate:now]stringByAppendingPathExtension:@"png"] retain];
+   
     if ([imageData writeToFile:[saveToDiskPath stringByAppendingPathComponent:saveToDiskFileName] atomically:YES]) {
         NSLog(@"successfully write image to local disk");
     }else
@@ -217,6 +222,5 @@
         [pickingImageView release];
         pickingImageView = nil;
     }
-    [saveToDiskFileName release];
 }
 @end
