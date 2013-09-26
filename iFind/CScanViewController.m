@@ -99,20 +99,14 @@
             [bleButton setUuid:[CUtilsFunc convertCFUUIDIntoString:peripheral.UUID]];
         }
         
-        UIButton * findButton = (UIButton *)[self.view viewWithTag:FIND_BUTTON_TAG];
-        findButton.enabled = YES;
-        UIButton * controlButton = (UIButton *)[self.view viewWithTag:CONTROL_BUTTON_TAG];
-        controlButton.enabled = YES;
+        [self enableButton];
     };
     
     //蓝牙断开连接处理block
     bleManager.disconnectHandler = ^(CBPeripheral * peripheral){
         if([[bleManager connectedPeripherals] count] == 0)
         {
-            UIButton * findButton = (UIButton *)[self.view viewWithTag:FIND_BUTTON_TAG];
-            findButton.enabled = NO;
-            UIButton * controlButton = (UIButton *)[self.view viewWithTag:CONTROL_BUTTON_TAG];
-            controlButton.enabled = NO;
+            [self disableButton];
         }
         for(int i = 1; i <= 4; i++)
         {
@@ -260,19 +254,43 @@
     [setttingButton addTarget:self action:@selector(showSettingScene:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:setttingButton];
     
-    
-    //设置返回按钮
-    UIBarButtonItem * backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings_Btn_Back"] style:UIBarButtonItemStylePlain target:nil action:nil];
-    [self.navigationItem setBackBarButtonItem:backItem];
-    [backItem release];
 }
 
+- (void)disableButton
+{
+    UIButton * findButton = (UIButton *)[self.view viewWithTag:FIND_BUTTON_TAG];
+    findButton.enabled = NO;
+    UIButton * controlButton = (UIButton *)[self.view viewWithTag:CONTROL_BUTTON_TAG];
+    controlButton.enabled = NO;
+}
+
+- (void)enableButton
+{
+    UIButton * findButton = (UIButton *)[self.view viewWithTag:FIND_BUTTON_TAG];
+    findButton.enabled = YES;
+    UIButton * controlButton = (UIButton *)[self.view viewWithTag:CONTROL_BUTTON_TAG];
+    controlButton.enabled = YES;
+}
 
 //响应找按钮的点击事件
 - (void)findPeripheral:(id)sender
 {
+    NSArray * connectedPeripheral = [[CBLEManager sharedManager] connectedPeripherals];
+    if([connectedPeripheral count] == 0)
+    {
+        [self disableButton];
+        return ;
+    }
     
+    if([connectedPeripheral count] == 1)
+    {
+        [connectedPeripheral makeObjectsPerformSelector:@selector(writeAlertLevelHigh)];
+        return ;
+    }
 }
+
+
+
 //响应帮助按钮点击事件
 - (void)showHelpScene:(id)sender
 {

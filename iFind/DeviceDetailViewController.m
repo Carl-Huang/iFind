@@ -62,8 +62,16 @@
     [backgroundImage release];
     self.view.backgroundColor = [UIColor clearColor];
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"Main_TopBar"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationItem setTitle:@"设置"];
+    //设置返回按钮
+    UIImage * backImage = [UIImage imageNamed:@"Settings_Btn_Back"];
+    UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setFrame:CGRectMake(0, 0, backImage.size.width, backImage.size.height)];
+    [backButton addTarget:self action:@selector(backToMainview) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setImage:backImage forState:UIControlStateNormal];
+    UIBarButtonItem * backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = backItem;
+    [backItem release];
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -75,11 +83,28 @@
     return self;
 }
 
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+}
+
 - (void)viewDidLoad
 {
   
     [super viewDidLoad];
+
     [self initDirectory];
+
+    [self initializationInterface];
+    
+    self.title = @"设置";
+    
+    //数据库处理类
+    sqlMng  = [[SQLManager alloc]initDataBase];
+    [sqlMng createTable];
+
     
        
     //相片处理类

@@ -10,7 +10,6 @@
 #import "CRootViewController.h"
 #import "CBLEPeriphral.h"
 #import "CBLEManager.h"
-#import "ViewController.h"
 #import "DeviceDetailViewController.h"
 //#define TestDeviceDetailViewcontroller
 //#define TestCRootViewController
@@ -34,7 +33,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
+    [self customUI];
     _bleManager = [CBLEManager sharedManager];
     
     //监听来电
@@ -58,21 +57,21 @@
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 
-#ifdef TestDeviceDetailViewcontroller
-    DeviceDetailViewController * viewcontroller = [[[DeviceDetailViewController alloc]init]autorelease];
-    [viewcontroller initializationDefaultValue:nil];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:viewcontroller];
-
-    self.window.rootViewController = nav;
-#endif
+//#ifdef TestDeviceDetailViewcontroller
+//    DeviceDetailViewController * viewcontroller = [[[DeviceDetailViewController alloc]init]autorelease];
+//    [viewcontroller initializationDefaultValue:nil];
+//    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:viewcontroller];
+//
+//    self.window.rootViewController = nav;
+//#endif
     
-#ifdef TestCRootViewController
-
-    CRootViewController * rootViewController = [[CRootViewController alloc] initWithNibName:nil bundle:nil];
-    UINavigationController *cnav = [[UINavigationController alloc]initWithRootViewController:rootViewController];    
-    self.window.rootViewController = cnav;
-    [rootViewController release];
-#endif
+//#ifdef TestCRootViewController
+//
+//    CRootViewController * rootViewController = [[CRootViewController alloc] initWithNibName:nil bundle:nil];
+//    UINavigationController *cnav = [[UINavigationController alloc]initWithRootViewController:rootViewController];    
+//    self.window.rootViewController = cnav;
+//    [rootViewController release];
+//#endif
     
     CScanViewController * scanViewController = [[CScanViewController alloc] initWithNibName:nil bundle:nil];
     UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:scanViewController];
@@ -80,7 +79,6 @@
     [self.window setRootViewController:navController];
     [navController release];
     
-    [self customUI];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -166,8 +164,9 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     //设置导航栏的背景颜色
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"Main_TopBar"] forBarMetrics:UIBarMetricsDefault];
-    NSDictionary * textAttribute = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:20],UITextAttributeFont,[UIColor whiteColor],UITextAttributeTextColor,[UIColor grayColor],UITextAttributeTextShadowColor,[NSValue valueWithUIOffset:UIOffsetMake(-1, -1)],UITextAttributeTextShadowOffset,nil];
+    NSDictionary * textAttribute = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:18],UITextAttributeFont,[UIColor whiteColor],UITextAttributeTextColor,[UIColor grayColor],UITextAttributeTextShadowColor,[NSValue valueWithUIOffset:UIOffsetMake(-1, -1)],UITextAttributeTextShadowOffset,nil];
     [[UINavigationBar appearance] setTitleTextAttributes:textAttribute];
+
 }
 
 @end
