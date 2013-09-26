@@ -26,6 +26,7 @@
 #import "SQLManager.h"
 #import "CustomiseActionSheet.h"
 #import "MusicTableViewController.h"
+#import "MusicViewController.h"
 //Utility class
 #import "PhotoManager.h"
 @interface DeviceDetailViewController ()
@@ -43,7 +44,7 @@
 
 @implementation DeviceDetailViewController
 
-@synthesize chooseAlertDistance,chooseAlertMusic,chooseAlertTime,chooseDeviceAlertMode,chooseMode,choosePhoneAlertMode,userPhoto,signalPic,photoBackground;
+@synthesize chooseAlertDistance,chooseAlertMusic,chooseAlertTime,chooseDeviceAlertMode,chooseMode,choosePhoneAlertMode,userPhoto,signalPic,photoBackground,isVibrate;
 @synthesize photoManager;
 @synthesize scopeImage,wifiImage,devPowerPic;
 @synthesize scopeLabel,wifiLabel,devPowerLabel;
@@ -63,9 +64,6 @@
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"Main_TopBar"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationItem setTitle:@"设置"];
-    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(backTo)];
-    self.navigationController.navigationItem.leftBarButtonItem = backBtn;
-    [backBtn release];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -77,12 +75,6 @@
     return self;
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:NO];
-    self.navigationController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(backToMainview)];
-}
 - (void)viewDidLoad
 {
   
@@ -150,7 +142,7 @@
     
     if ([deviceInfo count]==0) {
         //insert Default value
-//        [sqlMng insertValueToExistedTableWithArguments:@[@"Default",@"hello",@"Main_Icon_Wallet_H",DistanceFar,AlertTime30,@"Alchemy",PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop]];
+        [sqlMng insertValueToExistedTableWithArguments:@[@"Default",@"hello",@"Main_Icon_Wallet_H",DistanceFar,AlertTime30,@"Alchemy",PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop,VibrateOn]];
         self.vUUID = @"Default";
         NSLog(@"Database did not have the record with uuid:%@",uuid);
         defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:@"Alchemy"];
@@ -161,7 +153,6 @@
         defaultMode             = DefaultMode;
         defaultName             = nil;
         defaultImage            = nil;
-
     }else
     {
         defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:[deviceInfo objectForKey:AlertMusic]];
@@ -612,7 +603,7 @@
         [musicTableview release];
         musicTableview = nil;
     }
-    musicTableview = [[MusicTableViewController alloc]initWithStyle:UITableViewStylePlain];
+    musicTableview = [[MusicViewController alloc]initWithUUID:self.vUUID];
     [musicTableview setConfigyreMusicBlock:block];
     [self presentModalViewController:musicTableview animated:YES];
     

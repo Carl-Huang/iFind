@@ -74,7 +74,7 @@
 		4E0F318317EF3CE1006FC754 /* Settings_Icon_Scope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F316B17EF3CE1006FC754 /* Settings_Icon_Scope@2x.png */; };
 		4E0F318417EF3CE1006FC754 /* Settings_Icon_Sinal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F316C17EF3CE1006FC754 /* Settings_Icon_Sinal@2x.png */; };
 		4E0F318517EF3CE1006FC754 /* Settings_Icon_Wallet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F316D17EF3CE1006FC754 /* Settings_Icon_Wallet@2x.png */; };
-		4E0FF08A17F3CCBD00C87E72 /* MusicTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0FF08917F3CCBD00C87E72 /* MusicTableViewController.m */; };
+		4E178F0717F46DF4007D5652 /* MusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E178F0617F46DF4007D5652 /* MusicViewController.m */; };
 		C342179B17F1D6E700B42F5E /* Main_Frame_Kid_H.png in Resources */ = {isa = PBXBuildFile; fileRef = C342179917F1D6E700B42F5E /* Main_Frame_Kid_H.png */; };
 		C342179C17F1D6E700B42F5E /* Main_Frame_Kid_N.png in Resources */ = {isa = PBXBuildFile; fileRef = C342179A17F1D6E700B42F5E /* Main_Frame_Kid_N.png */; };
 		C3437E9317EEC79100C67F2C /* Constants.h in Sources */ = {isa = PBXBuildFile; fileRef = C3840BB917EAA9850049FDE5 /* Constants.h */; };
@@ -215,8 +215,8 @@
 		4E0F316B17EF3CE1006FC754 /* Settings_Icon_Scope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings_Icon_Scope@2x.png"; sourceTree = "<group>"; };
 		4E0F316C17EF3CE1006FC754 /* Settings_Icon_Sinal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings_Icon_Sinal@2x.png"; sourceTree = "<group>"; };
 		4E0F316D17EF3CE1006FC754 /* Settings_Icon_Wallet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings_Icon_Wallet@2x.png"; sourceTree = "<group>"; };
-		4E0FF08817F3CCBD00C87E72 /* MusicTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicTableViewController.h; sourceTree = "<group>"; };
-		4E0FF08917F3CCBD00C87E72 /* MusicTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicTableViewController.m; sourceTree = "<group>"; };
+		4E178F0517F46DF4007D5652 /* MusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicViewController.h; sourceTree = "<group>"; };
+		4E178F0617F46DF4007D5652 /* MusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicViewController.m; sourceTree = "<group>"; };
 		C342179917F1D6E700B42F5E /* Main_Frame_Kid_H.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_Frame_Kid_H.png; sourceTree = "<group>"; };
 		C342179A17F1D6E700B42F5E /* Main_Frame_Kid_N.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_Frame_Kid_N.png; sourceTree = "<group>"; };
 		C3437EA117EED22300C67F2C /* FPPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverController.h; sourceTree = "<group>"; };
@@ -411,8 +411,8 @@
 				C3437EA617EED22300C67F2C /* FPTouchView.m */,
 				C3437EA717EED22300C67F2C /* PopUpTableViewController.h */,
 				C3437EA817EED22300C67F2C /* PopUpTableViewController.m */,
-				4E0FF08817F3CCBD00C87E72 /* MusicTableViewController.h */,
-				4E0FF08917F3CCBD00C87E72 /* MusicTableViewController.m */,
+				4E178F0517F46DF4007D5652 /* MusicViewController.h */,
+				4E178F0617F46DF4007D5652 /* MusicViewController.m */,
 			);
 			path = PopupView;
 			sourceTree = "<group>";
@@ -775,7 +775,7 @@
 				4E040DC917F0822C00C1E6A3 /* SBTableAlert.m in Sources */,
 				C385AEFA17F13DE6001DBCF0 /* CDataSource.m in Sources */,
 				4E0943AC17F2B39200384362 /* CustomiseActionSheet.m in Sources */,
-				4E0FF08A17F3CCBD00C87E72 /* MusicTableViewController.m in Sources */,
+				4E178F0717F46DF4007D5652 /* MusicViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

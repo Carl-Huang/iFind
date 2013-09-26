@@ -1,18 +1,18 @@
 //
-//  MusicTableViewController.m
+//  MusicViewController.m
 //  iFind
 //
 //  Created by vedon on 26/9/13.
 //  Copyright (c) 2013 iFind. All rights reserved.
 //
 
-#import "MusicTableViewController.h"
+#import "MusicViewController.h"
 #import "OrderType.h"
 #import "SQLManager.h"
 
-
-@interface MusicTableViewController ()
+@interface MusicViewController ()
 {
+    
     NSInteger selectIndex;
     SQLManager *sqlMng;
     NSInteger songIndex;
@@ -21,38 +21,46 @@
 }
 @end
 
-@implementation MusicTableViewController
+@implementation MusicViewController
 @synthesize configyreMusicBlock;
 @synthesize dataSource;
 @synthesize musicDic;
 @synthesize vUUID;
-- (id)initWithStyle:(UITableViewStyle)style withUUID:(NSString *)uuid
+@synthesize musicTableview;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+-(id)initWithUUID:(NSString *)uuid
+{
+    self = [super init];
     if (self) {
         vUUID = [[NSString alloc]initWithString:uuid];
         sqlMng = [[SQLManager alloc]initDataBase];
         songIndex = -1;
         vibrateIndex = -1;
         isFirstView = YES;
-        // Custom initialization
+        musicTableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 420)];
+
     }
     return self;
 }
 
-
-
-//Settings_Btn_Back
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    dataSource = [[NSArray alloc]initWithArray:@[@"",@"Alchemy",@"AudibleAlarm",@"Bird",@"CS",@"Ericsson ring",@"Howl",@"ICQ sms sound",@"Jumping Cat",@"Laughter",@"Sent",@"Siren",@"震动"]];
+    [super viewDidLoad];
+    dataSource = [[NSArray alloc]initWithArray:@[@"Alchemy",@"AudibleAlarm",@"Bird",@"CS",@"Ericsson ring",@"Howl",@"ICQ sms sound",@"Jumping Cat",@"Laughter",@"Sent",@"Siren",@"震动"]];
     [self getDidSelectRowInDatabase];
     musicDic = [[NSMutableDictionary alloc]init];
     selectIndex = -1;
     UIToolbar *bar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     [bar setBackgroundImage:[UIImage imageNamed:@"Main_TopBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-
+    
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setFrame:CGRectMake(5, 10, 50, 30)];
     [btn addTarget:self action:@selector(backToDeviceDetailViewcontroller) forControlEvents:UIControlEventTouchUpInside];
@@ -73,9 +81,11 @@
     [flexibleBtn release];
     [backBtn release];
     [bar release];
-    
+    [self.view addSubview:musicTableview];
+    [musicTableview setDataSource:self];
+    [musicTableview setDelegate:self];
+	// Do any additional setup after loading the view.
 }
-
 -(void)backToDeviceDetailViewcontroller
 {
     NSLog(@"%s",__func__);
@@ -85,7 +95,7 @@
 -(void)confirmBtnClick
 {
     NSLog(@"%s",__func__);
-//    NSLog(@"%@",musicDic);
+    //    NSLog(@"%@",musicDic);
     self.configyreMusicBlock(musicDic);
     [self dismissModalViewControllerAnimated:YES];
 }
@@ -142,10 +152,10 @@
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
         }
-
+        
     }
-
-       
+    
+    
     return cell;
 }
 
@@ -165,43 +175,43 @@
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 #pragma mark - Table view delegate
 
@@ -242,28 +252,28 @@
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
     }
-//    selectIndex = indexPath.row;
-//    if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
-//        cell.accessoryType = UITableViewCellAccessoryNone;
-//        if (indexPath.row == [dataSource count]-1) {
-//            [musicDic setObject:@"" forKey:SelectVibrate];
-//        }else
-//        {
-//            [musicDic setObject:@"" forKey:SelectMusic];
-//        }
-//    }else
-//    {
-//        if (indexPath.row == [dataSource count]-1) {
-//            [musicDic setObject:cell.textLabel.text forKey:SelectVibrate];
-//        }else
-//        {
-//            [musicDic setObject:cell.textLabel.text forKey:SelectMusic];
-//        }
-//        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-//    }
+    //    selectIndex = indexPath.row;
+    //    if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
+    //        cell.accessoryType = UITableViewCellAccessoryNone;
+    //        if (indexPath.row == [dataSource count]-1) {
+    //            [musicDic setObject:@"" forKey:SelectVibrate];
+    //        }else
+    //        {
+    //            [musicDic setObject:@"" forKey:SelectMusic];
+    //        }
+    //    }else
+    //    {
+    //        if (indexPath.row == [dataSource count]-1) {
+    //            [musicDic setObject:cell.textLabel.text forKey:SelectVibrate];
+    //        }else
+    //        {
+    //            [musicDic setObject:cell.textLabel.text forKey:SelectMusic];
+    //        }
+    //        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    //    }
     [tableView reloadData];
     
-
+    
 }
 
 @end

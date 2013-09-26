@@ -38,6 +38,9 @@
 #define ModeDeviceAlertStop         @"b2"
 #define ModePhoneAlertStop          @"b3"
 
+#define VibrateOn                   @"1"
+#define VibrateOff                  @"0"
+
 #define DeviceName                  @"name"
 #define UUIDStr                     @"uuid"
 #define ImageName                   @"image"
@@ -47,6 +50,7 @@
 #define PhoneMode                   @"phoneMode"
 #define DeviceMode                  @"deviceMode"
 #define BluetoothMode               @"blueMode"
+#define VibrateMode                 @"vibrate"
 
 #define SelectVibrate               @"vibrateMode"
 #define SelectMusic                 @"selectMusic"

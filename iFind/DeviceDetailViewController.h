@@ -26,11 +26,12 @@ typedef void (^DidSelectMusicConfigureBlock) (id item);
 @class PhotoManager;
 @class SQLManager;
 @class MusicTableViewController;
+@class MusicViewController;
 @interface DeviceDetailViewController : UIViewController<UIActionSheetDelegate>
 {
     PopUpTableViewController *popUpTableviewController;
     FPPopoverController *popover;
-    MusicTableViewController * musicTableview;
+    MusicViewController * musicTableview;
 }
 
 
@@ -50,7 +51,7 @@ typedef void (^DidSelectMusicConfigureBlock) (id item);
 @property (retain ,nonatomic)UIImageView * userPhoto;
 @property (retain ,nonatomic)UIImageView * signalPic;
 @property (retain ,nonatomic)UIImageView * photoBackground;
-
+@property (assign ,nonatomic)BOOL isVibrate;
 //信号图标
 @property (retain ,nonatomic)UIImageView *scopeImage;
 @property (retain ,nonatomic)UIImageView *wifiImage;
