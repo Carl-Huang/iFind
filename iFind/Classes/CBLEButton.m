@@ -83,6 +83,7 @@
     {
         [_imageView setHighlighted:isHighlight];
     }
+    _isHighlight = isHighlight;
     [_bgView setHighlighted:isHighlight];
 }
 

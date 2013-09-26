@@ -11,6 +11,7 @@
 #import <CoreTelephony/CTCall.h>
 #import "Constants.h"
 #import "CScanViewController.h"
+@class CBLEManager;
 @interface CAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -18,4 +19,5 @@
 @property (assign, nonatomic) UIBackgroundTaskIdentifier bgTask;
 @property (strong, nonatomic) NSTimer * bgTimer;
 @property (strong, nonatomic) NSTimer * foregroudTimer;
+@property (strong, nonatomic) CBLEManager * bleManager;
 @end
