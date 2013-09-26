@@ -11,12 +11,14 @@
 #import "CBLEPeriphral.h"
 typedef void (^DiscoverNewPeripheralHandler)(void);
 typedef void (^ConnectedPeripheralHandler)(CBPeripheral * peripheral);
+typedef void (^DisconnectPeripheralHandler)(CBPeripheral * peripheral);
 @interface CBLEManager : NSObject <CBCentralManagerDelegate>
 @property (nonatomic,readonly) CBCentralManager * bleCentralManager;
 @property (nonatomic,retain) NSMutableArray * connectedPeripherals;
 @property (nonatomic,retain) NSMutableArray * foundPeripherals;
 @property (nonatomic,copy) DiscoverNewPeripheralHandler discoverHandler;
 @property (nonatomic,copy) ConnectedPeripheralHandler connectedHandler;
+@property (nonatomic,copy) DisconnectPeripheralHandler disconnectHandler;
 +(id)sharedManager;
 -(void)startScan;
 -(void)startScan:(NSArray *)services;

@@ -29,7 +29,7 @@
     {
         _connectedPeripherals = [[NSMutableArray alloc] init];
         _foundPeripherals = [[NSMutableArray alloc] init];
-        _bleCentralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+        _bleCentralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue()];
     }
     
     return self;
@@ -50,13 +50,13 @@
 }
 
 
--(void)startScan
+- (void)startScan
 {
     [self startScan:@[Service_Immediate_Alert]];
 }
 
 
--(void)startScan:(NSArray *)services
+- (void)startScan:(NSArray *)services
 {
     NSMutableArray * servicesUUIDs = nil;
     if(services != nil || [services count] != 0)
@@ -69,13 +69,13 @@
     [_bleCentralManager scanForPeripheralsWithServices:servicesUUIDs options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBCentralManagerScanOptionAllowDuplicatesKey]];
 }
 
--(void)stopScan
+- (void)stopScan
 {
     [_bleCentralManager stopScan];
 }
 
 
--(void)connectToPeripheral:(CBPeripheral *)peripheral
+- (void)connectToPeripheral:(CBPeripheral *)peripheral
 {
     NSAssert(peripheral != nil, @"The CBPeripheral is nil.%@",NSStringFromSelector(_cmd));
     if([peripheral isConnected])
@@ -89,13 +89,13 @@
 }
 
 
--(void)disconnectFromPeripheral:(CBPeripheral *)peripheral
+- (void)disconnectFromPeripheral:(CBPeripheral *)peripheral
 {
     NSAssert(peripheral != nil, @"The CBPeripheral is nil.%@",NSStringFromSelector(_cmd));
     [_bleCentralManager cancelPeripheralConnection:peripheral];
 }
 
--(void)clear
+- (void)clear
 {
 
     [_connectedPeripherals removeAllObjects];
@@ -104,11 +104,16 @@
 }
 
 
--(void)addFoundPeripheral:(CBPeripheral *)peripheral
+- (void)addFoundPeripheral:(CBPeripheral *)peripheral
 {
-    if(peripheral.name == nil) return ;
+    if(peripheral.name == nil)
+    {
+        NSLog(@"Peripheral name is nil");
+        return;
+    }
     if(![_foundPeripherals containsObject:peripheral])
     {
+        NSLog(@"Add peripheral");
         [_foundPeripherals addObject:peripheral];
         if(self.discoverHandler)
         {
@@ -117,36 +122,10 @@
             });
         }
     }
-    /*
-    if([_foundPeripherals count] >= 4)
-    {
-        return ;
-    }
-    BOOL isContained = NO;
-    for(CBLEPeriphral * blePeriphral in _foundPeripherals)
-    {
-        if(blePeriphral.peripheral == peripheral)
-        {
-            isContained = YES;
-            break;
-        }
-    }
-    if(!isContained)
-    {
-        NSLog(@"Add found periphral");
-        CBLEPeriphral * blePeriphral = [[[CBLEPeriphral alloc] initWithPeripheral:peripheral] autorelease];
-        [_foundPeripherals addObject:blePeriphral];
-        if(self.discoverHandler)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.discoverHandler();
-            });
-        }
-    }
-    */
+
 
 }
--(void)removeFoundPeripheral:(CBPeripheral *)peripheral
+- (void)removeFoundPeripheral:(CBPeripheral *)peripheral
 {
     
     if([_foundPeripherals containsObject:peripheral])
@@ -159,29 +138,61 @@
             });
         }
     }
-    /*
-    CBLEPeriphral * instance = nil;
-    for(CBLEPeriphral * blePeriphral in _foundPeripherals)
+}
+
+- (void)addConnectedPeripheral:(CBPeripheral *)peripheral
+{
+    if(![self isContainPeripheral:peripheral])
     {
-        if(blePeriphral.peripheral == peripheral)
+        CBLEPeriphral * instance = [[[CBLEPeriphral alloc] initWithPeripheral:peripheral] autorelease];
+        [_connectedPeripherals addObject:instance];
+        if(self.connectedHandler)
         {
-            instance = blePeriphral;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.connectedHandler(peripheral);
+            });
+        }
+    }
+}
+
+- (void)removeConnectedPeripheral:(CBPeripheral *)peripheral
+{
+    CBLEPeriphral * instance;
+    for(CBLEPeriphral * blePeripheral in _connectedPeripherals)
+    {
+        if(peripheral.UUID == blePeripheral.peripheral.UUID)
+        {
+            instance = blePeripheral;
             break;
         }
     }
     if(instance)
     {
-        [_foundPeripherals removeObject:instance];
-        if(self.discoverHandler)
+        
+        if(self.disconnectHandler)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.discoverHandler();
+                self.disconnectHandler(peripheral);
             });
         }
+        [_connectedPeripherals removeObject:instance];
     }
-    */
 }
 
+- (BOOL)isContainPeripheral:(CBPeripheral *)peripheral
+{
+    BOOL isContained = NO;
+    for(CBLEPeriphral * blePeripheral in _connectedPeripherals)
+    {
+        if(peripheral.UUID == blePeripheral.peripheral.UUID)
+        {
+            isContained = YES;
+            break;
+        }
+
+    }
+    return isContained;
+}
 
 #pragma mark - CBCentralManagerDelegate Methods
 -(void)centralManagerDidUpdateState:(CBCentralManager *)central
@@ -227,27 +238,12 @@
     }
     
     [self addFoundPeripheral:peripheral];
-
-    
 }
 
 -(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
     NSLog(@"CBCentralManager did connect peripheral %@",peripheral.name);
-    
-    CBLEPeriphral * instance = [[[CBLEPeriphral alloc] initWithPeripheral:peripheral] autorelease];
-    if(instance)
-    {
-        [instance discoverServices];
-    }
-    
-    if(self.connectedHandler)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.connectedHandler(peripheral);
-        });
-    }
-
+    [self addConnectedPeripheral:peripheral];
 }
 
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
@@ -266,9 +262,9 @@
         //有可能是设备离远了
         [central retrievePeripherals:@[(id)peripheral.UUID]];
     }
-    //[self removeFoundPeripheral:peripheral];
-    
-    
+    [self removeConnectedPeripheral:peripheral];
+    //在这里出来蓝牙断开连接
+
 }
 
 -(void)centralManager:(CBCentralManager *)central didRetrievePeripherals:(NSArray *)peripherals
@@ -283,6 +279,8 @@
     }
     
 }
+
+
 
 
 

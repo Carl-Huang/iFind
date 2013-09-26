@@ -51,10 +51,10 @@ typedef enum {
        if(peripheral.UUID != NULL)
            self.UUID = [CUtilsFunc convertCFUUIDIntoString:peripheral.UUID];
        
-
+       [self discoverServices];
        
        [[NSNotificationCenter defaultCenter] addObserverForName:kCallIncomingNotification object:self queue:[[NSOperationQueue alloc] init] usingBlock:^(NSNotification *note) {
-           
+    
            [self writeAlertLevelLight];
        }];
        
@@ -144,7 +144,6 @@ typedef enum {
             else if ([service.UUID isEqual:[CBUUID UUIDWithString:Service_Link_Loss]])
             {
                 _characteristicForAlertLevel = characteristic;
-//                [self writeAlertLevel:ALERT_LEVEL_NONE];
             }
             
         }
@@ -200,7 +199,7 @@ typedef enum {
     NSLog(@"New RSSI:%d",peripheral.RSSI.intValue);
     
     self.rssi = peripheral.RSSI.intValue;
-    
+    //在这里处理蓝牙的距离
     if(peripheral.RSSI.intValue < -90)
     {
         

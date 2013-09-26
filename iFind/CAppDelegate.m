@@ -7,10 +7,9 @@
 //
 
 #import "CAppDelegate.h"
-#import "CBLEManager.h"
 #import "CRootViewController.h"
 #import "CBLEPeriphral.h"
-
+#import "CBLEManager.h"
 #import "ViewController.h"
 #import "DeviceDetailViewController.h"
 //#define TestDeviceDetailViewcontroller
@@ -27,13 +26,18 @@
     [_foregroudTimer release];
     _foregroudTimer = nil;
     
+    [_bleManager release];
+    _bleManager = nil;
+    
     [super dealloc];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+    _bleManager = [CBLEManager sharedManager];
     
+    //监听来电
     _callCenter = [[CTCallCenter alloc] init];
     _callCenter.callEventHandler = ^(CTCall * call){
         if([call.callState isEqualToString:CTCallStateIncoming])
@@ -91,13 +95,12 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    
+    NSLog(@"%@",NSStringFromSelector(_cmd));
     if(_foregroudTimer)
     {
         [_foregroudTimer setFireDate:[NSDate distantFuture]];
         
     }
-    
     
     UIApplication * app = [UIApplication sharedApplication];
     _bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
@@ -134,6 +137,7 @@
     
     if(_foregroudTimer)
     {
+        [_foregroudTimer setFireDate:[NSDate date]];
         [_foregroudTimer fire];
     }
     
@@ -147,6 +151,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [[CBLEManager sharedManager] clear];
 }
 
 

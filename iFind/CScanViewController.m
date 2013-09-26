@@ -63,7 +63,9 @@
 {
     [super viewWillAppear:YES];
     CBLEManager * bleManager = [CBLEManager sharedManager];
+    //发现蓝牙处理block
     bleManager.discoverHandler = ^(void){
+        NSLog(@"Disconver Handler");
         int index = [[bleManager foundPeripherals] count];
         if(index == 0) return;
         for(int i = 1; i <= index; i++)
@@ -88,7 +90,7 @@
         
     };
     
-    
+    //蓝牙连接处理block
     bleManager.connectedHandler = ^(CBPeripheral * peripheral){
         id sender = [self.view viewWithTag:self.currentButtonTag];
         if([sender isKindOfClass:[CBLEButton class]])
@@ -96,8 +98,32 @@
             CBLEButton * bleButton = (CBLEButton *)sender;
             [bleButton setUuid:[CUtilsFunc convertCFUUIDIntoString:peripheral.UUID]];
         }
+        
+        UIButton * findButton = (UIButton *)[self.view viewWithTag:FIND_BUTTON_TAG];
+        findButton.enabled = YES;
+        UIButton * controlButton = (UIButton *)[self.view viewWithTag:CONTROL_BUTTON_TAG];
+        controlButton.enabled = YES;
     };
     
+    //蓝牙断开连接处理block
+    bleManager.disconnectHandler = ^(CBPeripheral * peripheral){
+        if([[bleManager connectedPeripherals] count] == 0)
+        {
+            UIButton * findButton = (UIButton *)[self.view viewWithTag:FIND_BUTTON_TAG];
+            findButton.enabled = NO;
+            UIButton * controlButton = (UIButton *)[self.view viewWithTag:CONTROL_BUTTON_TAG];
+            controlButton.enabled = NO;
+        }
+        for(int i = 1; i <= 4; i++)
+        {
+            CBLEButton * bleButton = (CBLEButton *)[self.view viewWithTag:i];
+            if([bleButton.uuid isEqualToString:[CUtilsFunc convertCFUUIDIntoString:peripheral.UUID]])
+            {
+                [bleButton setHighlight:NO];
+                bleButton.uuid = nil;
+            }
+        }
+    };
     
 }
 
@@ -121,6 +147,7 @@
 //初始化UI方法
 - (void)initUI
 {
+    //设置标题
     self.title = NSLocalizedString(@"MainSceneTitle", nil);
     self.wantsFullScreenLayout = YES;
     //自定义UIViewController背景颜色
@@ -140,13 +167,14 @@
     CGRect rect_3 = CGRectMake(marginLeft, marginTop + vspace + BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
     //图标4的位置，右下角
     CGRect rect_4 = CGRectMake(marginLeft + BUTTON_WIDTH + hspace, marginTop + vspace + BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
-    
+    //按钮的点击事件
     TapHandler tapHandler = ^(id sender){
         if([sender isKindOfClass:[CBLEButton class]])
         {
             NSLog(@"CBLEButton");
-            
             CBLEButton * bleButton = (CBLEButton *)sender;
+            if(!bleButton.isHighlight) return ;
+            //如果uuid不为空，表示蓝牙已经连接，直接进入蓝牙设置界面
             if(bleButton.uuid != nil)
             {
                 [self showDetailViewControler];
@@ -177,14 +205,14 @@
     UIImage * highlight_3 = [_defaultHightlighImages objectAtIndex:2];
     CBLEButton * bleButton_3 = [[CBLEButton alloc] initWithFrame:rect_3 withImage:image_3 withHighLight:highlight_3 withTitle:nil withTag:BUTTON_TAG_3];
     bleButton_3.tag = BUTTON_TAG_3;
-    bleButton_2.tapHandler = tapHandler;
+    bleButton_3.tapHandler = tapHandler;
     [self.view addSubview:bleButton_3];
     //Button4
     UIImage * image_4 = [_defaultImages objectAtIndex:3];
     UIImage * highlight_4 = [_defaultHightlighImages objectAtIndex:3];
     CBLEButton * bleButton_4 = [[CBLEButton alloc] initWithFrame:rect_4 withImage:image_4 withHighLight:highlight_4 withTitle:nil withTag:BUTTON_TAG_4];
     bleButton_4.tag = BUTTON_TAG_4;
-    bleButton_2.tapHandler = tapHandler;
+    bleButton_4.tapHandler = tapHandler;
     [self.view addSubview:bleButton_4];
     
     //添加找设备按钮
@@ -194,6 +222,7 @@
     [findButton setImage:findImage forState:UIControlStateNormal];
     [findButton addTarget:self action:@selector(findPeripheral:) forControlEvents:UIControlEventTouchUpInside];
     findButton.tag = FIND_BUTTON_TAG;
+    findButton.enabled = NO;
     [self.view addSubview:findButton];
     
     //底部按钮
@@ -218,6 +247,7 @@
     [controlButton setBackgroundImage:controlImage forState:UIControlStateNormal];
     [controlButton setFrame:CGRectMake(marginLeft + btnHSpace + helpButton.frame.size.width, btnMarginTop, controlImage.size.width, controlImage.size.height)];
     controlButton.tag = CONTROL_BUTTON_TAG;
+    controlButton.enabled = NO;
     [controlButton addTarget:self action:@selector(remoteControl:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:controlButton];
     
@@ -231,11 +261,10 @@
     [self.view addSubview:setttingButton];
     
     
-    
-    UIBarButtonItem * backItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backItem;
+    //设置返回按钮
+    UIBarButtonItem * backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings_Btn_Back"] style:UIBarButtonItemStylePlain target:nil action:nil];
+    [self.navigationItem setBackBarButtonItem:backItem];
     [backItem release];
-    
 }
 
 
@@ -260,7 +289,6 @@
         UIButton * controlButton = (UIButton *)[self.view viewWithTag:CONTROL_BUTTON_TAG];
         [controlButton setTitle:(NSString *)item forState:UIControlStateNormal];
     }];
-    
     FPPopoverController * popoverController = [[FPPopoverController alloc] initWithViewController:popupTableViewController];
     [popupTableViewController release];
     popoverController.tint = FPPopoverDefaultTint;
@@ -280,10 +308,9 @@
 }
 
 
-
+//显示搜索蓝牙对话框
 -(void)showSBAlert:(int)tag
 {
-    
     CDataSource * dataSource = [[CDataSource alloc] init];
     dataSource.dataSource = [[CBLEManager sharedManager] foundPeripherals];
     SBTableAlert * tableAlert = [[SBTableAlert alloc] initWithTitle:@"搜索设备" cancelButtonTitle:@"取消" messageFormat:nil];
@@ -300,13 +327,14 @@
     };
     
     dataSource.dismissHandler = ^{
-        
+        self.currentButtonTag = 0;
     };
     tableAlert.dataSource = dataSource;
     tableAlert.delegate = dataSource;
     [tableAlert show];
 }
 
+//进入蓝牙设置页面方法
 -(void)showDetailViewControler
 {
     DeviceDetailViewController * detailViewController = [[DeviceDetailViewController alloc] initWithNibName:nil bundle:nil];
