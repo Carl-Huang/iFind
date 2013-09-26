@@ -112,6 +112,10 @@
 		C37AE3BC17F196B80026ADA2 /* Main_Frame_Wallet_H@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37AE3B417F196B10026ADA2 /* Main_Frame_Wallet_H@2x.png */; };
 		C37AE3BD17F196B80026ADA2 /* Main_Frame_Wallet_N@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37AE3B517F196B50026ADA2 /* Main_Frame_Wallet_N@2x.png */; };
 		C37C5DDE17EBF30E00FCE5AE /* CRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37C5DDD17EBF30E00FCE5AE /* CRootViewController.m */; };
+		C37F4A4F17F474A500DC23AA /* Settings_Btn_Back.png in Resources */ = {isa = PBXBuildFile; fileRef = C37F4A4D17F474A400DC23AA /* Settings_Btn_Back.png */; };
+		C37F4A5017F474A500DC23AA /* Settings_Btn_Confirm.png in Resources */ = {isa = PBXBuildFile; fileRef = C37F4A4E17F474A400DC23AA /* Settings_Btn_Confirm.png */; };
+		C37F4A5317F474C300DC23AA /* Settings_Btn_Back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37F4A5117F474C300DC23AA /* Settings_Btn_Back@2x.png */; };
+		C37F4A5417F474C300DC23AA /* Settings_Btn_Confirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37F4A5217F474C300DC23AA /* Settings_Btn_Confirm@2x.png */; };
 		C3810B3317EDD06A006A180D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3810B3217EDD06A006A180D /* CoreTelephony.framework */; };
 		C382631017EF501C00D66B77 /* CScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C382630F17EF501B00D66B77 /* CScanViewController.m */; };
 		C382631417EF596300D66B77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C382631317EF596300D66B77 /* Localizable.strings */; };
@@ -259,6 +263,10 @@
 		C37AE3B517F196B50026ADA2 /* Main_Frame_Wallet_N@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Frame_Wallet_N@2x.png"; sourceTree = "<group>"; };
 		C37C5DDC17EBF30E00FCE5AE /* CRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRootViewController.h; sourceTree = "<group>"; };
 		C37C5DDD17EBF30E00FCE5AE /* CRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRootViewController.m; sourceTree = "<group>"; };
+		C37F4A4D17F474A400DC23AA /* Settings_Btn_Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Settings_Btn_Back.png; sourceTree = "<group>"; };
+		C37F4A4E17F474A400DC23AA /* Settings_Btn_Confirm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Settings_Btn_Confirm.png; sourceTree = "<group>"; };
+		C37F4A5117F474C300DC23AA /* Settings_Btn_Back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings_Btn_Back@2x.png"; sourceTree = "<group>"; };
+		C37F4A5217F474C300DC23AA /* Settings_Btn_Confirm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings_Btn_Confirm@2x.png"; sourceTree = "<group>"; };
 		C3810B3217EDD06A006A180D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		C382630E17EF501B00D66B77 /* CScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CScanViewController.h; sourceTree = "<group>"; };
 		C382630F17EF501B00D66B77 /* CScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CScanViewController.m; sourceTree = "<group>"; };
@@ -355,6 +363,8 @@
 		4E0F312517EF3CD8006FC754 /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				C37F4A4D17F474A400DC23AA /* Settings_Btn_Back.png */,
+				C37F4A4E17F474A400DC23AA /* Settings_Btn_Confirm.png */,
 				C37AE39E17F196360026ADA2 /* Main_Frame_Bag_H.png */,
 				C37AE39F17F196390026ADA2 /* Main_Frame_Bag_N.png */,
 				C37AE3A017F1963B0026ADA2 /* Main_Frame_Key_H.png */,
@@ -503,6 +513,8 @@
 		C3840BB017E9D89D0049FDE5 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				C37F4A5117F474C300DC23AA /* Settings_Btn_Back@2x.png */,
+				C37F4A5217F474C300DC23AA /* Settings_Btn_Confirm@2x.png */,
 				C37AE3AE17F1969F0026ADA2 /* Main_Frame_Bag_H@2x.png */,
 				C37AE3AF17F196A10026ADA2 /* Main_Frame_Bag_N@2x.png */,
 				C37AE3B017F196A40026ADA2 /* Main_Frame_Key_H@2x.png */,
@@ -717,6 +729,10 @@
 				C37AE3BB17F196B80026ADA2 /* Main_Frame_Kid_H@2x.png in Resources */,
 				C37AE3BC17F196B80026ADA2 /* Main_Frame_Wallet_H@2x.png in Resources */,
 				C37AE3BD17F196B80026ADA2 /* Main_Frame_Wallet_N@2x.png in Resources */,
+				C37F4A4F17F474A500DC23AA /* Settings_Btn_Back.png in Resources */,
+				C37F4A5017F474A500DC23AA /* Settings_Btn_Confirm.png in Resources */,
+				C37F4A5317F474C300DC23AA /* Settings_Btn_Back@2x.png in Resources */,
+				C37F4A5417F474C300DC23AA /* Settings_Btn_Confirm@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -807,7 +823,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -831,7 +847,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "C32EBE52-640A-4B6F-B51C-E84A9888D894";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C32EBE52-640A-4B6F-B51C-E84A9888D894";
@@ -846,7 +862,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iFind/iFind-Prefix.pch";
 				INFOPLIST_FILE = "iFind/iFind-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -860,7 +876,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iFind/iFind-Prefix.pch";
 				INFOPLIST_FILE = "iFind/iFind-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
