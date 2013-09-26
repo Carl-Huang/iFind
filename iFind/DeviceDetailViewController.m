@@ -7,14 +7,14 @@
 //
 #define FontSize 15
 
-#define DistancePre             @"提醒距离选择:"
-#define AlertTimePre            @"报警时长:"
-#define AlertMusicePre          @"选择手机提醒音:"
+#define DistancePre                      @"提醒距离选择:"
+#define AlertTimePre                     @"报警时长:"
+#define AlertMusiceDefaultTitle          @"提醒音:"
 
 
 #define DefaultDistanceValue    @"提醒距离选择:远"
 #define DefaultAlertTime        @"报警时长:30秒"
-#define DefaultAlertMusic       @"选择手机提醒音:Alchemy"
+#define DefaultAlertMusic       @"选择手机提醒音"
 #define DefaultPhoneAlertMode   @"手机震动声光提醒"
 #define DefaultDeviceAlertMode  @"声光提醒"
 #define DefaultMode             @"自动关闭手机报警"
@@ -25,6 +25,7 @@
 #import "OrderType.h"
 #import "SQLManager.h"
 #import "CustomiseActionSheet.h"
+#import "MusicTableViewController.h"
 //Utility class
 #import "PhotoManager.h"
 @interface DeviceDetailViewController ()
@@ -139,7 +140,7 @@
     [sqlMng createTable];
     self.vUUID = uuid;
     
-    defaultAlertMusic       = AlertMusicePre;
+    defaultAlertMusic       = AlertMusiceDefaultTitle;
     defaultDistanceValue    = DistancePre;
     defaultAlertTime        = AlertTimePre;
 
@@ -416,9 +417,9 @@
             break;
         case PopUpTableViewDataSourceMusic:
             //声音按钮
-            popUpTableviewController.title = @"手机提醒音";
-            [popUpTableviewController setDataSource:@[@"Alchemy",@"AudibleAlarm",@"Bird",@"CS",@"Ericsson ring",@"Howl",@"ICQ sms sound",@"Jumping Cat",@"Laughter",@"Sent",@"Siren",@"震动"]];
-            descriptionStr = @"选择手机提醒音:";
+//            popUpTableviewController.title = @"手机提醒音";
+//            [popUpTableviewController setDataSource:@[@"Alchemy",@"AudibleAlarm",@"Bird",@"CS",@"Ericsson ring",@"Howl",@"ICQ sms sound",@"Jumping Cat",@"Laughter",@"Sent",@"Siren",@"震动"]];
+//            descriptionStr = @"选择手机提醒音:";
             break;
         case PopUpTableViewDataSourceTime:
             //时间按钮
@@ -476,8 +477,8 @@
                  [sqlMng updateKey:DistanceValue value:str withUUID:self.vUUID];
                 break;
             case AlertMusicTag:
-                str = [popUpTableviewController.dataSource objectAtIndex:i];
-                [sqlMng updateKey:AlertMusic value:str withUUID:self.vUUID];
+//                str = [popUpTableviewController.dataSource objectAtIndex:i];
+//                [sqlMng updateKey:AlertMusic value:str withUUID:self.vUUID];
                 break;
             case AlertTimeTag:
                 if (i == 0) {
@@ -587,7 +588,34 @@
 
     //选择提示音
     NSLog(@"%s",__func__);
-    [self popover:sender withType:PopUpTableViewDataSourceMusic];
+    DidSelectMusicConfigureBlock block = ^(id item)
+    {
+        NSDictionary * alertMusicInfo = (NSDictionary *)item;
+        NSString * musicStr = [alertMusicInfo objectForKey:SelectMusic];
+        NSString * vibrateStr = [alertMusicInfo objectForKey:SelectVibrate];
+        NSString * btnTitle = nil;
+        if (musicStr) {
+            NSLog(@"Did Select music:%@",musicStr);
+            btnTitle = [AlertMusiceDefaultTitle stringByAppendingString:musicStr];
+            
+        }
+        if (vibrateStr) {
+            NSLog(@"Did Select vibrate");
+            btnTitle = [btnTitle stringByAppendingString:@","];
+            btnTitle = [btnTitle stringByAppendingString:vibrateStr];
+//            vibrateStr = [musicStr stringByAppendingString:vibrateStr];
+        }
+        self.chooseAlertMusic.titleLabel.text = btnTitle;
+        NSLog(@"%@",item);
+    };
+    if (musicTableview) {
+        [musicTableview release];
+        musicTableview = nil;
+    }
+    musicTableview = [[MusicTableViewController alloc]initWithStyle:UITableViewStylePlain];
+    [musicTableview setConfigyreMusicBlock:block];
+    [self presentModalViewController:musicTableview animated:YES];
+    
 }
 
 -(void)chooseDeviceAlertModeAction:(id)sender
@@ -698,5 +726,8 @@
     [wifiLabel release];
     [scopeLabel release];
     [devPowerLabel release];
+    if (musicTableview) {
+        [musicTableview release];
+    }
 }
 @end

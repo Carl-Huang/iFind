@@ -48,4 +48,7 @@
 #define DeviceMode                  @"deviceMode"
 #define BluetoothMode               @"blueMode"
 
+#define SelectVibrate               @"vibrateMode"
+#define SelectMusic                 @"selectMusic"
+
 #endif

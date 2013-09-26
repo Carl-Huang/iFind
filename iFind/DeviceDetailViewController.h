@@ -19,16 +19,18 @@ typedef NS_ENUM(NSInteger, PopUpTableViewDataSourceType)
 };
 
 typedef void (^DidSelectTableviewRowCongigureBlock) (id item);
+typedef void (^DidSelectMusicConfigureBlock) (id item);
 #import <UIKit/UIKit.h>
 @class PopUpTableViewController;
 @class FPPopoverController;
 @class PhotoManager;
 @class SQLManager;
-
+@class MusicTableViewController;
 @interface DeviceDetailViewController : UIViewController<UIActionSheetDelegate>
 {
     PopUpTableViewController *popUpTableviewController;
     FPPopoverController *popover;
+    MusicTableViewController * musicTableview;
 }
 
 
