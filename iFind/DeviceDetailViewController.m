@@ -150,7 +150,7 @@
     
     if ([deviceInfo count]==0) {
         //insert Default value
-        [sqlMng insertValueToExistedTableWithArguments:@[@"Default",@"hello",@"Main_Icon_Wallet_H",DistanceFar,AlertTime30,@"Alchemy",PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop]];
+//        [sqlMng insertValueToExistedTableWithArguments:@[@"Default",@"hello",@"Main_Icon_Wallet_H",DistanceFar,AlertTime30,@"Alchemy",PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop]];
         self.vUUID = @"Default";
         NSLog(@"Database did not have the record with uuid:%@",uuid);
         defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:@"Alchemy"];
@@ -476,10 +476,10 @@
                 }
                  [sqlMng updateKey:DistanceValue value:str withUUID:self.vUUID];
                 break;
-            case AlertMusicTag:
+//            case AlertMusicTag:
 //                str = [popUpTableviewController.dataSource objectAtIndex:i];
 //                [sqlMng updateKey:AlertMusic value:str withUUID:self.vUUID];
-                break;
+//                break;
             case AlertTimeTag:
                 if (i == 0) {
                     str = AlertTime10;
@@ -605,7 +605,7 @@
             btnTitle = [btnTitle stringByAppendingString:vibrateStr];
 //            vibrateStr = [musicStr stringByAppendingString:vibrateStr];
         }
-        self.chooseAlertMusic.titleLabel.text = btnTitle;
+        [self.chooseAlertMusic setTitle:btnTitle forState:UIControlStateNormal];
         NSLog(@"%@",item);
     };
     if (musicTableview) {
