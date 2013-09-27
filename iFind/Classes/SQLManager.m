@@ -12,16 +12,6 @@
 @implementation SQLManager
 @synthesize db;
 
-/*
- [self initDataBase];
- [self createTable];
- 
- [self insertValueToExistedTableWithArguments:@[@"carl",@"carl",@"carl",@"carl",[NSNumber numberWithInt:24],[NSNumber numberWithInt:24],@"男",@"男",@"男"]];
- 
- [self updateKey:@"alertDistance" value:@"3" withUUID:@"carl"];
- [self deleteDatabaseRowWithUUID:@"carl"];
-
- */
 
 //创建数据库
 -(id)initDataBase
@@ -83,15 +73,6 @@
     NSMutableDictionary * deviceInfoDic = [NSMutableDictionary dictionary];
     FMResultSet *rs = [db executeQuery:@"select * from iFindTable where uuid=?",uuid];
     while ([rs next]) {
-//        [deviceInfoDic setObject:[rs stringForColumn:@"uuid"]   forKey:UUIDStr];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"name"]   forKey:DeviceName];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"image"]  forKey:ImageName];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"alertDistance"]  forKey:DistanceValue];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"alertTime"]   forKey:AlertTime];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"alertMusic"]   forKey:AlertMusic];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"phoneMode"]   forKey:PhoneMode];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"deviceMode"]   forKey:DeviceMode];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"blueMode"]   forKey:BluetoothMode];
         [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"uuid"]   forKey:UUIDStr];
         [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"name"]   forKey:DeviceName];
         [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"image"]  forKey:ImageName];

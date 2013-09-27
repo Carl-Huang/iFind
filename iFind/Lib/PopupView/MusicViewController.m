@@ -92,7 +92,9 @@
 -(void)backToDeviceDetailViewcontroller
 {
     NSLog(@"%s",__func__);
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:^{
+        NSLog(@"musicTable back to upper view controller");
+    }];
 }
 
 -(void)confirmBtnClick
@@ -100,7 +102,9 @@
     NSLog(@"%s",__func__);
     //    NSLog(@"%@",musicDic);
     self.configyreMusicBlock(musicDic);
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:^{
+        NSLog(@"musicTable back to upper view controller");
+    }];
 }
 
 
@@ -153,22 +157,13 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
 
         if (indexPath.row == selectIndex1) {
-            if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }else
-            {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                [musicDic setObject:cell.textLabel.text forKey:SelectMusic];
-            }
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            [musicDic setObject:cell.textLabel.text forKey:SelectMusic];
+
         }
         if (indexPath.row == selectIndex2 &&isVibrateItem) {
-            if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }else
-            {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                [musicDic setObject:cell.textLabel.text forKey:SelectVibrate];
-            }
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            [musicDic setObject:cell.textLabel.text forKey:SelectVibrate];
         }
     }
     
@@ -192,6 +187,8 @@
         vibrateIndex = [dataSource count]-1;
         isVibrateItem = YES;
     }
+    selectIndex1 = songIndex;
+    selectIndex2 = vibrateIndex;
 }
 
 #pragma mark - Table view delegate

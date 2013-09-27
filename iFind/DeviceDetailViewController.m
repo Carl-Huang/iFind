@@ -610,6 +610,7 @@
         NSString * musicStr = [alertMusicInfo objectForKey:SelectMusic];
         NSString * vibrateStr = [alertMusicInfo objectForKey:SelectVibrate];
         NSString * btnTitle = nil;
+        [sqlMng updateKey:AlertMusic value:musicStr withUUID:self.vUUID];
         if (musicStr) {
             NSLog(@"Did Select music:%@",musicStr);
             btnTitle = [AlertMusiceDefaultTitle stringByAppendingString:musicStr];
@@ -630,7 +631,7 @@
     }
     musicTableview = [[MusicViewController alloc]initWithUUID:self.vUUID];
     [musicTableview setConfigyreMusicBlock:block];
-    [self presentModalViewController:musicTableview animated:YES];
+    [self presentViewController:musicTableview animated:YES completion:nil];
     
 }
 
