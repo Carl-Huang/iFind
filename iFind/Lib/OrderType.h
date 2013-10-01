@@ -41,6 +41,11 @@
 #define VibrateOn                   @"1"
 #define VibrateOff                  @"0"
 
+#define TagOne                      @"tag1"
+#define TagTwo                      @"tag2"
+#define TagThree                    @"tag3"
+#define TagFour                     @"tag4"
+
 #define DeviceName                  @"name"
 #define UUIDStr                     @"uuid"
 #define ImageName                   @"image"
@@ -51,7 +56,7 @@
 #define DeviceMode                  @"deviceMode"
 #define BluetoothMode               @"blueMode"
 #define VibrateMode                 @"vibrate"
-
+#define TargetTag                   @"targetTag"
 #define SelectVibrate               @"vibrateMode"
 #define SelectMusic                 @"selectMusic"
 

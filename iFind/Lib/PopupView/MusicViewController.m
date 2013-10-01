@@ -92,7 +92,9 @@
 -(void)backToDeviceDetailViewcontroller
 {
     NSLog(@"%s",__func__);
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:^{
+        NSLog(@"musicTable back to upper view controller");
+    }];
 }
 
 -(void)confirmBtnClick
@@ -100,7 +102,9 @@
     NSLog(@"%s",__func__);
     //    NSLog(@"%@",musicDic);
     self.configyreMusicBlock(musicDic);
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:^{
+        NSLog(@"musicTable back to upper view controller");
+    }];
 }
 
 
@@ -116,6 +120,7 @@
     [dataSource release];
     [musicDic release];
     [vUUID release];
+    [sqlMng release];
 }
 #pragma mark - Table view data source
 
@@ -143,6 +148,8 @@
     cell.textLabel.font = [UIFont systemFontOfSize:14];
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+   
+
     if (isFirstView) {
         if (indexPath.row == songIndex || indexPath.row == vibrateIndex) {
             
@@ -153,22 +160,19 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
 
         if (indexPath.row == selectIndex1) {
-            if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }else
-            {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                [musicDic setObject:cell.textLabel.text forKey:SelectMusic];
-            }
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            [musicDic setObject:cell.textLabel.text forKey:SelectMusic];
+
         }
-        if (indexPath.row == selectIndex2 &&isVibrateItem) {
-            if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
-                cell.accessoryType = UITableViewCellAccessoryNone;
+        if (indexPath.row == selectIndex2 ) {
+            if (isVibrateItem) {
+                [musicDic setObject:@"1" forKey:SelectVibrate];
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }else
             {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                [musicDic setObject:cell.textLabel.text forKey:SelectVibrate];
+                [musicDic setObject:@"0" forKey:SelectVibrate];
             }
+            
         }
     }
     
@@ -192,6 +196,8 @@
         vibrateIndex = [dataSource count]-1;
         isVibrateItem = YES;
     }
+    selectIndex1 = songIndex;
+    selectIndex2 = vibrateIndex;
 }
 
 #pragma mark - Table view delegate

@@ -86,8 +86,6 @@
 		C3437EB417EED2C000C67F2C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3437EB317EED2C000C67F2C /* CoreMedia.framework */; };
 		C3437EB617EED2C800C67F2C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3437EB517EED2C800C67F2C /* MediaPlayer.framework */; };
 		C3437EB817EED2E300C67F2C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3437EB717EED2E300C67F2C /* AudioToolbox.framework */; };
-		C3437EBB17EED30C00C67F2C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EBA17EED30C00C67F2C /* ViewController.m */; };
-		C3437EBD17EED32900C67F2C /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3437EBC17EED32900C67F2C /* ViewController.xib */; };
 		C3437EC017EED33500C67F2C /* DeviceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EBF17EED33500C67F2C /* DeviceDetailViewController.m */; };
 		C3437ECE17EED99D00C67F2C /* AlarmPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EC317EED99D00C67F2C /* AlarmPlayer.m */; };
 		C3437ECF17EED99D00C67F2C /* AudioRecordUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EC517EED99D00C67F2C /* AudioRecordUtility.m */; };
@@ -135,7 +133,6 @@
 		C37F4A5017F474A500DC23AA /* Settings_Btn_Confirm.png in Resources */ = {isa = PBXBuildFile; fileRef = C37F4A4E17F474A400DC23AA /* Settings_Btn_Confirm.png */; };
 		C37F4A5317F474C300DC23AA /* Settings_Btn_Back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37F4A5117F474C300DC23AA /* Settings_Btn_Back@2x.png */; };
 		C37F4A5417F474C300DC23AA /* Settings_Btn_Confirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37F4A5217F474C300DC23AA /* Settings_Btn_Confirm@2x.png */; };
-		C37F4A5717F48D0200DC23AA /* MusicTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37F4A5617F48D0200DC23AA /* MusicTableViewController.m */; };
 		C37F4A5917F48D9C00DC23AA /* Settings_Frame.png in Resources */ = {isa = PBXBuildFile; fileRef = C37F4A5817F48D9C00DC23AA /* Settings_Frame.png */; };
 		C37F4A5B17F48DA800DC23AA /* Settings_Frame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37F4A5A17F48DA800DC23AA /* Settings_Frame@2x.png */; };
 		C3810B3317EDD06A006A180D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3810B3217EDD06A006A180D /* CoreTelephony.framework */; };
@@ -254,9 +251,6 @@
 		C3437EB317EED2C000C67F2C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		C3437EB517EED2C800C67F2C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		C3437EB717EED2E300C67F2C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		C3437EB917EED30C00C67F2C /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C3437EBA17EED30C00C67F2C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		C3437EBC17EED32900C67F2C /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		C3437EBE17EED33500C67F2C /* DeviceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDetailViewController.h; sourceTree = "<group>"; };
 		C3437EBF17EED33500C67F2C /* DeviceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDetailViewController.m; sourceTree = "<group>"; };
 		C3437EC217EED99D00C67F2C /* AlarmPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmPlayer.h; sourceTree = "<group>"; };
@@ -316,8 +310,6 @@
 		C37F4A4E17F474A400DC23AA /* Settings_Btn_Confirm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Settings_Btn_Confirm.png; sourceTree = "<group>"; };
 		C37F4A5117F474C300DC23AA /* Settings_Btn_Back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings_Btn_Back@2x.png"; sourceTree = "<group>"; };
 		C37F4A5217F474C300DC23AA /* Settings_Btn_Confirm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings_Btn_Confirm@2x.png"; sourceTree = "<group>"; };
-		C37F4A5517F48D0200DC23AA /* MusicTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicTableViewController.h; sourceTree = "<group>"; };
-		C37F4A5617F48D0200DC23AA /* MusicTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicTableViewController.m; sourceTree = "<group>"; };
 		C37F4A5817F48D9C00DC23AA /* Settings_Frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Settings_Frame.png; sourceTree = "<group>"; };
 		C37F4A5A17F48DA800DC23AA /* Settings_Frame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings_Frame@2x.png"; sourceTree = "<group>"; };
 		C3810B3217EDD06A006A180D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -459,8 +451,6 @@
 			isa = PBXGroup;
 			children = (
 				C3437EA117EED22300C67F2C /* FPPopoverController.h */,
-				C37F4A5517F48D0200DC23AA /* MusicTableViewController.h */,
-				C37F4A5617F48D0200DC23AA /* MusicTableViewController.m */,
 				C3437EA217EED22300C67F2C /* FPPopoverController.m */,
 				C3437EA317EED22300C67F2C /* FPPopoverView.h */,
 				C3437EA417EED22300C67F2C /* FPPopoverView.m */,
@@ -479,9 +469,6 @@
 			children = (
 				C3437EBE17EED33500C67F2C /* DeviceDetailViewController.h */,
 				C3437EBF17EED33500C67F2C /* DeviceDetailViewController.m */,
-				C3437EBC17EED32900C67F2C /* ViewController.xib */,
-				C3437EB917EED30C00C67F2C /* ViewController.h */,
-				C3437EBA17EED30C00C67F2C /* ViewController.m */,
 				C37C5DDC17EBF30E00FCE5AE /* CRootViewController.h */,
 				C37C5DDD17EBF30E00FCE5AE /* CRootViewController.m */,
 				C382630E17EF501B00D66B77 /* CScanViewController.h */,
@@ -752,7 +739,6 @@
 				C3840BA017E9D1E60049FDE5 /* Default@2x.png in Resources */,
 				C3840BA217E9D1E60049FDE5 /* Default-568h@2x.png in Resources */,
 				C3840BA817E9D1E60049FDE5 /* CViewController.xib in Resources */,
-				C3437EBD17EED32900C67F2C /* ViewController.xib in Resources */,
 				4E0F313E17EF3CD8006FC754 /* Main_Bg.png in Resources */,
 				4E0F313F17EF3CD8006FC754 /* Main_Bt_Find.png in Resources */,
 				4E0F314017EF3CD8006FC754 /* Main_Bt_Help.png in Resources */,
@@ -871,7 +857,6 @@
 				C3437EAA17EED22300C67F2C /* FPPopoverView.m in Sources */,
 				C3437EAB17EED22300C67F2C /* FPTouchView.m in Sources */,
 				C3437EAC17EED22300C67F2C /* PopUpTableViewController.m in Sources */,
-				C3437EBB17EED30C00C67F2C /* ViewController.m in Sources */,
 				C3437EC017EED33500C67F2C /* DeviceDetailViewController.m in Sources */,
 				C3437ECE17EED99D00C67F2C /* AlarmPlayer.m in Sources */,
 				C3437ECF17EED99D00C67F2C /* AudioRecordUtility.m in Sources */,

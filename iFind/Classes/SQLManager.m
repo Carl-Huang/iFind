@@ -12,16 +12,6 @@
 @implementation SQLManager
 @synthesize db;
 
-/*
- [self initDataBase];
- [self createTable];
- 
- [self insertValueToExistedTableWithArguments:@[@"carl",@"carl",@"carl",@"carl",[NSNumber numberWithInt:24],[NSNumber numberWithInt:24],@"男",@"男",@"男"]];
- 
- [self updateKey:@"alertDistance" value:@"3" withUUID:@"carl"];
- [self deleteDatabaseRowWithUUID:@"carl"];
-
- */
 
 //创建数据库
 -(id)initDataBase
@@ -44,7 +34,7 @@
 //创建数据表
 -(void)createTable
 {
-    NSString * createTableStr = @"create table if not exists iFindTable(uuid text primary key,name text,image text,alertDistance integer,alertTime integer,alertMusic text,phoneMode text,deviceMode text,blueMode text,vibrate text)";
+    NSString * createTableStr = @"create table if not exists iFindTable(uuid text primary key,name text,image text,alertDistance integer,alertTime integer,alertMusic text,phoneMode text,deviceMode text,blueMode text,vibrate text,targetTag text)";
     if ([db executeUpdate:createTableStr]) {
         NSLog(@"create table successfully");
     }else
@@ -57,7 +47,7 @@
 
 -(void)insertValueToExistedTableWithArguments:(NSArray *)array
 {
-    if ([db executeUpdate:@"insert into iFindTable values(?,?,?,?,?,?,?,?,?,?)" withArgumentsInArray:array]) {
+    if ([db executeUpdate:@"insert into iFindTable values(?,?,?,?,?,?,?,?,?,?,?)" withArgumentsInArray:array]) {
         NSLog(@"Insert value successfully");
     }else
     {
@@ -80,18 +70,9 @@
 -(NSDictionary *)queryDatabaseWithUUID:(NSString *)uuid
 {
     NSLog(@"%s",__func__);
-    NSMutableDictionary * deviceInfoDic = [NSMutableDictionary dictionary];
+    NSMutableDictionary * deviceInfoDic = [[NSMutableDictionary alloc]init];
     FMResultSet *rs = [db executeQuery:@"select * from iFindTable where uuid=?",uuid];
     while ([rs next]) {
-//        [deviceInfoDic setObject:[rs stringForColumn:@"uuid"]   forKey:UUIDStr];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"name"]   forKey:DeviceName];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"image"]  forKey:ImageName];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"alertDistance"]  forKey:DistanceValue];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"alertTime"]   forKey:AlertTime];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"alertMusic"]   forKey:AlertMusic];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"phoneMode"]   forKey:PhoneMode];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"deviceMode"]   forKey:DeviceMode];
-//        [deviceInfoDic setObject:[rs stringForColumn:@"blueMode"]   forKey:BluetoothMode];
         [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"uuid"]   forKey:UUIDStr];
         [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"name"]   forKey:DeviceName];
         [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"image"]  forKey:ImageName];
@@ -102,7 +83,10 @@
         [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"deviceMode"]   forKey:DeviceMode];
         [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"blueMode"]   forKey:BluetoothMode];
         [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"vibrate"]   forKey:VibrateMode];
+        [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"targetTag"]   forKey:TargetTag];
+
     }
+    [rs close];
     return deviceInfoDic;
 }
 
@@ -151,4 +135,10 @@
     return filePath;
 }
 
+-(void)dealloc
+{
+    [self.db close];
+    [self.db release];
+    [super dealloc];
+}
 @end
