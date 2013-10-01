@@ -120,6 +120,7 @@
     [dataSource release];
     [musicDic release];
     [vUUID release];
+    [sqlMng release];
 }
 #pragma mark - Table view data source
 
@@ -147,6 +148,8 @@
     cell.textLabel.font = [UIFont systemFontOfSize:14];
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+   
+
     if (isFirstView) {
         if (indexPath.row == songIndex || indexPath.row == vibrateIndex) {
             
@@ -161,9 +164,15 @@
             [musicDic setObject:cell.textLabel.text forKey:SelectMusic];
 
         }
-        if (indexPath.row == selectIndex2 &&isVibrateItem) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            [musicDic setObject:cell.textLabel.text forKey:SelectVibrate];
+        if (indexPath.row == selectIndex2 ) {
+            if (isVibrateItem) {
+                [musicDic setObject:@"1" forKey:SelectVibrate];
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }else
+            {
+                [musicDic setObject:@"0" forKey:SelectVibrate];
+            }
+            
         }
     }
     

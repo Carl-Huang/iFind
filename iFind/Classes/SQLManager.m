@@ -34,7 +34,7 @@
 //创建数据表
 -(void)createTable
 {
-    NSString * createTableStr = @"create table if not exists iFindTable(uuid text primary key,name text,image text,alertDistance integer,alertTime integer,alertMusic text,phoneMode text,deviceMode text,blueMode text,vibrate text)";
+    NSString * createTableStr = @"create table if not exists iFindTable(uuid text primary key,name text,image text,alertDistance integer,alertTime integer,alertMusic text,phoneMode text,deviceMode text,blueMode text,vibrate text,targetTag text)";
     if ([db executeUpdate:createTableStr]) {
         NSLog(@"create table successfully");
     }else
@@ -47,7 +47,7 @@
 
 -(void)insertValueToExistedTableWithArguments:(NSArray *)array
 {
-    if ([db executeUpdate:@"insert into iFindTable values(?,?,?,?,?,?,?,?,?,?)" withArgumentsInArray:array]) {
+    if ([db executeUpdate:@"insert into iFindTable values(?,?,?,?,?,?,?,?,?,?,?)" withArgumentsInArray:array]) {
         NSLog(@"Insert value successfully");
     }else
     {
@@ -83,6 +83,8 @@
         [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"deviceMode"]   forKey:DeviceMode];
         [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"blueMode"]   forKey:BluetoothMode];
         [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"vibrate"]   forKey:VibrateMode];
+        [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"targetTag"]   forKey:TargetTag];
+
     }
     return deviceInfoDic;
 }
@@ -132,4 +134,10 @@
     return filePath;
 }
 
+-(void)dealloc
+{
+    [self.db close];
+    [self.db release];
+    [super dealloc];
+}
 @end

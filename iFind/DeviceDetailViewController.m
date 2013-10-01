@@ -25,7 +25,6 @@
 #import "OrderType.h"
 #import "SQLManager.h"
 #import "CustomiseActionSheet.h"
-#import "MusicTableViewController.h"
 #import "MusicViewController.h"
 //Utility class
 #import "PhotoManager.h"
@@ -39,6 +38,7 @@
     NSString *defaultMode;
     NSString *defaultImage;
     NSString *defaultName;
+    NSDictionary * deviceInfo ;
 }
 @end
 
@@ -54,7 +54,7 @@
 -(void)loadView
 {
     [super loadView];
-    self.view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
+//    self.view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
     UIImageView *backgroundImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, -10, 320, 460)];
     [backgroundImage setContentMode:UIViewContentModeScaleAspectFit];
     [backgroundImage setImage:[UIImage imageNamed:@"Settings_Bg"]];
@@ -96,14 +96,12 @@
     [super viewDidLoad];
 
     [self initDirectory];
-
-    [self initializationInterface];
     
     self.title = @"设置";
     
-    //数据库处理类
-    sqlMng  = [[SQLManager alloc]initDataBase];
-    [sqlMng createTable];
+//    //数据库处理类
+//    sqlMng  = [[SQLManager alloc]initDataBase];
+//    [sqlMng createTable];
 
     
        
@@ -153,21 +151,28 @@
 -(void)initializationDeviceWithUUID:(NSString *)uuid
 {
     //数据库处理类
+    if (sqlMng) {
+        [sqlMng release];
+        sqlMng = nil;
+    }
     sqlMng  = [[SQLManager alloc]initDataBase];
     [sqlMng createTable];
-    self.vUUID = uuid;
+    self.vUUID = @"Default";
     
     defaultAlertMusic       = AlertMusiceDefaultTitle;
     defaultDistanceValue    = DistancePre;
     defaultAlertTime        = AlertTimePre;
 
-    NSDictionary * deviceInfo = nil;
+    if (deviceInfo) {
+        [deviceInfo release];
+        deviceInfo = nil;
+    }
     //返回的是数据库中之前保存过相应的uuid设备的配置信息
-    deviceInfo = [sqlMng queryDatabaseWithUUID:uuid];
+    deviceInfo = [sqlMng queryDatabaseWithUUID:@"Default"];
     
     if ([deviceInfo count]==0) {
         //insert Default value
-        [sqlMng insertValueToExistedTableWithArguments:@[@"Default",@"hello",@"Main_Icon_Wallet_H",DistanceFar,AlertTime30,@"Alchemy",PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop,VibrateOn]];
+        [sqlMng insertValueToExistedTableWithArguments:@[@"Default",@"hello",@"Main_Icon_Wallet_H",DistanceFar,AlertTime30,@"Alchemy",PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop,VibrateOn,TagOne]];
         self.vUUID = @"Default";
         NSLog(@"Database did not have the record with uuid:%@",uuid);
         defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:@"Alchemy"];
@@ -181,6 +186,9 @@
     }else
     {
         defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:[deviceInfo objectForKey:AlertMusic]];
+        if ([[deviceInfo objectForKey:VibrateMode] isEqualToString:@"1"]) {
+            defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:@",震动"];
+        }
         defaultDistanceValue    = [deviceInfo objectForKey:DistanceValue];
         if ([defaultDistanceValue isEqualToString:@"80"]) {
             defaultDistanceValue = @"近";
@@ -244,6 +252,20 @@
         defaultImage            = [deviceInfo objectForKey:ImageName];
         [self updateScopeValue:@"" signalValue:@"" powerVaule:@""];
     }
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+//    [defaultDistanceValue release];
+//    [defaultAlertMusic release];
+//    [defaultAlertTime release];
+//    [defaultPhoneAlertMode release];
+//    [defaultDeviceAlertMOde release];
+//    [defaultMode release];
+//    [defaultImage release];
+//    [defaultName release];
+//    [deviceInfo release];
+
 }
 
 -(void)initializationInterface
@@ -344,7 +366,7 @@
     //是否在范围内，信号量，蓝牙电量
     CGSize size = CGSizeMake(20, 20);
     CGRect rectD1 = CGRectMake(50, 50, 60, 60);
-    CGRect rectD2 = CGRectMake(30, 35, 100, 100);
+    CGRect rectD2 = CGRectMake(25, 30, 110, 110);
     userPhoto = [[UIImageView alloc]init];
     userPhoto.backgroundColor = [UIColor clearColor];
     UIImage * userImage =nil;
@@ -352,7 +374,8 @@
         [userPhoto setFrame:rectD2];
         NSString * userPhotoPath = [[NSString alloc]initWithFormat:@"%@/%@",imageDiskPath,defaultImage];
         NSData *data = [[NSData alloc]initWithContentsOfFile:userPhotoPath];
-        userImage = [[[UIImage alloc]initWithData:data]autorelease];
+        [userPhotoPath release];
+        userImage = [[UIImage alloc]initWithData:data];
         [data release];
     }else
     {
@@ -360,6 +383,7 @@
         userImage = [UIImage imageNamed:@"Main_Icon_Wallet_H"];
     }
     [userPhoto setImage:userImage];
+    [userImage release];
     userPhoto.userInteractionEnabled = YES;
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(takePhoto)];
     [userPhoto addGestureRecognizer:tapGesture];
@@ -611,28 +635,26 @@
         NSString * vibrateStr = [alertMusicInfo objectForKey:SelectVibrate];
         NSString * btnTitle = nil;
         [sqlMng updateKey:AlertMusic value:musicStr withUUID:self.vUUID];
+        [sqlMng updateKey:VibrateMode value:vibrateStr withUUID:self.vUUID];
         if (musicStr) {
             NSLog(@"Did Select music:%@",musicStr);
             btnTitle = [AlertMusiceDefaultTitle stringByAppendingString:musicStr];
             
         }
-        if (vibrateStr) {
+        if ([vibrateStr isEqualToString:@"1"]) {
             NSLog(@"Did Select vibrate");
             btnTitle = [btnTitle stringByAppendingString:@","];
-            btnTitle = [btnTitle stringByAppendingString:vibrateStr];
+            btnTitle = [btnTitle stringByAppendingString:@"震动"];
 //            vibrateStr = [musicStr stringByAppendingString:vibrateStr];
         }
         [self.chooseAlertMusic setTitle:btnTitle forState:UIControlStateNormal];
         NSLog(@"%@",item);
     };
-    if (musicTableview) {
-        [musicTableview release];
-        musicTableview = nil;
-    }
+
     musicTableview = [[MusicViewController alloc]initWithUUID:self.vUUID];
     [musicTableview setConfigyreMusicBlock:block];
     [self presentViewController:musicTableview animated:YES completion:nil];
-    
+    [musicTableview release];
 }
 
 -(void)chooseDeviceAlertModeAction:(id)sender
@@ -688,6 +710,7 @@
     {
         NSLog(@"Cancel");
     }
+    [synActionSheet release];
 }
 
 
@@ -716,11 +739,7 @@
     {
         NSLog(@"Directory already exists");
     }
-    if (imageDiskPath ) {
-        [imageDiskPath release];
-        imageDiskPath = nil;
-    }
-    imageDiskPath = [[fileDirectory stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]retain];
+    imageDiskPath = [fileDirectory stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 }
 
 
@@ -738,11 +757,12 @@
 -(void)dealloc
 {
     [super dealloc];
-    [photoManager release];
-    photoManager = nil;
-    [wifiLabel release];
-    [scopeLabel release];
-    [devPowerLabel release];
+    [sqlMng         release];
+    [userPhoto      release];
+    [photoManager   release];
+    [wifiLabel      release];
+    [scopeLabel     release];
+    [devPowerLabel  release];
     if (musicTableview) {
         [musicTableview release];
     }

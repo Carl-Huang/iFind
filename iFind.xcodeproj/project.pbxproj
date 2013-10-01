@@ -116,7 +116,6 @@
 		C37F4A5017F474A500DC23AA /* Settings_Btn_Confirm.png in Resources */ = {isa = PBXBuildFile; fileRef = C37F4A4E17F474A400DC23AA /* Settings_Btn_Confirm.png */; };
 		C37F4A5317F474C300DC23AA /* Settings_Btn_Back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37F4A5117F474C300DC23AA /* Settings_Btn_Back@2x.png */; };
 		C37F4A5417F474C300DC23AA /* Settings_Btn_Confirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37F4A5217F474C300DC23AA /* Settings_Btn_Confirm@2x.png */; };
-		C37F4A5717F48D0200DC23AA /* MusicTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37F4A5617F48D0200DC23AA /* MusicTableViewController.m */; };
 		C37F4A5917F48D9C00DC23AA /* Settings_Frame.png in Resources */ = {isa = PBXBuildFile; fileRef = C37F4A5817F48D9C00DC23AA /* Settings_Frame.png */; };
 		C37F4A5B17F48DA800DC23AA /* Settings_Frame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C37F4A5A17F48DA800DC23AA /* Settings_Frame@2x.png */; };
 		C3810B3317EDD06A006A180D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3810B3217EDD06A006A180D /* CoreTelephony.framework */; };
@@ -274,8 +273,6 @@
 		C37F4A4E17F474A400DC23AA /* Settings_Btn_Confirm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Settings_Btn_Confirm.png; sourceTree = "<group>"; };
 		C37F4A5117F474C300DC23AA /* Settings_Btn_Back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings_Btn_Back@2x.png"; sourceTree = "<group>"; };
 		C37F4A5217F474C300DC23AA /* Settings_Btn_Confirm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings_Btn_Confirm@2x.png"; sourceTree = "<group>"; };
-		C37F4A5517F48D0200DC23AA /* MusicTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicTableViewController.h; sourceTree = "<group>"; };
-		C37F4A5617F48D0200DC23AA /* MusicTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicTableViewController.m; sourceTree = "<group>"; };
 		C37F4A5817F48D9C00DC23AA /* Settings_Frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Settings_Frame.png; sourceTree = "<group>"; };
 		C37F4A5A17F48DA800DC23AA /* Settings_Frame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings_Frame@2x.png"; sourceTree = "<group>"; };
 		C3810B3217EDD06A006A180D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -417,8 +414,6 @@
 			isa = PBXGroup;
 			children = (
 				C3437EA117EED22300C67F2C /* FPPopoverController.h */,
-				C37F4A5517F48D0200DC23AA /* MusicTableViewController.h */,
-				C37F4A5617F48D0200DC23AA /* MusicTableViewController.m */,
 				C3437EA217EED22300C67F2C /* FPPopoverController.m */,
 				C3437EA317EED22300C67F2C /* FPPopoverView.h */,
 				C3437EA417EED22300C67F2C /* FPPopoverView.m */,
@@ -795,7 +790,6 @@
 				C385AEFA17F13DE6001DBCF0 /* CDataSource.m in Sources */,
 				4E0943AC17F2B39200384362 /* CustomiseActionSheet.m in Sources */,
 				4E178F0717F46DF4007D5652 /* MusicViewController.m in Sources */,
-				C37F4A5717F48D0200DC23AA /* MusicTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
