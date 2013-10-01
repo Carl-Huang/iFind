@@ -54,7 +54,6 @@
 -(void)loadView
 {
     [super loadView];
-//    self.view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 460)];
     UIImageView *backgroundImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, -10, 320, 460)];
     [backgroundImage setContentMode:UIViewContentModeScaleAspectFit];
     [backgroundImage setImage:[UIImage imageNamed:@"Settings_Bg"]];
@@ -98,12 +97,6 @@
     [self initDirectory];
     
     self.title = @"设置";
-    
-//    //数据库处理类
-//    sqlMng  = [[SQLManager alloc]initDataBase];
-//    [sqlMng createTable];
-
-    
        
     //相片处理类
     ConfigureImageBlock block = ^(id item,id name){
@@ -151,10 +144,6 @@
 -(void)initializationDeviceWithUUID:(NSString *)uuid
 {
     //数据库处理类
-    if (sqlMng) {
-        [sqlMng release];
-        sqlMng = nil;
-    }
     sqlMng  = [[SQLManager alloc]initDataBase];
     [sqlMng createTable];
     self.vUUID = @"Default";
@@ -252,21 +241,10 @@
         defaultImage            = [deviceInfo objectForKey:ImageName];
         [self updateScopeValue:@"" signalValue:@"" powerVaule:@""];
     }
+    [deviceInfo release];
 }
 
--(void)viewDidDisappear:(BOOL)animated
-{
-//    [defaultDistanceValue release];
-//    [defaultAlertMusic release];
-//    [defaultAlertTime release];
-//    [defaultPhoneAlertMode release];
-//    [defaultDeviceAlertMOde release];
-//    [defaultMode release];
-//    [defaultImage release];
-//    [defaultName release];
-//    [deviceInfo release];
 
-}
 
 -(void)initializationInterface
 {

@@ -70,7 +70,7 @@
 -(NSDictionary *)queryDatabaseWithUUID:(NSString *)uuid
 {
     NSLog(@"%s",__func__);
-    NSMutableDictionary * deviceInfoDic = [NSMutableDictionary dictionary];
+    NSMutableDictionary * deviceInfoDic = [[NSMutableDictionary alloc]init];
     FMResultSet *rs = [db executeQuery:@"select * from iFindTable where uuid=?",uuid];
     while ([rs next]) {
         [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"uuid"]   forKey:UUIDStr];
@@ -86,6 +86,7 @@
         [deviceInfoDic setObject:[self returnDataObjWith:rs keyWord:@"targetTag"]   forKey:TargetTag];
 
     }
+    [rs close];
     return deviceInfoDic;
 }
 
