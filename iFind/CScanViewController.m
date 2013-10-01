@@ -19,10 +19,13 @@
 #import "PopUpTableViewController.h"
 #import "FPPopoverController.h"
 #import "DeviceDetailViewController.h"
+#import "CSettingViewController.h"
 #import "SBTableAlert.h"
 #import "CDataSource.h"
 #import "CUtilsFunc.h"
-@interface CScanViewController ()
+#import "ACPScrollMenu.h"
+#import "ACPItem.h"
+@interface CScanViewController () <ACPScrollDelegate>
 @property (nonatomic,retain) NSArray * defaultImages;
 @property (nonatomic,retain) NSArray * defaultHightlighImages;
 @property (nonatomic,assign) int currentButtonTag;
@@ -238,6 +241,7 @@
     UIButton * controlButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [controlButton setTitle:NSLocalizedString(@"RemoteControl", nil) forState:UIControlStateNormal];
     [controlButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [controlButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
     [controlButton setBackgroundImage:controlImage forState:UIControlStateNormal];
     [controlButton setFrame:CGRectMake(marginLeft + btnHSpace + helpButton.frame.size.width, btnMarginTop, controlImage.size.width, controlImage.size.height)];
     controlButton.tag = CONTROL_BUTTON_TAG;
@@ -275,6 +279,7 @@
 //响应找按钮的点击事件
 - (void)findPeripheral:(id)sender
 {
+    [self setUpScrollMenu];
     NSArray * connectedPeripheral = [[CBLEManager sharedManager] connectedPeripherals];
     if([connectedPeripheral count] == 0)
     {
@@ -287,6 +292,40 @@
         [connectedPeripheral makeObjectsPerformSelector:@selector(writeAlertLevelHigh)];
         return ;
     }
+    
+}
+
+//显示滚动菜单
+- (void)setUpScrollMenu
+{
+    UIView * overLayer = [[UIView alloc] init];
+    overLayer.frame = self.view.bounds;
+    overLayer.backgroundColor = [UIColor blackColor];
+    overLayer.alpha = .8f;
+    overLayer.tag = 100;
+    ACPScrollMenu * _ACPScrollMenu = [[ACPScrollMenu alloc] initWithFrame:CGRectMake(0, 150, self.view.frame.size.width, 100)];
+	NSMutableArray *array = [[NSMutableArray alloc] init];
+	for (int i = 1; i < 5; i++) {
+		NSString *imgName = [NSString stringWithFormat:@"%d.png", i];
+		NSString *imgSelectedName = [NSString stringWithFormat:@"%ds.png", i];
+		//Set the items
+		ACPItem *item = [[ACPItem alloc] initACPItem:[UIImage imageNamed:@"bg.png"] iconImage:[UIImage imageNamed:imgName] andLabel:@"Test"];
+		//Set highlighted behaviour
+		[item setHighlightedBackground:nil iconHighlighted:[UIImage imageNamed:imgSelectedName] textColorHighlighted:[UIColor redColor]];
+        
+		[array addObject:item];
+	}
+    
+	[_ACPScrollMenu setUpACPScrollMenu:array];
+    [array release];
+	//We choose an animation when the user touch the item (you can create your own animation)
+	[_ACPScrollMenu setAnimationType:ACPZoomOut];
+	_ACPScrollMenu.delegate = self;
+    _ACPScrollMenu.tag = 101;
+    [overLayer addSubview:_ACPScrollMenu];
+    [_ACPScrollMenu release];
+    [self.view addSubview:overLayer];
+    [overLayer release];
 }
 
 
@@ -318,11 +357,12 @@
 //响应设置按钮点击事件
 - (void)showSettingScene:(id)sender
 {
-    DeviceDetailViewController * detailViewController = [[DeviceDetailViewController alloc] initWithNibName:nil bundle:nil];
-    
-    [detailViewController initializationDeviceWithUUID:@"carl"];
-    [self.navigationController pushViewController:detailViewController animated:YES];
-    [detailViewController release];
+    CSettingViewController * settingViewController = [[CSettingViewController alloc] initWithNibName:nil bundle:nil];
+    UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:settingViewController];
+    [settingViewController release];
+    [self presentViewController:navigationController animated:YES completion:^{
+        [navigationController release];
+    }];
 }
 
 
@@ -359,6 +399,21 @@
     [detailViewController initializationDefaultValue:nil];
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
+}
+
+//ACPScrollMenu Delegate Methods
+- (void)scrollMenu:(ACPItem *)menu didSelectIndex:(NSInteger)selectedIndex {
+	NSLog(@"Item %d", selectedIndex);
+    UIView * overlay = [self.view viewWithTag:100];
+    UIView *scrollView = [overlay viewWithTag:101];
+    [UIView animateWithDuration:.8f animations:^{
+        scrollView.alpha = 0.0;
+        scrollView.frame = CGRectMake(0, 0, 0, 0);
+//        overlay.frame = CGRectMake(0, 0, 0, 0);
+    } completion:^(BOOL finished) {
+        [scrollView removeFromSuperview];
+        [overlay removeFromSuperview];
+    }];
 }
 
 
