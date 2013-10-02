@@ -90,16 +90,10 @@
     
     self.title = @"设置";
        
-    //相片处理类
-    ConfigureImageBlock block = ^(id item,id name){
-        [userPhoto setFrame:CGRectMake(30, 35, 100, 100)];
-        [userPhoto setImage:(UIImage *)item];
-        //图片名写入数据库
-        [sqlMng updateKey:ImageName value:name withUUID:self.vUUID];
-    };
+   
+    
     [self initializationInterface];
-    photoManager = [[PhotoManager alloc]initWithBlock:block];
-
+    
 }
 
 -(void)backToMainview
@@ -160,11 +154,11 @@
         defaultPhoneAlertMode   = DefaultPhoneAlertMode;
         defaultDeviceAlertMOde  = DefaultDeviceAlertMode;
         defaultMode             = DefaultMode;
-        defaultName             = [[NSString alloc]init];
-        defaultImage            = [[NSString alloc]init];
+        defaultName             = [[[NSString alloc]init]autorelease];
+        defaultImage            = [[[NSString alloc]init]autorelease];
         [self configureNameAndImageWithTag:tag];
         //insert Default value
-        [sqlMng insertValueToExistedTableWithArguments:@[self.vUUID,defaultName,defaultImage,DistanceFar,AlertTime30,DefaultMusic,PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop,VibrateOn,[NSNumber numberWithInt:tag]]];
+        [sqlMng insertValueToExistedTableWithArguments:@[self.vUUID,defaultName,defaultImage,DistanceFar,AlertTime10,DefaultMusic,PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop,VibrateOn,[NSNumber numberWithInt:tag]]];
     }else
     {
         defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:[deviceInfo objectForKey:AlertMusic]];
@@ -687,6 +681,19 @@
 -(void)takePhoto
 {
     NSLog(@"take photo action");
+    //相片处理类
+    ConfigureImageBlock block = ^(id item,id name){
+        [userPhoto setFrame:CGRectMake(25, 30, 110, 110)];
+        [userPhoto setImage:(UIImage *)item];
+        //图片名写入数据库
+        [sqlMng updateKey:ImageName value:name withUUID:self.vUUID];
+    };
+    if (photoManager) {
+        [photoManager release];
+        photoManager = nil;
+    }
+    photoManager = [[PhotoManager alloc]initWithBlock:block];
+
     CustomiseActionSheet * synActionSheet = [[CustomiseActionSheet alloc] init];
     synActionSheet.titles = [NSArray arrayWithObjects:@"From Camera", @"From Album",@"Cancel", nil];
     synActionSheet.destructiveButtonIndex = -1;
@@ -696,13 +703,11 @@
         //拍照
         NSLog(@"From Camera");
         [self presentViewController:photoManager.camera animated:YES completion:nil];
-        
     }else if(result ==1)
     {
         //从相册选择
         NSLog(@"From Album");
         [self presentViewController:photoManager.pickingImageView animated:YES completion:nil];
-       
     }else
     {
         NSLog(@"Cancel");
@@ -767,14 +772,16 @@
     [super dealloc];
     [sqlMng         release];
     [userPhoto      release];
-    [photoManager   release];
     [wifiLabel      release];
     [scopeLabel     release];
     [devPowerLabel  release];
-    [defaultImage release];
-    [defaultName release];
+    defaultImage = nil;
+    defaultName  = nil;
     if (musicTableview) {
         [musicTableview release];
+    }
+    if (photoManager) {
+        [photoManager release];
     }
 }
 @end

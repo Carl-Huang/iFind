@@ -121,7 +121,7 @@
 	}else if([mediaType isEqualToString:@"public.image"])	//被选中的是图片
 	{
         //获取照片实例
-		UIImage *image = [[info objectForKey:UIImagePickerControllerOriginalImage] retain];
+		UIImage *image = [[info objectForKey:UIImagePickerControllerEditedImage] retain];
         
 		self.configureBlock(image,saveToDiskFileName);
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
