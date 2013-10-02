@@ -260,7 +260,7 @@
     {
         //some error
         //有可能是设备离远了
-        [central retrievePeripherals:@[(id)peripheral.UUID]];
+//        [central retrievePeripherals:@[(id)peripheral.UUID]];
     }
     [self removeConnectedPeripheral:peripheral];
     //在这里出来蓝牙断开连接

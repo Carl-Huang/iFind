@@ -199,6 +199,10 @@ typedef enum {
     NSLog(@"New RSSI:%d",peripheral.RSSI.intValue);
     
     self.rssi = peripheral.RSSI.intValue;
+    if(self.updateRSSIHandler)
+    {
+        self.updateRSSIHandler(self.rssi);
+    }
     //在这里处理蓝牙的距离
     if(peripheral.RSSI.intValue < -90)
     {
