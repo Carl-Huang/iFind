@@ -39,37 +39,41 @@
         NSLog(@"create table successfully");
     }else
     {
-        NSLog(@"Failer to create table,Error: %@",[db lastError]);
+        NSLog(@"Fail to create table,Error: %@",[db lastError]);
     }
 }
 
 //插入数据到数据表
 -(void)insertTableWithUUID:(NSString *)uuid Tag:(NSInteger )tag
 {
-    NSString *defaultName = nil;
-    NSString *defaultImage = nil;
-    switch (tag) {
-        case TagOne:
-            defaultName = TagOneName;
-            defaultImage = TagOneImageH;
-            break;
-        case TagTwo:
-            defaultName = TagTwoName;
-            defaultImage = TagTwoImageH;
-            break;
-        case TagThree:
-            defaultName = TagThreeName;
-            defaultImage = TagThreeImageH;
-            break;
-        case TagFour:
-            defaultName = TagFourName;
-            defaultImage = TagFourImageH;
-            break;
-            
-        default:
-            break;
+    
+    if (![self getValue:UUIDStr ByUUID:uuid]) {
+        NSString *defaultName = nil;
+        NSString *defaultImage = nil;
+        switch (tag) {
+            case TagOne:
+                defaultName = TagOneName;
+                defaultImage = TagOneImageH;
+                break;
+            case TagTwo:
+                defaultName = TagTwoName;
+                defaultImage = TagTwoImageH;
+                break;
+            case TagThree:
+                defaultName = TagThreeName;
+                defaultImage = TagThreeImageH;
+                break;
+            case TagFour:
+                defaultName = TagFourName;
+                defaultImage = TagFourImageH;
+                break;
+                
+            default:
+                break;
+        }
+        [self insertValueToExistedTableWithArguments:@[uuid,defaultName,defaultImage,DistanceFar,AlertTime10,DefaultMusic,PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop,VibrateOn,[NSNumber numberWithInt:tag]]];
     }
-    [self insertValueToExistedTableWithArguments:@[uuid,defaultName,defaultImage,DistanceFar,AlertTime10,DefaultMusic,PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop,VibrateOn,[NSNumber numberWithInt:tag]]];
+    
 }
 
 
@@ -92,7 +96,7 @@
         NSLog(@"update value successfully");
     }else
     {
-        NSLog(@"Failer to update value to table,Error: %@",[db lastError]);
+        NSLog(@"Fail to update value to table,Error: %@",[db lastError]);
     }
 }
 //查询记录
