@@ -171,7 +171,7 @@ typedef enum {
 {
     if(error)
     {
-        NSLog(@"Peripheral read value with error : %@",[error description]);
+        NSLog(@"Peripheral read value %@ with error : %@",characteristic.value,[error description]);
         return ;
     }
     NSLog(@"Did update value %@, in characteristic uuid %@, service uuid:%@",characteristic.value,characteristic.UUID,characteristic.service.UUID);
