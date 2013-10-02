@@ -25,10 +25,13 @@
 #import "CUtilsFunc.h"
 #import "ACPScrollMenu.h"
 #import "ACPItem.h"
+#import "SQLManager.h"
+#import "OrderType.h"
 @interface CScanViewController () <ACPScrollDelegate>
 @property (nonatomic,retain) NSArray * defaultImages;
 @property (nonatomic,retain) NSArray * defaultHightlighImages;
 @property (nonatomic,assign) int currentButtonTag;
+@property (nonatomic,retain) SQLManager * sqlManager;
 @end
 
 @implementation CScanViewController
@@ -50,6 +53,8 @@
                                    [UIImage imageNamed:@"Main_Icon_Bag_H"],
                                    [UIImage imageNamed:@"Main_Icon_Kid_H"],
                                    nil];
+        //初始化数据库管理类
+        _sqlManager = [[SQLManager alloc] initDataBase];
     }
     return self;
 }
@@ -100,6 +105,7 @@
         {
             CBLEButton * bleButton = (CBLEButton *)sender;
             [bleButton setUuid:[CUtilsFunc convertCFUUIDIntoString:peripheral.UUID]];
+            
         }
         
         [self enableButton];

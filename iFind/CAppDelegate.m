@@ -11,6 +11,7 @@
 #import "CBLEPeriphral.h"
 #import "CBLEManager.h"
 #import "DeviceDetailViewController.h"
+#import "SQLManager.h"
 //#define TestDeviceDetailViewcontroller
 //#define TestCRootViewController
 @implementation CAppDelegate
@@ -33,7 +34,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    //初始化数据库
+    SQLManager * sqlManager = [[SQLManager alloc] initDataBase];
+    [sqlManager createTable];
+    [sqlManager release];
+    
+    //自定义UI
     [self customUI];
+    //实例化蓝牙管理类
     _bleManager = [CBLEManager sharedManager];
     
     //监听来电
