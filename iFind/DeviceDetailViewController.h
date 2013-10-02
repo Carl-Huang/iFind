@@ -27,6 +27,7 @@ typedef void (^DidSelectMusicConfigureBlock) (id item);
 @class SQLManager;
 @class MusicTableViewController;
 @class MusicViewController;
+@class CBLEPeriphral;
 @interface DeviceDetailViewController : UIViewController<UIActionSheetDelegate>
 {
     PopUpTableViewController *popUpTableviewController;
@@ -38,7 +39,7 @@ typedef void (^DidSelectMusicConfigureBlock) (id item);
 @property (retain ,nonatomic)NSString *vUUID;
 //数据库操作
 @property (retain ,nonatomic)SQLManager *sqlMng;
-
+@property (retain ,nonatomic)CBLEPeriphral * blePeripheral;
 
 
 //界面按钮

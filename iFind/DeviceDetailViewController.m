@@ -18,6 +18,7 @@
 #import "SQLManager.h"
 #import "CustomiseActionSheet.h"
 #import "MusicViewController.h"
+#import "CBLEPeriphral.h"
 //Utility class
 #import "PhotoManager.h"
 @interface DeviceDetailViewController ()
@@ -78,7 +79,27 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if(_blePeripheral)
+    {
+        _blePeripheral.updateRSSIHandler = ^(int rssi){
+            int oldRSSI = [[wifiLabel text] intValue];
+            if(abs(oldRSSI - rssi) > 3)
+            {
+                [wifiLabel setText:[NSString stringWithFormat:@"%ddb",rssi]];
+            }
+        };
+    }
+    
 
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if(_blePeripheral)
+    {
+        _blePeripheral.updateRSSIHandler = nil;
+    }
 }
 
 - (void)viewDidLoad
@@ -89,11 +110,8 @@
     [self initDirectory];
     
     self.title = @"设置";
-       
-   
-    
+    [self initializationDeviceWithUUID:_blePeripheral.UUID withTag:_blePeripheral.tag];
     [self initializationInterface];
-    
 }
 
 -(void)backToMainview
@@ -102,36 +120,12 @@
 }
 
 #pragma mark - Interface Setting
--(void)initializationDefaultValue:(NSDictionary *)dic
-{
-    if (dic==nil) {
-        defaultAlertMusic       = DefaultAlertMusic;
-        defaultDistanceValue    = DefaultDistanceValue;
-        defaultAlertTime        = DefaultAlertTime;
-        defaultPhoneAlertMode   = DefaultPhoneAlertMode;
-        defaultDeviceAlertMOde  = DefaultDeviceAlertMode;
-        defaultMode             = DefaultMode;
-    }else
-    {
-        defaultAlertMusic       = [dic objectForKey:AlertMusic];
-        defaultDistanceValue    = [dic objectForKey:DistanceValue];
-        defaultAlertTime        = [dic objectForKey:AlertTime];
-        defaultPhoneAlertMode   = [dic objectForKey:PhoneMode];
-        defaultDeviceAlertMOde  = [dic objectForKey:DeviceMode];
-        defaultMode             = [dic objectForKey:BluetoothMode];
-    }
-    //数据库处理类
-    sqlMng  = [[SQLManager alloc]initDataBase];
-    [sqlMng createTable];
-    self.vUUID = @"carl";
-    [sqlMng insertValueToExistedTableWithArguments:@[@"carl",@"carl",@"carl",@"carl",[NSNumber numberWithInt:24],[NSNumber numberWithInt:24],@"男",@"男",@"男"]];
-}
 
 -(void)initializationDeviceWithUUID:(NSString *)uuid withTag:(NSInteger)tag
 {
     //数据库处理类
     sqlMng  = [[SQLManager alloc]initDataBase];
-    [sqlMng createTable];
+//    [sqlMng createTable];
     self.vUUID = uuid;
     
     defaultAlertMusic       = AlertMusiceDefaultTitle;
@@ -147,18 +141,18 @@
     
     if ([deviceInfo count]==0) {
         NSLog(@"Database did not have the record with uuid:%@",self.vUUID);
-        defaultAlertMusic       = DefaultMusic;
-        defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:@",震动"];
-        defaultDistanceValue    = [defaultDistanceValue stringByAppendingString:@"近"];
-        defaultAlertTime        = [defaultAlertTime stringByAppendingString:@"30秒"];
-        defaultPhoneAlertMode   = DefaultPhoneAlertMode;
-        defaultDeviceAlertMOde  = DefaultDeviceAlertMode;
-        defaultMode             = DefaultMode;
-        defaultName             = [[[NSString alloc]init]autorelease];
-        defaultImage            = [[[NSString alloc]init]autorelease];
-        [self configureNameAndImageWithTag:tag];
-        //insert Default value
-        [sqlMng insertValueToExistedTableWithArguments:@[self.vUUID,defaultName,defaultImage,DistanceFar,AlertTime10,DefaultMusic,PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop,VibrateOn,[NSNumber numberWithInt:tag]]];
+//        defaultAlertMusic       = DefaultMusic;
+//        defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:@",震动"];
+//        defaultDistanceValue    = [defaultDistanceValue stringByAppendingString:@"近"];
+//        defaultAlertTime        = [defaultAlertTime stringByAppendingString:@"30秒"];
+//        defaultPhoneAlertMode   = DefaultPhoneAlertMode;
+//        defaultDeviceAlertMOde  = DefaultDeviceAlertMode;
+//        defaultMode             = DefaultMode;
+//        defaultName             = [[[NSString alloc]init]autorelease];
+//        defaultImage            = [[[NSString alloc]init]autorelease];
+//        [self configureNameAndImageWithTag:tag];
+//        //insert Default value
+//        [sqlMng insertValueToExistedTableWithArguments:@[self.vUUID,defaultName,defaultImage,DistanceFar,AlertTime10,DefaultMusic,PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop,VibrateOn,[NSNumber numberWithInt:tag]]];
     }else
     {
         defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:[deviceInfo objectForKey:AlertMusic]];
@@ -226,7 +220,7 @@
         }
         defaultName             = [deviceInfo objectForKey:DeviceName];
         defaultImage            = [deviceInfo objectForKey:ImageName];
-        [self updateScopeValue:@"" signalValue:@"" powerVaule:@""];
+        [self updateScopeValue:@"在范围内" signalValue:[NSString stringWithFormat:@"%d",_blePeripheral.rssi] powerVaule:[NSString stringWithFormat:@"%d",_blePeripheral.batteryLevel]];
     }
     [deviceInfo release];
 }

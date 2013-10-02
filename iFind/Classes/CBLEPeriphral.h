@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-
+typedef void (^UpdateRSSIHandler)(int rssi);
 
 @interface CBLEPeriphral : NSObject <CBPeripheralDelegate>
 
@@ -16,9 +16,11 @@
 @property (nonatomic,assign) int rssi;
 @property (nonatomic,retain) NSString * UUID;
 @property (nonatomic,assign) int batteryLevel;
+@property (nonatomic,assign) int tag;
 @property (nonatomic,retain) CBCharacteristic * characteristicForAlert;
 @property (nonatomic,retain) CBCharacteristic * characteristicForAlertLevel;
 @property (nonatomic,retain) CBCharacteristic * characteristicForBattery;
+@property (nonatomic,copy) UpdateRSSIHandler updateRSSIHandler;
 -(id)initWithPeripheral:(CBPeripheral *)peripheral;
 
 -(void)discoverServices;

@@ -106,6 +106,18 @@
         {
             CBLEButton * bleButton = (CBLEButton *)sender;
             [bleButton setUuid:[CUtilsFunc convertCFUUIDIntoString:peripheral.UUID]];
+            [_sqlManager insertTableWithUUID:bleButton.uuid Tag:bleButton.tag];
+            
+            for(CBLEPeriphral * blePeripheral in [bleManager connectedPeripherals])
+            {
+                if(blePeripheral.peripheral.UUID == peripheral.UUID)
+                {
+                    NSLog(@"%@",bleButton.uuid);
+                    blePeripheral.tag = bleButton.tag;
+                    blePeripheral.UUID = bleButton.uuid;
+                    break;
+                }
+            }
             
         }
         
@@ -189,7 +201,7 @@
             //如果uuid不为空，表示蓝牙已经连接，直接进入蓝牙设置界面
             if(bleButton.uuid != nil)
             {
-                [self showDetailViewControler];
+                [self showDetailViewControler:bleButton.uuid];
                 return ;
             }
             int index = bleButton.tag;
@@ -390,7 +402,7 @@
     dataSource.selectDirectoryHandler = ^(CBPeripheral * peripheral){
         if([peripheral isConnected])
         {
-            [self showDetailViewControler];
+//            [self showDetailViewControler];
         }
         else
         {
@@ -408,10 +420,20 @@
 }
 
 //进入蓝牙设置页面方法
--(void)showDetailViewControler
+-(void)showDetailViewControler:(NSString *)uuid
 {
     DeviceDetailViewController * detailViewController = [[DeviceDetailViewController alloc] initWithNibName:nil bundle:nil];
-    [detailViewController initializationDefaultValue:nil];
+    CBLEPeriphral * blePeripheral = nil;
+    for(CBLEPeriphral * instance in [[CBLEManager sharedManager] connectedPeripherals])
+    {
+        if([instance.UUID isEqualToString:uuid])
+        {
+            blePeripheral = instance;
+            break;
+        }
+    }
+    NSLog(@"%@",blePeripheral.UUID);
+    detailViewController.blePeripheral = blePeripheral;
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
 }
