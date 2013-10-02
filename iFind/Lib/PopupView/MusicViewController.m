@@ -50,7 +50,8 @@
         musicTableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 420)];
         selectIndex1 = -1;
         selectIndex2 = -1;
-      
+        musicDic = [[NSMutableDictionary alloc]init];
+        
     }
     return self;
 }
@@ -60,7 +61,7 @@
     [super viewDidLoad];
     dataSource = [[NSArray alloc]initWithArray:@[@"Alchemy",@"AudibleAlarm",@"Bird",@"CS",@"Ericsson ring",@"Howl",@"ICQ sms sound",@"Jumping Cat",@"Laughter",@"Sent",@"Siren",@"震动"]];
     [self getDidSelectRowInDatabase];
-    musicDic = [[NSMutableDictionary alloc]init];
+
     UIToolbar *bar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     [bar setBackgroundImage:[UIImage imageNamed:@"Main_TopBar"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     
@@ -161,15 +162,18 @@
 
         if (indexPath.row == selectIndex1) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            [sqlMng updateKey:AlertMusic value:[dataSource objectAtIndex:indexPath.row] withUUID:self.vUUID];
             [musicDic setObject:cell.textLabel.text forKey:SelectMusic];
 
         }
         if (indexPath.row == selectIndex2 ) {
             if (isVibrateItem) {
                 [musicDic setObject:@"1" forKey:SelectVibrate];
+                [sqlMng updateKey:VibrateMode value:VibrateOn withUUID:self.vUUID];
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }else
             {
+                [sqlMng updateKey:VibrateMode value:VibrateOff withUUID:self.vUUID];
                 [musicDic setObject:@"0" forKey:SelectVibrate];
             }
             
@@ -193,8 +197,13 @@
         }
     }
     if ([vibrateStr isEqualToString:@"1"]) {
+        [musicDic setObject:@"1" forKey:SelectVibrate];
         vibrateIndex = [dataSource count]-1;
         isVibrateItem = YES;
+    }else
+    {
+        [musicDic setObject:@"0" forKey:SelectVibrate];
+        isVibrateItem = NO;
     }
     selectIndex1 = songIndex;
     selectIndex2 = vibrateIndex;

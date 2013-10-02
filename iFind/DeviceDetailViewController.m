@@ -9,15 +9,7 @@
 
 #define DistancePre                      @"提醒距离选择:"
 #define AlertTimePre                     @"报警时长:"
-#define AlertMusiceDefaultTitle          @"提醒音:"
-
-
-#define DefaultDistanceValue    @"提醒距离选择:远"
-#define DefaultAlertTime        @"报警时长:30秒"
-#define DefaultAlertMusic       @"选择手机提醒音"
-#define DefaultPhoneAlertMode   @"手机震动声光提醒"
-#define DefaultDeviceAlertMode  @"声光提醒"
-#define DefaultMode             @"自动关闭手机报警"
+#define AlertMusiceDefaultTitle          @" "
 
 #import "DeviceDetailViewController.h"
 #import "FPPopoverController.h"
@@ -141,12 +133,12 @@
     [sqlMng insertValueToExistedTableWithArguments:@[@"carl",@"carl",@"carl",@"carl",[NSNumber numberWithInt:24],[NSNumber numberWithInt:24],@"男",@"男",@"男"]];
 }
 
--(void)initializationDeviceWithUUID:(NSString *)uuid
+-(void)initializationDeviceWithUUID:(NSString *)uuid withTag:(NSInteger)tag
 {
     //数据库处理类
     sqlMng  = [[SQLManager alloc]initDataBase];
     [sqlMng createTable];
-    self.vUUID = @"Default";
+    self.vUUID = uuid;
     
     defaultAlertMusic       = AlertMusiceDefaultTitle;
     defaultDistanceValue    = DistancePre;
@@ -157,21 +149,22 @@
         deviceInfo = nil;
     }
     //返回的是数据库中之前保存过相应的uuid设备的配置信息
-    deviceInfo = [sqlMng queryDatabaseWithUUID:@"Default"];
+    deviceInfo = [sqlMng queryDatabaseWithUUID:self.vUUID];
     
     if ([deviceInfo count]==0) {
-        //insert Default value
-        [sqlMng insertValueToExistedTableWithArguments:@[@"Default",@"hello",@"Main_Icon_Wallet_H",DistanceFar,AlertTime30,@"Alchemy",PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop,VibrateOn,TagOne]];
-        self.vUUID = @"Default";
-        NSLog(@"Database did not have the record with uuid:%@",uuid);
-        defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:@"Alchemy"];
+        NSLog(@"Database did not have the record with uuid:%@",self.vUUID);
+        defaultAlertMusic       = DefaultMusic;
+        defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:@",震动"];
         defaultDistanceValue    = [defaultDistanceValue stringByAppendingString:@"近"];
         defaultAlertTime        = [defaultAlertTime stringByAppendingString:@"30秒"];
         defaultPhoneAlertMode   = DefaultPhoneAlertMode;
         defaultDeviceAlertMOde  = DefaultDeviceAlertMode;
         defaultMode             = DefaultMode;
-        defaultName             = nil;
-        defaultImage            = nil;
+        defaultName             = [[NSString alloc]init];
+        defaultImage            = [[NSString alloc]init];
+        [self configureNameAndImageWithTag:tag];
+        //insert Default value
+        [sqlMng insertValueToExistedTableWithArguments:@[self.vUUID,defaultName,defaultImage,DistanceFar,AlertTime30,DefaultMusic,PhoneModeVibrate,DeviceModeLightSound,ModeMutualAlertStop,VibrateOn,[NSNumber numberWithInt:tag]]];
     }else
     {
         defaultAlertMusic       = [defaultAlertMusic stringByAppendingString:[deviceInfo objectForKey:AlertMusic]];
@@ -244,7 +237,30 @@
     [deviceInfo release];
 }
 
-
+-(void)configureNameAndImageWithTag:(NSInteger)tagStr
+{
+    switch (tagStr) {
+        case TagOne:
+            defaultName = TagOneName;
+            defaultImage = TagOneImageH;
+            break;
+        case TagTwo:
+            defaultName = TagTwoName;
+            defaultImage = TagTwoImageH;
+            break;
+        case TagThree:
+            defaultName = TagThreeName;
+            defaultImage = TagThreeImageH;
+            break;
+        case TagFour:
+            defaultName = TagFourName;
+            defaultImage = TagFourImageH;
+            break;
+            
+        default:
+            break;
+    }
+}
 
 -(void)initializationInterface
 {
@@ -270,12 +286,13 @@
     chooseAlertMusic.backgroundColor = [UIColor clearColor];
     [chooseAlertMusic setBackgroundImage:[UIImage imageNamed:@"Settings_Bt_03"] forState:UIControlStateNormal];
     [chooseAlertMusic addTarget:self action:@selector(chooseAlertMusicAction:) forControlEvents:UIControlEventTouchUpInside];
-    chooseAlertMusic.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+    chooseAlertMusic.titleLabel.font = [UIFont systemFontOfSize:13];
     [chooseAlertMusic setTitle:defaultAlertMusic forState:UIControlStateNormal];
   
     [chooseAlertMusic setTitleShadowColor:shadowColor forState:UIControlStateNormal];
     [chooseAlertMusic.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
     chooseAlertMusic.tag = AlertMusicTag;
+    chooseAlertMusic.titleLabel.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:chooseAlertMusic];
     
        
@@ -348,7 +365,7 @@
     userPhoto = [[UIImageView alloc]init];
     userPhoto.backgroundColor = [UIColor clearColor];
     UIImage * userImage =nil;
-    if (defaultImage) {
+    if (![self isDefaultImage:defaultImage]) {
         [userPhoto setFrame:rectD2];
         NSString * userPhotoPath = [[NSString alloc]initWithFormat:@"%@/%@",imageDiskPath,defaultImage];
         NSData *data = [[NSData alloc]initWithContentsOfFile:userPhotoPath];
@@ -358,7 +375,7 @@
     }else
     {
         [userPhoto setFrame:rectD1];
-        userImage = [UIImage imageNamed:@"Main_Icon_Wallet_H"];
+        userImage = [UIImage imageNamed:defaultImage];
     }
     [userPhoto setImage:userImage];
     [userImage release];
@@ -608,12 +625,14 @@
     NSLog(@"%s",__func__);
     DidSelectMusicConfigureBlock block = ^(id item)
     {
-        NSDictionary * alertMusicInfo = (NSDictionary *)item;
-        NSString * musicStr = [alertMusicInfo objectForKey:SelectMusic];
-        NSString * vibrateStr = [alertMusicInfo objectForKey:SelectVibrate];
+//        NSDictionary * alertMusicInfo = (NSDictionary *)item;
+//        NSString * musicStr = [alertMusicInfo objectForKey:SelectMusic];
+//        NSString * vibrateStr = [alertMusicInfo objectForKey:SelectVibrate];
+        NSString * musicStr = [sqlMng getValue:AlertMusic ByUUID:self.vUUID];
+        NSString * vibrateStr = [sqlMng getValue:VibrateMode ByUUID:self.vUUID];
         NSString * btnTitle = nil;
-        [sqlMng updateKey:AlertMusic value:musicStr withUUID:self.vUUID];
-        [sqlMng updateKey:VibrateMode value:vibrateStr withUUID:self.vUUID];
+//        [sqlMng updateKey:AlertMusic value:musicStr withUUID:self.vUUID];
+//        [sqlMng updateKey:VibrateMode value:vibrateStr withUUID:self.vUUID];
         if (musicStr) {
             NSLog(@"Did Select music:%@",musicStr);
             btnTitle = [AlertMusiceDefaultTitle stringByAppendingString:musicStr];
@@ -705,6 +724,17 @@
 }
 
 #pragma mark - Public method
+-(BOOL)isDefaultImage:(NSString *)imageName
+{
+    NSArray * array = @[TagOneImageH,TagTwoImageH,TagThreeImageH,TagFourImageH];
+    for (NSString * str in array) {
+        if ([imageName isEqualToString:str]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 -(void)initDirectory
 {
     NSFileManager * defaultManager = [NSFileManager defaultManager];
@@ -741,6 +771,8 @@
     [wifiLabel      release];
     [scopeLabel     release];
     [devPowerLabel  release];
+    [defaultImage release];
+    [defaultName release];
     if (musicTableview) {
         [musicTableview release];
     }

@@ -41,11 +41,12 @@
 #define VibrateOn                   @"1"
 #define VibrateOff                  @"0"
 
-#define TagOne                      @"tag1"
-#define TagTwo                      @"tag2"
-#define TagThree                    @"tag3"
-#define TagFour                     @"tag4"
+#define TagOne                      1
+#define TagTwo                      2
+#define TagThree                    3
+#define TagFour                     4
 
+//数据库对应字段名称
 #define DeviceName                  @"name"
 #define UUIDStr                     @"uuid"
 #define ImageName                   @"image"
@@ -56,8 +57,33 @@
 #define DeviceMode                  @"deviceMode"
 #define BluetoothMode               @"blueMode"
 #define VibrateMode                 @"vibrate"
-#define TargetTag                   @"targetTag"
 #define SelectVibrate               @"vibrateMode"
 #define SelectMusic                 @"selectMusic"
+#define TargetTag                   @"targetTag"
+
+//tag对应的图片
+#define TagOneImageH                    @"Main_Icon_Wallet_H"
+#define TagOneImageN                    @"Main_Icon_Wallet_N"
+#define TagTwoImageH                    @"Main_Icon_Key_H"
+#define TagTwoImageN                    @"Main_Icon_Key_N"
+#define TagThreeImageH                  @"Main_Icon_Bag_H"
+#define TagThreeImageN                  @"Main_Icon_Bag_N"
+#define TagFourImageH                   @"Main_Icon_Kid_H"
+#define TagFourImageN                   @"Main_Icon_Kid_N"
+
+//tag对应的名字
+#define TagOneName                      @"钱包"
+#define TagTwoName                      @"钥匙"
+#define TagThreeName                    @"手提箱"
+#define TagFourName                     @"小孩"
+
+//数据默认值
+#define DefaultMusic                    @"Alchemy"
+#define DefaultDistanceValue            @"提醒距离选择:远"
+#define DefaultAlertTime                @"报警时长:30秒"
+#define DefaultAlertMusic               @"选择手机提醒音"
+#define DefaultPhoneAlertMode           @"手机震动声光提醒"
+#define DefaultDeviceAlertMode          @"声光提醒"
+#define DefaultMode                     @"自动关闭手机报警"
 
 #endif

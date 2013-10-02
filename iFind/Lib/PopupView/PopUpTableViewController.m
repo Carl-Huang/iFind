@@ -15,6 +15,7 @@
 @implementation PopUpTableViewController
 @synthesize dataSource;
 @synthesize configureBlock;
+@synthesize type;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];

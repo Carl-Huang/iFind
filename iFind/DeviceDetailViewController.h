@@ -73,7 +73,7 @@ typedef void (^DidSelectMusicConfigureBlock) (id item);
 
 //初始化
 -(void)initializationDefaultValue:(NSDictionary *)dic;
--(void)initializationDeviceWithUUID:(NSString *)uuid;
+-(void)initializationDeviceWithUUID:(NSString *)uuid withTag:(NSInteger)tag;
 
 //更新范围值，信号量值，电量值
 -(void)updateScopeValue:(NSString *)scopeV signalValue:(NSString *)signalV powerVaule:(NSString *)powerV;

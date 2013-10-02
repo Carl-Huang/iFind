@@ -47,6 +47,7 @@
 
 -(void)insertValueToExistedTableWithArguments:(NSArray *)array
 {
+    NSLog(@"Insert Data array :%@",array);
     if ([db executeUpdate:@"insert into iFindTable values(?,?,?,?,?,?,?,?,?,?,?)" withArgumentsInArray:array]) {
         NSLog(@"Insert value successfully");
     }else
