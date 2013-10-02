@@ -71,6 +71,7 @@
 {
     [super viewWillAppear:YES];
     CBLEManager * bleManager = [CBLEManager sharedManager];
+    [bleManager startScan];
     //发现蓝牙处理block
     bleManager.discoverHandler = ^(void){
         NSLog(@"Disconver Handler");
@@ -130,6 +131,12 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[CBLEManager sharedManager] stopScan];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -144,6 +151,8 @@
     _defaultImages = nil;
     [_defaultHightlighImages release];
     _defaultHightlighImages = nil;
+    [_sqlManager release];
+    _sqlManager = nil;
     [super dealloc];
 }
 
