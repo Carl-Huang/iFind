@@ -7,9 +7,11 @@
 //
 #define FontSize 15
 
-#define DistancePre                      @"提醒距离选择:"
-#define AlertTimePre                     @"报警时长:"
-#define AlertMusiceDefaultTitle          @" "
+#define DistancePre                       @"提醒距离选择:"
+#define AlertTimePre                      @"报警时长:"
+#define DeviceModePre                     @"遗失时线缆报警状态: "
+#define PhoneModePre                      @"遗失时手机报警状态: "
+#define AlertMusiceDefaultTitle           @" "
 
 #import "DeviceDetailViewController.h"
 #import "FPPopoverController.h"
@@ -32,6 +34,7 @@
     NSString *defaultImage;
     NSString *defaultName;
     NSDictionary * deviceInfo ;
+    BOOL isShowAlertTime;
 }
 @end
 
@@ -111,6 +114,7 @@
     
     self.title = @"设置";
     [self initializationDeviceWithUUID:_blePeripheral.UUID withTag:_blePeripheral.tag];
+    [self initializationDeviceWithUUID:@"vedon" withTag:1];
     [self initializationInterface];
 }
 
@@ -174,40 +178,41 @@
         defaultAlertTime  = [deviceInfo objectForKey:AlertTime];
         if ([defaultAlertTime isEqualToString:@"10"]) {
             defaultAlertTime = @"10秒";
-        }else if ([defaultAlertTime isEqualToString:@"20"])
+        }else if ([defaultAlertTime isEqualToString:@"15"])
         {
-            defaultAlertTime = @"20秒";
+            defaultAlertTime = @"15秒";
         }else
         {
-            defaultAlertTime = @"30秒";
+            defaultAlertTime = @"20秒";
         }
         defaultAlertTime = [AlertTimePre stringByAppendingString:defaultAlertTime ];
         
         defaultPhoneAlertMode   = [deviceInfo objectForKey:PhoneMode];
         if ([defaultPhoneAlertMode isEqualToString:@"p1"]) {
-            defaultPhoneAlertMode = @"关闭手机提醒";
+            defaultPhoneAlertMode = @"无提醒";
         }else if ([defaultPhoneAlertMode isEqualToString:@"p2"])
         {
-            defaultPhoneAlertMode = @"手机震动提醒";
+            defaultPhoneAlertMode = @"声音提醒";
         }else
         {
             defaultPhoneAlertMode = @"手机震动声光提醒";
         }
+        defaultPhoneAlertMode = [PhoneModePre stringByAppendingString:defaultPhoneAlertMode];
         
         defaultDeviceAlertMOde  = [deviceInfo objectForKey:DeviceMode];
         if ([defaultDeviceAlertMOde isEqualToString:@"d1"]) {
-            defaultDeviceAlertMOde = @"关闭blueberry提醒";
+            defaultDeviceAlertMOde = @"无提醒";
         }else if ([defaultDeviceAlertMOde isEqualToString:@"d2"])
         {
-            defaultDeviceAlertMOde = @"发光提醒";
+            defaultDeviceAlertMOde = @"只闪光无声音提醒";
         }else if([defaultDeviceAlertMOde isEqualToString:@"d3"])
         {
-            defaultDeviceAlertMOde = @"声音提醒";
+            defaultDeviceAlertMOde = @"声音闪光同时提醒";
         }else
         {
             defaultDeviceAlertMOde = @"声光提醒";
         }
-        
+        defaultDeviceAlertMOde = [DeviceModePre stringByAppendingString:defaultDeviceAlertMOde];
         defaultMode  = [deviceInfo objectForKey:BluetoothMode];
         if ([defaultMode isEqualToString:@"b1"]) {
             defaultMode = @"自动关闭双向警报";
@@ -254,20 +259,7 @@
 {
     UIColor *shadowColor = [UIColor colorWithRed:ShadowColorR green:ShadowColorG blue:ShadowColorB alpha:1.0];
     CGRect rect = CGRectMake(170, 130, 135, 45);
-    //提醒距离
-    chooseAlertDistance = [UIButton buttonWithType:UIButtonTypeCustom];
-    [chooseAlertDistance setFrame:CGRectOffset(rect, -150, 45)];
-    chooseAlertDistance.backgroundColor = [UIColor clearColor];
-    [chooseAlertDistance setBackgroundImage:[UIImage imageNamed:@"Settings_Bt_03"] forState:UIControlStateNormal];
-    [chooseAlertDistance addTarget:self action:@selector(chooseDistanceAction:) forControlEvents:UIControlEventTouchUpInside];
-    chooseAlertDistance.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-    [chooseAlertDistance setTitle:defaultDistanceValue forState:UIControlStateNormal];
-   
-    [chooseAlertDistance setTitleShadowColor:shadowColor forState:UIControlStateNormal];
-    [chooseAlertDistance.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
-    chooseAlertDistance.tag = DistanceTag;
-    [self.view addSubview:chooseAlertDistance];
-    
+       
     //报警音
     chooseAlertMusic = [UIButton buttonWithType:UIButtonTypeCustom];
     [chooseAlertMusic setFrame:CGRectOffset(rect, -150, 100)];
@@ -281,7 +273,7 @@
     [chooseAlertMusic.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
     chooseAlertMusic.tag = AlertMusicTag;
     chooseAlertMusic.titleLabel.adjustsFontSizeToFitWidth = YES;
-    [self.view addSubview:chooseAlertMusic];
+//    [self.view addSubview:chooseAlertMusic];
     
        
     //警报时间
@@ -295,25 +287,11 @@
     [chooseAlertTime setTitleShadowColor:shadowColor forState:UIControlStateNormal];
     [chooseAlertTime.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
     chooseAlertTime.tag = AlertTimeTag;
-    [self.view addSubview:chooseAlertTime];
-    
-    //设备工作模式
-    chooseDeviceAlertMode = [UIButton buttonWithType:UIButtonTypeCustom];
-    [chooseDeviceAlertMode setFrame:CGRectMake(20, chooseAlertMusic.frame.origin.y+chooseAlertMusic.frame.size.height+10, 285, 45)];
-    chooseDeviceAlertMode.backgroundColor = [UIColor clearColor];
-    [chooseDeviceAlertMode setBackgroundImage:[UIImage imageNamed:@"Settings_Bt_03"] forState:UIControlStateNormal];
-    [chooseDeviceAlertMode addTarget:self action:@selector(chooseDeviceAlertModeAction:) forControlEvents:UIControlEventTouchUpInside];
-    chooseDeviceAlertMode.titleLabel.font = [UIFont systemFontOfSize:FontSize];
-    [chooseDeviceAlertMode setTitle:defaultDeviceAlertMOde forState:UIControlStateNormal];
-    [chooseDeviceAlertMode setTitleShadowColor:shadowColor forState:UIControlStateNormal];
-    [chooseDeviceAlertMode.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
-    chooseDeviceAlertMode.tag = DeviceModeTag;
-    [self.view addSubview:chooseDeviceAlertMode];
-
+//    [self.view addSubview:chooseAlertTime];
     
     //手机工作模式
     choosePhoneAlertMode = [UIButton buttonWithType:UIButtonTypeCustom];
-    [choosePhoneAlertMode setFrame:CGRectOffset(rect, 0, 100)];
+    [choosePhoneAlertMode setFrame:CGRectMake(20, 175, 285, 45)];
     choosePhoneAlertMode.backgroundColor = [UIColor clearColor];
     [choosePhoneAlertMode setBackgroundImage:[UIImage imageNamed:@"Settings_Bt_03"] forState:UIControlStateNormal];
     [choosePhoneAlertMode addTarget:self action:@selector(choosePhoneAlertModeAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -322,7 +300,38 @@
     [choosePhoneAlertMode setTitleShadowColor:shadowColor forState:UIControlStateNormal];
     [choosePhoneAlertMode.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
     choosePhoneAlertMode.tag = PhoneModeTag;
+//    [choosePhoneAlertMode.titleLabel setTextAlignment:NSTextAlignmentLeft];
     [self.view addSubview:choosePhoneAlertMode];
+    
+   
+    //设备工作模式
+    chooseDeviceAlertMode = [UIButton buttonWithType:UIButtonTypeCustom];
+    [chooseDeviceAlertMode setFrame:CGRectMake(20, choosePhoneAlertMode.frame.origin.y+choosePhoneAlertMode.frame.size.height+10, 285, 45)];
+    chooseDeviceAlertMode.backgroundColor = [UIColor clearColor];
+    [chooseDeviceAlertMode setBackgroundImage:[UIImage imageNamed:@"Settings_Bt_03"] forState:UIControlStateNormal];
+    [chooseDeviceAlertMode addTarget:self action:@selector(chooseDeviceAlertModeAction:) forControlEvents:UIControlEventTouchUpInside];
+    chooseDeviceAlertMode.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+    [chooseDeviceAlertMode setTitle:defaultDeviceAlertMOde forState:UIControlStateNormal];
+    [chooseDeviceAlertMode setTitleShadowColor:shadowColor forState:UIControlStateNormal];
+    [chooseDeviceAlertMode.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
+    chooseDeviceAlertMode.tag = DeviceModeTag;
+//    [chooseDeviceAlertMode.titleLabel setTextAlignment:NSTextAlignmentLeft];
+    [self.view addSubview:chooseDeviceAlertMode];
+
+    //提醒距离
+    chooseAlertDistance = [UIButton buttonWithType:UIButtonTypeCustom];
+    [chooseAlertDistance setFrame:CGRectMake(chooseDeviceAlertMode.frame.origin.x, chooseDeviceAlertMode.frame.size.height+chooseDeviceAlertMode.frame.origin.y+10, 130, 45)];
+    chooseAlertDistance.backgroundColor = [UIColor clearColor];
+    [chooseAlertDistance setBackgroundImage:[UIImage imageNamed:@"Settings_Bt_03"] forState:UIControlStateNormal];
+    [chooseAlertDistance addTarget:self action:@selector(chooseDistanceAction:) forControlEvents:UIControlEventTouchUpInside];
+    chooseAlertDistance.titleLabel.font = [UIFont systemFontOfSize:FontSize];
+    [chooseAlertDistance setTitle:defaultDistanceValue forState:UIControlStateNormal];
+    
+    [chooseAlertDistance setTitleShadowColor:shadowColor forState:UIControlStateNormal];
+    [chooseAlertDistance.titleLabel setShadowOffset:CGSizeMake(-0.5,-0.5)];
+    chooseAlertDistance.tag = DistanceTag;
+//    [self.view addSubview:chooseAlertDistance];
+    
     
     //设置蓝牙模式
     chooseMode = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -439,25 +448,22 @@
             descriptionStr = @"提醒距离选择:";
             break;
         case PopUpTableViewDataSourceMusic:
-            //声音按钮
-//            popUpTableviewController.title = @"手机提醒音";
-//            [popUpTableviewController setDataSource:@[@"Alchemy",@"AudibleAlarm",@"Bird",@"CS",@"Ericsson ring",@"Howl",@"ICQ sms sound",@"Jumping Cat",@"Laughter",@"Sent",@"Siren",@"震动"]];
-//            descriptionStr = @"选择手机提醒音:";
+ 
             break;
         case PopUpTableViewDataSourceTime:
             //时间按钮
-            [popUpTableviewController setDataSource:@[@"10秒",@"20秒",@"30秒"]];
+            [popUpTableviewController setDataSource:@[@"10秒",@"15秒",@"20秒"]];
             descriptionStr = @"报警时长:";
             break;
         case PopUpTableViewDataSourcePhoneAlertMode:
             //手机警报模式按钮
-            [popUpTableviewController setDataSource:@[@"关闭手机提醒",@"手机震动提醒",@"手机震动声光提醒"]];
-            descriptionStr = @"";
+            [popUpTableviewController setDataSource:@[@"无提醒",@"声音提醒"]];
+            descriptionStr = @"遗失时手机报警状态:";
             break;
         case PopUpTableViewDataSourceDeviceAlertMode:
             //设备警报模式按钮按钮
-            [popUpTableviewController setDataSource:@[@"关闭blueberry提醒",@"发光提醒",@"声音提醒",@"声光提醒"]];
-            descriptionStr = @"";
+            [popUpTableviewController setDataSource:@[@"无提醒",@"只闪光无声音提醒",@"声音闪光同时提醒"]];
+            descriptionStr = @"遗失时线缆报警状态:";
             break;
         case PopUpTableViewDataSourceMode:
             //双向报警按钮
@@ -482,6 +488,7 @@
             }
         }
         NSString * str = nil;
+        isShowAlertTime = NO;
         switch (btn.tag) {
             case DistanceTag:
                 if (i == 0) {
@@ -499,23 +506,21 @@
                 }
                  [sqlMng updateKey:DistanceValue value:str withUUID:self.vUUID];
                 break;
-//            case AlertMusicTag:
-//                str = [popUpTableviewController.dataSource objectAtIndex:i];
-//                [sqlMng updateKey:AlertMusic value:str withUUID:self.vUUID];
-//                break;
             case AlertTimeTag:
                 if (i == 0) {
                     str = AlertTime10;
                     NSLog(@"Alert Time Order: %@",AlertTime10);
                 }else if(i == 1)
                 {
-                    str = AlertTime20;
-                   NSLog(@"Alert Time Order: %@",AlertTime20);
+                    str = AlertTime15;
+                   NSLog(@"Alert Time Order: %@",AlertTime15);
                 }else if(i == 2)
                 {
-                    str = AlertTime30;
-                   NSLog(@"Alert Time Order: %@",AlertTime30);
+                    str = AlertTime20;
+                   NSLog(@"Alert Time Order: %@",AlertTime20);
                 }
+                UIButton *btn = (UIButton *)sender;
+                btn.tag = DeviceModeTag;
                 [sqlMng updateKey:AlertTime value:str withUUID:self.vUUID];
                 break;
             case PhoneModeTag:
@@ -532,6 +537,9 @@
                     NSLog(@"PhoneMode Order: %@",PhoneModeVibrateAndSound);
                 }
                 [sqlMng updateKey:PhoneMode value:str withUUID:self.vUUID];
+                if (i == 1 ) {
+                    [self popUpMusicTable];
+                }
                 break;
             case DeviceModeTag:
                 if (i == 0) {
@@ -544,6 +552,7 @@
                 }else if(i == 2)
                 {
                     str = DeviceModeSound;
+                    isShowAlertTime = YES;
                     NSLog(@"DeviceMode Order: %@",DeviceModeSound);
                 }else if (i == 3)
                 {
@@ -570,9 +579,21 @@
             default:
                 break;
         }
-        title = [descriptionStr stringByAppendingString:title];
-        [btn setTitle:title forState:UIControlStateNormal];
-        title = nil;
+        if (![descriptionStr isEqualToString:@"报警时长:"]) {
+            title = [descriptionStr stringByAppendingString:title];
+            [btn setTitle:title forState:UIControlStateNormal];
+            title = nil;
+        }
+
+        if (isShowAlertTime) {
+            UIButton *btn = (UIButton *)sender;
+            btn.tag = AlertTimeTag;
+            [self popover:sender withType:PopUpTableViewDataSourceTime];
+        }else
+        {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"DismissPopoverAnimated" object:[NSNumber numberWithBool:YES]];
+        }
+        
     };
     [popUpTableviewController setConfigureBlock:block];
     
@@ -588,6 +609,36 @@
     [popover presentPopoverFromView:sender];
 }
 
+-(void)popUpMusicTable
+{
+    NSLog(@"%s",__func__);
+    DidSelectMusicConfigureBlock block = ^(id item)
+    {
+//        NSLog(@"configure music block");
+//        NSString * musicStr = [sqlMng getValue:AlertMusic ByUUID:self.vUUID];
+//        NSString * vibrateStr = [sqlMng getValue:VibrateMode ByUUID:self.vUUID];
+//        NSString * btnTitle = nil;
+//        if (musicStr) {
+//            NSLog(@"Did Select music:%@",musicStr);
+//            btnTitle = [AlertMusiceDefaultTitle stringByAppendingString:musicStr];
+//            
+//        }
+//        if ([vibrateStr isEqualToString:@"1"]) {
+//            NSLog(@"Did Select vibrate");
+//            btnTitle = [btnTitle stringByAppendingString:@","];
+//            btnTitle = [btnTitle stringByAppendingString:@"震动"];
+//            //            vibrateStr = [musicStr stringByAppendingString:vibrateStr];
+//        }
+//        [self.chooseAlertMusic setTitle:btnTitle forState:UIControlStateNormal];
+//        NSLog(@"%@",item);
+    };
+    
+    musicTableview = [[MusicViewController alloc]initWithUUID:self.vUUID];
+    [musicTableview setConfigyreMusicBlock:block];
+    [self presentViewController:musicTableview animated:YES completion:nil];
+    [musicTableview release];
+
+}
 
 - (void)presentedNewPopoverController:(FPPopoverController *)newPopoverController
           shouldDismissVisiblePopover:(FPPopoverController*)visiblePopoverController
