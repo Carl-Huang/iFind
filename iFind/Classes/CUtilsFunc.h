@@ -22,4 +22,6 @@
 +(NSString *)HexStringFromBinaryValue:(NSData *)data;
 +(int)HexConvertIntoInt:(NSString*)tmpid;
 +(NSString *)ToHex:(int)tmpid;
++(NSString *)documentPath;
++(NSURL *)URLForResource:(NSString *)name inDirectory:(NSString *)directory;
 @end

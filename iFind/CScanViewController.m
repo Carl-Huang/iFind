@@ -13,6 +13,7 @@
 #define BUTTON_TAG_4 4
 #define FIND_BUTTON_TAG 10
 #define CONTROL_BUTTON_TAG 11
+#define PIC_FOLDER @"PicFolder"
 #import "CScanViewController.h"
 #import "CBLEButton.h"
 #import "CBLEManager.h"
@@ -28,8 +29,8 @@
 #import "SQLManager.h"
 #import "OrderType.h"
 @interface CScanViewController () <ACPScrollDelegate>
-@property (nonatomic,retain) NSArray * defaultImages;
-@property (nonatomic,retain) NSArray * defaultHightlighImages;
+@property (nonatomic,retain) NSMutableArray * defaultImages;
+@property (nonatomic,retain) NSMutableArray * defaultHightlighImages;
 @property (nonatomic,assign) int currentButtonTag;
 @property (nonatomic,retain) SQLManager * sqlManager;
 @end
@@ -40,21 +41,15 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        //初始化默认图标
-        _defaultImages = [[NSArray alloc] initWithObjects:
-                          [UIImage imageNamed:@"Main_Icon_Wallet_N"],
-                          [UIImage imageNamed:@"Main_Icon_Key_N"],
-                          [UIImage imageNamed:@"Main_Icon_Bag_N"],
-                          [UIImage imageNamed:@"Main_Icon_Kid_N"],
-                          nil];
-        _defaultHightlighImages = [[NSArray alloc] initWithObjects:
-                                   [UIImage imageNamed:@"Main_Icon_Wallet_H"],
-                                   [UIImage imageNamed:@"Main_Icon_Key_H"],
-                                   [UIImage imageNamed:@"Main_Icon_Bag_H"],
-                                   [UIImage imageNamed:@"Main_Icon_Kid_H"],
-                                   nil];
+
         //初始化数据库管理类
         _sqlManager = [[SQLManager alloc] initDataBase];
+        //初始化默认图标
+        @autoreleasepool {
+            [self initImages];
+        }
+
+        
     }
     return self;
 }
@@ -141,6 +136,10 @@
         }
     };
     
+    
+    
+    
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -166,6 +165,78 @@
     [_sqlManager release];
     _sqlManager = nil;
     [super dealloc];
+}
+
+//初始化图片，如果用户没有设置图片，则使用默认图片
+- (void)initImages
+{
+    NSString * imageName_1 = [_sqlManager getValue:ImageName ByTag:BUTTON_TAG_1];
+    NSString * imageName_2 = [_sqlManager getValue:ImageName ByTag:BUTTON_TAG_2];
+    NSString * imageName_3 = [_sqlManager getValue:ImageName ByTag:BUTTON_TAG_3];
+    NSString * imageName_4 = [_sqlManager getValue:ImageName ByTag:BUTTON_TAG_4];
+    NSURL * imageURL_1, * imageURL_2, * imageURL_3, * imageURL_4;
+    NSURL * imageURL_H_1, * imageURL_H_2, * imageURL_H_3, * imageURL_H_4;
+    if(imageName_1 == nil || [imageName_1 isEqualToString:TagOneImageH])
+    {
+        imageURL_1 = [[NSBundle mainBundle] URLForResource:TagOneImageN withExtension:@"png"];
+        imageURL_H_1 = [[NSBundle mainBundle] URLForResource:TagOneImageH withExtension:@"png"];
+    }
+    else
+    {
+        imageURL_1 = imageURL_H_1 = [CUtilsFunc URLForResource:imageName_1 inDirectory:PIC_FOLDER];
+    }
+    
+    if(imageName_2 == nil || [imageName_2 isEqualToString:TagTwoImageH])
+    {
+        imageURL_2 = [[NSBundle mainBundle] URLForResource:TagTwoImageN withExtension:@"png"];
+        imageURL_H_2 = [[NSBundle mainBundle] URLForResource:TagTwoImageH withExtension:@"png"];
+    }
+    else
+    {
+        imageURL_2 = imageURL_H_2 = [CUtilsFunc URLForResource:imageName_2 inDirectory:PIC_FOLDER];
+    }
+    
+    if(imageName_3 == nil || [imageName_3 isEqualToString:TagThreeImageH])
+    {
+        imageURL_3 = [[NSBundle mainBundle] URLForResource:TagThreeImageN withExtension:@"png"];
+        imageURL_H_3 = [[NSBundle mainBundle] URLForResource:TagThreeImageH withExtension:@"png"];
+    }
+    else
+    {
+        imageURL_3 = imageURL_H_3 = [CUtilsFunc URLForResource:imageName_3 inDirectory:PIC_FOLDER];
+    }
+    
+    if(imageName_4 == nil || [imageName_4 isEqualToString:TagFourImageH])
+    {
+        imageURL_4 = [[NSBundle mainBundle] URLForResource:TagFourImageN withExtension:@"png"];
+        imageURL_H_4 = [[NSBundle mainBundle] URLForResource:TagFourImageH withExtension:@"png"];
+    }
+    else
+    {
+        imageURL_4 = imageURL_H_4 = [CUtilsFunc URLForResource:imageName_4 inDirectory:PIC_FOLDER];
+    }
+    
+    
+    if(_defaultImages != nil)
+    {
+        [_defaultImages release];
+    }
+    
+    if(_defaultHightlighImages != nil)
+    {
+        [_defaultHightlighImages release];
+    }
+    
+    _defaultImages = [[NSMutableArray alloc] initWithObjects:
+                      [UIImage imageWithData:[NSData dataWithContentsOfFile:[imageURL_1 path]]],
+                      [UIImage imageWithData:[NSData dataWithContentsOfFile:[imageURL_2 path]]],
+                      [UIImage imageWithData:[NSData dataWithContentsOfFile:[imageURL_3 path]]],
+                      [UIImage imageWithData:[NSData dataWithContentsOfFile:[imageURL_4 path]]],nil];
+    _defaultHightlighImages = [[NSMutableArray alloc] initWithObjects:
+                               [UIImage imageWithData:[NSData dataWithContentsOfFile:[imageURL_H_1 path]]],
+                               [UIImage imageWithData:[NSData dataWithContentsOfFile:[imageURL_H_2 path]]],
+                               [UIImage imageWithData:[NSData dataWithContentsOfFile:[imageURL_H_3 path]]],
+                               [UIImage imageWithData:[NSData dataWithContentsOfFile:[imageURL_H_4 path]]],nil];
 }
 
 //初始化UI方法

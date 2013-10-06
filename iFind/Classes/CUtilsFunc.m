@@ -155,4 +155,28 @@
     return endtmp;
 }
 
++(NSString *)documentPath
+{
+    NSArray * files = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString * document  = [files objectAtIndex:0];
+    
+    return document;
+}
+
++(NSURL *)URLForResource:(NSString *)name inDirectory:(NSString *)directory
+{
+    NSString * doc = [CUtilsFunc documentPath];
+    NSString * directoryPath;
+    if(directory != nil)
+    {
+        directoryPath = [doc stringByAppendingPathComponent:directory];
+    }
+    else
+    {
+        directoryPath = doc;
+    }
+    NSString * filePath = [directoryPath stringByAppendingPathComponent:name];
+    return [NSURL URLWithString:filePath];
+}
+
 @end

@@ -17,5 +17,6 @@
 -(void)deleteDatabaseRowWithUUID:(NSString *)uuid;
 -(NSDictionary *)queryDatabaseWithUUID:(NSString *)uuid;
 -(NSString *)getValue:(NSString *)value ByUUID:(NSString *)uuid;
+-(NSString *)getValue:(NSString *)value ByTag:(int)tag;
 -(void)insertTableWithUUID:(NSString *)uuid Tag:(NSInteger )tag;
 @end

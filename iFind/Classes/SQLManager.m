@@ -156,6 +156,19 @@
     return nil;
 }
 
+
+//返回对应uuid 的value 值
+-(NSString *)getValue:(NSString *)value ByTag:(int)tag
+{
+    NSString *quertStr = [[NSString alloc]initWithFormat:@"select %@ from iFindTable where targetTag=?",value];
+    FMResultSet *rs = [db executeQuery:quertStr,[NSNumber numberWithInt:tag]];
+    while ([rs next])
+    {
+        return  [rs stringForColumn:value];
+    }
+    return nil;
+}
+
 //数据库文件路径
 -(NSString *)initializationFilePath
 {
