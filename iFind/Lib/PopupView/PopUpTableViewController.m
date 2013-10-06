@@ -123,7 +123,7 @@
      [detailViewController release];
      */
     self.configureBlock([self.dataSource objectAtIndex:indexPath.row]);
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"DismissPopoverAnimated" object:[NSNumber numberWithBool:YES]];
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"DismissPopoverAnimated" object:[NSNumber numberWithBool:YES]];
 }
 
 #pragma mark - Update DataSource

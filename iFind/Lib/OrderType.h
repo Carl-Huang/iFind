@@ -23,8 +23,8 @@
 #define DistanceFar     @"100"
 
 #define AlertTime10     @"10"
+#define AlertTime15     @"15"
 #define AlertTime20     @"20"
-#define AlertTime30     @"30"
 #define PhoneModeStopAlert          @"p1"
 #define PhoneModeVibrate            @"p2"
 #define PhoneModeVibrateAndSound    @"p3"
@@ -82,8 +82,8 @@
 #define DefaultDistanceValue            @"提醒距离选择:远"
 #define DefaultAlertTime                @"报警时长:30秒"
 #define DefaultAlertMusic               @"选择手机提醒音"
-#define DefaultPhoneAlertMode           @"手机震动声光提醒"
-#define DefaultDeviceAlertMode          @"声光提醒"
+#define DefaultPhoneAlertMode           @"无提醒"
+#define DefaultDeviceAlertMode          @"无提醒"
 #define DefaultMode                     @"自动关闭手机报警"
 
 #endif
