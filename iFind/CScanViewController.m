@@ -28,6 +28,7 @@
 #import "ACPItem.h"
 #import "SQLManager.h"
 #import "OrderType.h"
+#import "AHAlertView.h"
 @interface CScanViewController () <ACPScrollDelegate>
 @property (nonatomic,retain) NSMutableArray * defaultImages;
 @property (nonatomic,retain) NSMutableArray * defaultHightlighImages;
@@ -431,8 +432,85 @@
 //响应帮助按钮点击事件
 - (void)showHelpScene:(id)sender
 {
+    [self showAlertWithTitle:@"Help" withMessage:@"HelpContent"];
+}
+
+
+- (void)showAlertWithTitle:(NSString *)paramTitle withMessage:(NSString *)paramMessage
+{
+    applyCustomAlertAppearance();
+    if (paramTitle == nil) {
+        paramTitle = NSLocalizedString(@"Notice", nil);
+    }
+    else
+    {
+        paramTitle = NSLocalizedString(paramTitle, nil);
+    }
+    
+    if(paramMessage == nil)
+    {
+        paramMessage = NSLocalizedString(@"OperationFail", nil);
+    }
+    else
+    {
+        paramMessage = NSLocalizedString(paramMessage, nil);
+    }
+    
+    
+    AHAlertView * alertView = [[AHAlertView alloc] initWithTitle:paramTitle message:paramMessage];
+//    [alertView setCancelButtonTitle:NSLocalizedString(@"Close", nil) block:^{
+//        
+//    }];
+    [alertView addButtonWithTitle:NSLocalizedString(@"Close", nil) block:^{
+        
+    }];
+    
+    [alertView show];
     
 }
+
+static void applyCustomAlertAppearance()
+{
+	[[AHAlertView appearance] setContentInsets:UIEdgeInsetsMake(12, 18, 12, 18)];
+	
+	[[AHAlertView appearance] setBackgroundImage:[UIImage imageNamed:@"custom-dialog-background"]];
+	
+	UIEdgeInsets buttonEdgeInsets = UIEdgeInsetsMake(20, 8, 20, 8);
+	
+	UIImage *cancelButtonImage = [[UIImage imageNamed:@"custom-cancel-normal"]
+								  resizableImageWithCapInsets:buttonEdgeInsets];
+	UIImage *normalButtonImage = [[UIImage imageNamed:@"custom-button-normal"]
+								  resizableImageWithCapInsets:buttonEdgeInsets];
+    
+	[[AHAlertView appearance] setCancelButtonBackgroundImage:cancelButtonImage
+													forState:UIControlStateNormal];
+	[[AHAlertView appearance] setButtonBackgroundImage:normalButtonImage
+											  forState:UIControlStateNormal];
+	
+	[[AHAlertView appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                      [UIFont boldSystemFontOfSize:18], UITextAttributeFont,
+                                                      [UIColor whiteColor], UITextAttributeTextColor,
+                                                      [UIColor blackColor], UITextAttributeTextShadowColor,
+                                                      [NSValue valueWithCGSize:CGSizeMake(0, -1)], UITextAttributeTextShadowOffset,
+                                                      nil]];
+    
+	[[AHAlertView appearance] setMessageTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                        [UIFont systemFontOfSize:14], UITextAttributeFont,
+                                                        [UIColor colorWithWhite:0.8 alpha:1.0], UITextAttributeTextColor,
+                                                        [UIColor blackColor], UITextAttributeTextShadowColor,
+                                                        [NSValue valueWithCGSize:CGSizeMake(0, -1)], UITextAttributeTextShadowOffset,
+                                                        nil]];
+    
+	[[AHAlertView appearance] setButtonTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                            [UIFont boldSystemFontOfSize:14], UITextAttributeFont,
+                                                            [UIColor whiteColor], UITextAttributeTextColor,
+                                                            [UIColor blackColor], UITextAttributeTextShadowColor,
+                                                            [NSValue valueWithCGSize:CGSizeMake(0, -1)], UITextAttributeTextShadowOffset,
+                                                            nil]];
+}
+
+
+
 //响应手机遥控按钮点击事件
 - (void)remoteControl:(id)sender
 {

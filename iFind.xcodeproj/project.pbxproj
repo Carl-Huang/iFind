@@ -154,6 +154,14 @@
 		C3840BBC17EABCA40049FDE5 /* CBLEPeriphral.m in Sources */ = {isa = PBXBuildFile; fileRef = C3840BBB17EABCA40049FDE5 /* CBLEPeriphral.m */; };
 		C3840BBF17EAE8580049FDE5 /* CUtilsFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = C3840BBE17EAE8580049FDE5 /* CUtilsFunc.m */; };
 		C384FACA17FC282F00F18A49 /* Main_Icon_Bag_N.png in Resources */ = {isa = PBXBuildFile; fileRef = C384FAC917FC282F00F18A49 /* Main_Icon_Bag_N.png */; };
+		C3855B0218025341000BDB43 /* AHAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3855B0118025341000BDB43 /* AHAlertView.m */; };
+		C3855B041802562A000BDB43 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3855B031802562A000BDB43 /* QuartzCore.framework */; };
+		C3855B08180259C9000BDB43 /* custom-button-normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3855B05180259C9000BDB43 /* custom-button-normal@2x.png */; };
+		C3855B09180259C9000BDB43 /* custom-cancel-normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3855B06180259C9000BDB43 /* custom-cancel-normal@2x.png */; };
+		C3855B0A180259C9000BDB43 /* custom-dialog-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3855B07180259C9000BDB43 /* custom-dialog-background@2x.png */; };
+		C3855B0E180259D4000BDB43 /* custom-button-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = C3855B0B180259D4000BDB43 /* custom-button-normal.png */; };
+		C3855B0F180259D4000BDB43 /* custom-cancel-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = C3855B0C180259D4000BDB43 /* custom-cancel-normal.png */; };
+		C3855B10180259D4000BDB43 /* custom-dialog-background.png in Resources */ = {isa = PBXBuildFile; fileRef = C3855B0D180259D4000BDB43 /* custom-dialog-background.png */; };
 		C385AEFA17F13DE6001DBCF0 /* CDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C385AEF917F13DE6001DBCF0 /* CDataSource.m */; };
 /* End PBXBuildFile section */
 
@@ -342,6 +350,15 @@
 		C3840BBD17EAE8580049FDE5 /* CUtilsFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUtilsFunc.h; sourceTree = "<group>"; };
 		C3840BBE17EAE8580049FDE5 /* CUtilsFunc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUtilsFunc.m; sourceTree = "<group>"; };
 		C384FAC917FC282F00F18A49 /* Main_Icon_Bag_N.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_Icon_Bag_N.png; sourceTree = "<group>"; };
+		C3855B0018025341000BDB43 /* AHAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHAlertView.h; sourceTree = "<group>"; };
+		C3855B0118025341000BDB43 /* AHAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHAlertView.m; sourceTree = "<group>"; };
+		C3855B031802562A000BDB43 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C3855B05180259C9000BDB43 /* custom-button-normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "custom-button-normal@2x.png"; sourceTree = "<group>"; };
+		C3855B06180259C9000BDB43 /* custom-cancel-normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "custom-cancel-normal@2x.png"; sourceTree = "<group>"; };
+		C3855B07180259C9000BDB43 /* custom-dialog-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "custom-dialog-background@2x.png"; sourceTree = "<group>"; };
+		C3855B0B180259D4000BDB43 /* custom-button-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "custom-button-normal.png"; sourceTree = "<group>"; };
+		C3855B0C180259D4000BDB43 /* custom-cancel-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "custom-cancel-normal.png"; sourceTree = "<group>"; };
+		C3855B0D180259D4000BDB43 /* custom-dialog-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "custom-dialog-background.png"; sourceTree = "<group>"; };
 		C385AEF817F13DE6001DBCF0 /* CDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataSource.h; sourceTree = "<group>"; };
 		C385AEF917F13DE6001DBCF0 /* CDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataSource.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -351,6 +368,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3855B041802562A000BDB43 /* QuartzCore.framework in Frameworks */,
 				4E040DC017F053E700C1E6A3 /* libsqlite3.0.dylib in Frameworks */,
 				C3437EB817EED2E300C67F2C /* AudioToolbox.framework in Frameworks */,
 				C3437EB617EED2C800C67F2C /* MediaPlayer.framework in Frameworks */,
@@ -408,6 +426,9 @@
 		4E0F312517EF3CD8006FC754 /* 1x */ = {
 			isa = PBXGroup;
 			children = (
+				C3855B0B180259D4000BDB43 /* custom-button-normal.png */,
+				C3855B0C180259D4000BDB43 /* custom-cancel-normal.png */,
+				C3855B0D180259D4000BDB43 /* custom-dialog-background.png */,
 				C37F4A5817F48D9C00DC23AA /* Settings_Frame.png */,
 				C342179917F1D6E700B42F5E /* Main_Frame_Kid_H.png */,
 				C342179A17F1D6E700B42F5E /* Main_Frame_Kid_N.png */,
@@ -515,6 +536,7 @@
 		C3840B7F17E9D1E60049FDE5 = {
 			isa = PBXGroup;
 			children = (
+				C3855B031802562A000BDB43 /* QuartzCore.framework */,
 				4E040DCC17F1362200C1E6A3 /* audio */,
 				C3840B9117E9D1E60049FDE5 /* iFind */,
 				C3840B8A17E9D1E60049FDE5 /* Frameworks */,
@@ -594,6 +616,9 @@
 		C3840BB017E9D89D0049FDE5 /* 2x */ = {
 			isa = PBXGroup;
 			children = (
+				C3855B05180259C9000BDB43 /* custom-button-normal@2x.png */,
+				C3855B06180259C9000BDB43 /* custom-cancel-normal@2x.png */,
+				C3855B07180259C9000BDB43 /* custom-dialog-background@2x.png */,
 				C37F4A5A17F48DA800DC23AA /* Settings_Frame@2x.png */,
 				C37F4A5117F474C300DC23AA /* Settings_Btn_Back@2x.png */,
 				C37F4A5217F474C300DC23AA /* Settings_Btn_Confirm@2x.png */,
@@ -636,6 +661,7 @@
 		C3840BB217E9D8A40049FDE5 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				C3855AFF18025341000BDB43 /* AHAlertView */,
 				C376B95517FB2CB9003BC777 /* MBProgressHUD.h */,
 				C376B95617FB2CB9003BC777 /* MBProgressHUD.m */,
 				C376B92717FAD4ED003BC777 /* ACPScrollMenu */,
@@ -680,6 +706,15 @@
 				C382631617EF5ACE00D66B77 /* CBLEButton.m */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		C3855AFF18025341000BDB43 /* AHAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				C3855B0018025341000BDB43 /* AHAlertView.h */,
+				C3855B0118025341000BDB43 /* AHAlertView.m */,
+			);
+			path = AHAlertView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -834,6 +869,12 @@
 				C376B94A17FADE4C003BC777 /* bg.png in Resources */,
 				C376B95417FB16F0003BC777 /* CSettingViewController.xib in Resources */,
 				C384FACA17FC282F00F18A49 /* Main_Icon_Bag_N.png in Resources */,
+				C3855B08180259C9000BDB43 /* custom-button-normal@2x.png in Resources */,
+				C3855B09180259C9000BDB43 /* custom-cancel-normal@2x.png in Resources */,
+				C3855B0A180259C9000BDB43 /* custom-dialog-background@2x.png in Resources */,
+				C3855B0E180259D4000BDB43 /* custom-button-normal.png in Resources */,
+				C3855B0F180259D4000BDB43 /* custom-cancel-normal.png in Resources */,
+				C3855B10180259D4000BDB43 /* custom-dialog-background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -880,6 +921,7 @@
 				C376B92F17FAD4ED003BC777 /* ACPScrollMenu.m in Sources */,
 				C376B95317FB16F0003BC777 /* CSettingViewController.m in Sources */,
 				C376B95717FB2CB9003BC777 /* MBProgressHUD.m in Sources */,
+				C3855B0218025341000BDB43 /* AHAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -968,7 +1010,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iFind/iFind-Prefix.pch";
 				INFOPLIST_FILE = "iFind/iFind-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -982,7 +1024,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iFind/iFind-Prefix.pch";
 				INFOPLIST_FILE = "iFind/iFind-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
