@@ -77,6 +77,19 @@
 }
 
 
+- (void)setImage:(UIImage *)image withHighLight:(UIImage *)highlightImage
+{
+    if(_imageView)
+    {
+        if(image)
+           [_imageView setImage:image];
+        
+        if(highlightImage)
+            [_imageView setHighlightedImage:highlightImage];
+    }
+}
+
+
 - (void)setHighlight:(BOOL)isHighlight
 {
     if(_imageView)

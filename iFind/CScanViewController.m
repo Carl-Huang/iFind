@@ -28,12 +28,24 @@
 #import "ACPItem.h"
 #import "SQLManager.h"
 #import "OrderType.h"
-#import "AHAlertView.h"
-@interface CScanViewController () <ACPScrollDelegate>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <MediaPlayer/MediaPlayer.h>
+typedef enum {
+    REMOTE_ACTION_MUSIC = 0,
+    REMOTE_ACTION_TAKE_PICTURE,
+    REMOTE_ACTION_TAKE_VIDEO,
+    REMOTE_ACTION_RECORD
+}REMOTE_ACTION;
+
+@interface CScanViewController () <ACPScrollDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MPMediaPickerControllerDelegate>
 @property (nonatomic,retain) NSMutableArray * defaultImages;
 @property (nonatomic,retain) NSMutableArray * defaultHightlighImages;
 @property (nonatomic,assign) int currentButtonTag;
 @property (nonatomic,retain) SQLManager * sqlManager;
+@property (nonatomic,retain) NSArray * dataSource;
+@property (nonatomic,assign) REMOTE_ACTION actionType;
+@property (nonatomic,retain) MPMusicPlayerController * musicPlayer;
 @end
 
 @implementation CScanViewController
@@ -45,11 +57,7 @@
 
         //初始化数据库管理类
         _sqlManager = [[SQLManager alloc] initDataBase];
-        //初始化默认图标
-        @autoreleasepool {
-            [self initImages];
-        }
-
+        _dataSource = [[NSArray alloc] initWithArray:@[@"音乐",@"拍照",@"视频",@"录音"]];
         
     }
     return self;
@@ -60,12 +68,35 @@
     [super viewDidLoad];
     //调用初始化UI方法
 	[self initUI];
+    
+    
+    _musicPlayer = [[MPMusicPlayerController alloc] init];
+
+    
 }
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    
+    //初始化默认图标
+    @autoreleasepool {
+        [self initImages];
+    }
+    
+    
+    for(int i = 1; i <= 4; i++)
+    {
+        UIView * view = [self.view viewWithTag:i];
+        if([view isKindOfClass:[CBLEButton class]])
+        {
+            CBLEButton * button = (CBLEButton *)view;
+            [button setImage:[_defaultImages objectAtIndex:(i-1)] withHighLight:[_defaultHightlighImages objectAtIndex:(i-1)]];
+        }
+    }
+    
+    
     CBLEManager * bleManager = [CBLEManager sharedManager];
     [bleManager startScan];
     //发现蓝牙处理block
@@ -104,6 +135,7 @@
             [bleButton setUuid:[CUtilsFunc convertCFUUIDIntoString:peripheral.UUID]];
             [_sqlManager insertTableWithUUID:bleButton.uuid Tag:bleButton.tag];
             
+            CBLEPeriphral * instance = nil;
             for(CBLEPeriphral * blePeripheral in [bleManager connectedPeripherals])
             {
                 if(blePeripheral.peripheral.UUID == peripheral.UUID)
@@ -111,10 +143,25 @@
                     NSLog(@"%@",bleButton.uuid);
                     blePeripheral.tag = bleButton.tag;
                     blePeripheral.UUID = bleButton.uuid;
+                    instance = blePeripheral;
                     break;
                 }
             }
             
+            if(!instance) return ;
+            instance.remoteControlHandler = ^(CBPeripheral * peripheral){
+                
+                if(self.presentedViewController)
+                {
+                    UIViewController * viewController = self.presentedViewController;
+                    if([viewController isKindOfClass:[UIImagePickerController class]])
+                    {
+                        [self processTakePicAndVideo:viewController];
+                    }
+                    
+                }
+                
+            };
         }
         
         [self enableButton];
@@ -137,8 +184,7 @@
         }
     };
     
-    
-    
+
     
     
 }
@@ -168,6 +214,9 @@
     [super dealloc];
 }
 
+
+
+#pragma mark - Private Methods
 //初始化图片，如果用户没有设置图片，则使用默认图片
 - (void)initImages
 {
@@ -273,7 +322,7 @@
             //如果uuid不为空，表示蓝牙已经连接，直接进入蓝牙设置界面
             if(bleButton.uuid != nil)
             {
-                [self showDetailViewControler:bleButton.uuid];
+                [self showDetailViewControler:bleButton];
                 return ;
             }
             int index = bleButton.tag;
@@ -282,31 +331,31 @@
     };
     
     //Button1
-    UIImage * image_1 = [_defaultImages objectAtIndex:0];
-    UIImage * highlight_1 = [_defaultHightlighImages objectAtIndex:0];
-    CBLEButton * bleButton_1 = [[CBLEButton alloc] initWithFrame:rect_1 withImage:image_1 withHighLight:highlight_1 withTitle:nil withTag:BUTTON_TAG_1];
+//    UIImage * image_1 = [_defaultImages objectAtIndex:0];
+//    UIImage * highlight_1 = [_defaultHightlighImages objectAtIndex:0];
+    CBLEButton * bleButton_1 = [[CBLEButton alloc] initWithFrame:rect_1 withImage:nil withHighLight:nil withTitle:nil withTag:BUTTON_TAG_1];
     bleButton_1.tag = BUTTON_TAG_1;
     bleButton_1.tapHandler = tapHandler;
     [self.view addSubview:bleButton_1];
     [bleButton_1 release];
     //Button2
-    UIImage * image_2 = [_defaultImages objectAtIndex:1];
-    UIImage * highlight_2 = [_defaultHightlighImages objectAtIndex:1];
-    CBLEButton * bleButton_2 = [[CBLEButton alloc] initWithFrame:rect_2 withImage:image_2 withHighLight:highlight_2 withTitle:nil withTag:BUTTON_TAG_2];
+//    UIImage * image_2 = [_defaultImages objectAtIndex:1];
+//    UIImage * highlight_2 = [_defaultHightlighImages objectAtIndex:1];
+    CBLEButton * bleButton_2 = [[CBLEButton alloc] initWithFrame:rect_2 withImage:nil withHighLight:nil withTitle:nil withTag:BUTTON_TAG_2];
     bleButton_2.tag = BUTTON_TAG_2;
     bleButton_2.tapHandler = tapHandler;
     [self.view addSubview:bleButton_2];
     //Button3
-    UIImage * image_3 = [_defaultImages objectAtIndex:2];
-    UIImage * highlight_3 = [_defaultHightlighImages objectAtIndex:2];
-    CBLEButton * bleButton_3 = [[CBLEButton alloc] initWithFrame:rect_3 withImage:image_3 withHighLight:highlight_3 withTitle:nil withTag:BUTTON_TAG_3];
+//    UIImage * image_3 = [_defaultImages objectAtIndex:2];
+//    UIImage * highlight_3 = [_defaultHightlighImages objectAtIndex:2];
+    CBLEButton * bleButton_3 = [[CBLEButton alloc] initWithFrame:rect_3 withImage:nil withHighLight:nil withTitle:nil withTag:BUTTON_TAG_3];
     bleButton_3.tag = BUTTON_TAG_3;
     bleButton_3.tapHandler = tapHandler;
     [self.view addSubview:bleButton_3];
     //Button4
-    UIImage * image_4 = [_defaultImages objectAtIndex:3];
-    UIImage * highlight_4 = [_defaultHightlighImages objectAtIndex:3];
-    CBLEButton * bleButton_4 = [[CBLEButton alloc] initWithFrame:rect_4 withImage:image_4 withHighLight:highlight_4 withTitle:nil withTag:BUTTON_TAG_4];
+//    UIImage * image_4 = [_defaultImages objectAtIndex:3];
+//    UIImage * highlight_4 = [_defaultHightlighImages objectAtIndex:3];
+    CBLEButton * bleButton_4 = [[CBLEButton alloc] initWithFrame:rect_4 withImage:nil withHighLight:nil withTitle:nil withTag:BUTTON_TAG_4];
     bleButton_4.tag = BUTTON_TAG_4;
     bleButton_4.tapHandler = tapHandler;
     [self.view addSubview:bleButton_4];
@@ -432,95 +481,102 @@
 //响应帮助按钮点击事件
 - (void)showHelpScene:(id)sender
 {
-    [self showAlertWithTitle:@"Help" withMessage:@"HelpContent"];
-}
-
-
-- (void)showAlertWithTitle:(NSString *)paramTitle withMessage:(NSString *)paramMessage
-{
-    applyCustomAlertAppearance();
-    if (paramTitle == nil) {
-        paramTitle = NSLocalizedString(@"Notice", nil);
-    }
-    else
-    {
-        paramTitle = NSLocalizedString(paramTitle, nil);
-    }
-    
-    if(paramMessage == nil)
-    {
-        paramMessage = NSLocalizedString(@"OperationFail", nil);
-    }
-    else
-    {
-        paramMessage = NSLocalizedString(paramMessage, nil);
-    }
-    
-    
-    AHAlertView * alertView = [[AHAlertView alloc] initWithTitle:paramTitle message:paramMessage];
-//    [alertView setCancelButtonTitle:NSLocalizedString(@"Close", nil) block:^{
-//        
-//    }];
-    [alertView addButtonWithTitle:NSLocalizedString(@"Close", nil) block:^{
-        
-    }];
-    
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Help", nil) message:NSLocalizedString(@"HelpContent", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil, nil];
     [alertView show];
-    
+    [alertView release];
+
 }
 
-static void applyCustomAlertAppearance()
+- (void)showMusicPlayer
 {
-	[[AHAlertView appearance] setContentInsets:UIEdgeInsetsMake(12, 18, 12, 18)];
-	
-	[[AHAlertView appearance] setBackgroundImage:[UIImage imageNamed:@"custom-dialog-background"]];
-	
-	UIEdgeInsets buttonEdgeInsets = UIEdgeInsetsMake(20, 8, 20, 8);
-	
-	UIImage *cancelButtonImage = [[UIImage imageNamed:@"custom-cancel-normal"]
-								  resizableImageWithCapInsets:buttonEdgeInsets];
-	UIImage *normalButtonImage = [[UIImage imageNamed:@"custom-button-normal"]
-								  resizableImageWithCapInsets:buttonEdgeInsets];
+    MPMediaPickerController * mediaPickerController = [[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeMusic];
+    mediaPickerController.delegate = self;
+    mediaPickerController.allowsPickingMultipleItems = YES;
+    [self presentViewController:mediaPickerController animated:YES completion:nil];
+    [mediaPickerController release];
+}
+
+- (void)takePicture
+{
     
-	[[AHAlertView appearance] setCancelButtonBackgroundImage:cancelButtonImage
-													forState:UIControlStateNormal];
-	[[AHAlertView appearance] setButtonBackgroundImage:normalButtonImage
-											  forState:UIControlStateNormal];
-	
-	[[AHAlertView appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                      [UIFont boldSystemFontOfSize:18], UITextAttributeFont,
-                                                      [UIColor whiteColor], UITextAttributeTextColor,
-                                                      [UIColor blackColor], UITextAttributeTextShadowColor,
-                                                      [NSValue valueWithCGSize:CGSizeMake(0, -1)], UITextAttributeTextShadowOffset,
-                                                      nil]];
-    
-	[[AHAlertView appearance] setMessageTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                        [UIFont systemFontOfSize:14], UITextAttributeFont,
-                                                        [UIColor colorWithWhite:0.8 alpha:1.0], UITextAttributeTextColor,
-                                                        [UIColor blackColor], UITextAttributeTextShadowColor,
-                                                        [NSValue valueWithCGSize:CGSizeMake(0, -1)], UITextAttributeTextShadowOffset,
-                                                        nil]];
-    
-	[[AHAlertView appearance] setButtonTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                            [UIFont boldSystemFontOfSize:14], UITextAttributeFont,
-                                                            [UIColor whiteColor], UITextAttributeTextColor,
-                                                            [UIColor blackColor], UITextAttributeTextShadowColor,
-                                                            [NSValue valueWithCGSize:CGSizeMake(0, -1)], UITextAttributeTextShadowOffset,
-                                                            nil]];
+    [self showCameraWithMediaTypes:@[(NSString *)kUTTypeImage]];
 }
 
 
+- (void)captureVideo
+{
+    [self showCameraWithMediaTypes:@[(NSString *)kUTTypeMovie]];
+}
 
+- (void)showCameraWithMediaTypes:(NSArray *)mediaTypes
+{
+    if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:@"您的设备不支持摄像头！" delegate:nil cancelButtonTitle:@"关闭" otherButtonTitles:nil, nil];
+        [alertView show];
+        [alertView release];
+        return ;
+    }
+    UIImagePickerController * imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    imagePickerController.mediaTypes = mediaTypes;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+    [imagePickerController release];
+}
+
+
+- (void)processTakePicAndVideo:(id)viewController
+{
+    UIImagePickerController * picker = (UIImagePickerController *)viewController;
+    NSArray * mediaTypes = picker.mediaTypes;
+    if(!mediaTypes) return ;
+    NSString * mediaType = [mediaTypes objectAtIndex:0];
+    if([mediaType isEqualToString:(NSString *)kUTTypeImage])
+    {
+        NSLog(@"Take picture");
+        [picker takePicture];
+    }
+    else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie])
+    {
+        if(![picker startVideoCapture])
+        {
+            [picker stopVideoCapture];
+        }
+    }
+}
+
+#pragma mark - Button Actions
 //响应手机遥控按钮点击事件
 - (void)remoteControl:(id)sender
 {
     PopUpTableViewController * popupTableViewController = [[PopUpTableViewController alloc] initWithStyle:UITableViewStylePlain];
     popupTableViewController.title = NSLocalizedString(@"RemoteControl", nil);
-    popupTableViewController.dataSource = @[@"音乐",@"拍照",@"视频",@"录音"];
+    popupTableViewController.dataSource = _dataSource;
     [popupTableViewController.view setFrame:CGRectMake(0, 0, 200, 250)];
     [popupTableViewController setConfigureBlock:^(id item){
+
         UIButton * controlButton = (UIButton *)[self.view viewWithTag:CONTROL_BUTTON_TAG];
         [controlButton setTitle:(NSString *)item forState:UIControlStateNormal];
+        
+        int index = [_dataSource indexOfObject:item];
+        switch (index) {
+            case REMOTE_ACTION_MUSIC:
+                [self showMusicPlayer];
+                break;
+            case REMOTE_ACTION_TAKE_PICTURE:
+                [self takePicture];
+                break;
+            case REMOTE_ACTION_TAKE_VIDEO:
+                [self captureVideo];
+                break;
+            case REMOTE_ACTION_RECORD:
+                
+                break;
+            default:
+                break;
+        }
+     
     }];
     FPPopoverController * popoverController = [[FPPopoverController alloc] initWithViewController:popupTableViewController];
     [popupTableViewController release];
@@ -569,19 +625,20 @@ static void applyCustomAlertAppearance()
 }
 
 //进入蓝牙设置页面方法
--(void)showDetailViewControler:(NSString *)uuid
+-(void)showDetailViewControler:(CBLEButton *)sender
 {
     DeviceDetailViewController * detailViewController = [[DeviceDetailViewController alloc] initWithNibName:nil bundle:nil];
     CBLEPeriphral * blePeripheral = nil;
     for(CBLEPeriphral * instance in [[CBLEManager sharedManager] connectedPeripherals])
     {
-        if([instance.UUID isEqualToString:uuid])
+        if([instance.UUID isEqualToString:sender.uuid])
         {
             blePeripheral = instance;
             break;
         }
     }
     NSLog(@"%@",blePeripheral.UUID);
+    blePeripheral.tag = sender.tag;
     detailViewController.blePeripheral = blePeripheral;
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
@@ -602,5 +659,66 @@ static void applyCustomAlertAppearance()
     }];
 }
 
+
+#pragma mark - UIImagePickerControllerDelegate Methods
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSString * mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    NSLog(@"%@",mediaType);
+    if([mediaType isEqualToString:(NSString *)kUTTypeMovie])
+    {
+        NSURL * url = [info objectForKey:UIImagePickerControllerMediaURL];
+        if(url)
+        {
+            ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
+            [library writeVideoAtPathToSavedPhotosAlbum:url completionBlock:^(NSURL *assetURL, NSError *error) {
+               if(error)
+               {
+                   UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:@"保存失败！" delegate:nil cancelButtonTitle:@"关闭" otherButtonTitles:nil, nil];
+                   [alertView show];
+                   [alertView release];
+                   NSLog(@"save video error:%@",error);
+               }
+            }];
+            [library release];
+        }
+    }
+    else if ([mediaType isEqualToString:(NSString *)kUTTypeImage])
+    {
+        UIImage * image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        if(image)
+        {
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, NULL);
+        }
+        
+    }
+}
+
+
+
+#pragma mark - MPMediaPickerControllerDelegate Methods
+- (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection
+{
+    
+    NSLog(@"%@",NSStringFromSelector(_cmd));
+    if(_musicPlayer == nil)
+    {
+        NSLog(@"The music player is nil.");
+        return ;
+    }
+    [_musicPlayer setQueueWithItemCollection:mediaItemCollection];
+    [_musicPlayer play];
+}
 
 @end

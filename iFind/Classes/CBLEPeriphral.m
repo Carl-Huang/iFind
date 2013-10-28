@@ -131,10 +131,11 @@ typedef enum {
     NSLog(@"Discover characteristics %d",[service.characteristics count]);
     for(CBCharacteristic * characteristic in service.characteristics)
     {
+        [peripheral setNotifyValue:YES forCharacteristic:characteristic];
         if([characteristic.UUID isEqual:[CBUUID UUIDWithString:Characteristic_Alert_Level]])
         {
             [peripheral readValueForCharacteristic:characteristic];
-            [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+
             if([service.UUID isEqual:[CBUUID UUIDWithString:Service_Immediate_Alert]])
             {
                 _characteristicForAlert = characteristic;
@@ -169,16 +170,19 @@ typedef enum {
 
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if(error)
-    {
-        NSLog(@"Peripheral read value %@ with error : %@",characteristic.value,[error description]);
-        return ;
-    }
+//    if(error)
+//    {
+//        NSLog(@"Peripheral read value %@ with error : %@",characteristic.value,[error description]);
+//        return ;
+//    }
     NSLog(@"Did update value %@, in characteristic uuid %@, service uuid:%@",characteristic.value,characteristic.UUID,characteristic.service.UUID);
-    if(characteristic.value == nil)
-    {
-        return ;
-    }
+    
+    
+    
+//    if(characteristic.value == nil)
+//    {
+//        return ;
+//    }
     if([characteristic.UUID isEqual:[CBUUID UUIDWithString:Characteristic_Battery_Level]])
     {
 
@@ -186,6 +190,13 @@ typedef enum {
         int level = [CUtilsFunc HexConvertIntoInt:batteryLevel];
         self.batteryLevel = level;
         NSLog(@"Batter Level %d",level);
+    }
+    else
+    {
+        if(self.remoteControlHandler)
+        {
+            self.remoteControlHandler(self.peripheral);
+        }
     }
     
 }

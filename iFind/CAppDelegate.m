@@ -164,7 +164,7 @@
 
 -(void)readRSSI:(NSTimer *)timer
 {
-    NSLog(@"readRSSI");
+//    NSLog(@"readRSSI");
     [[[CBLEManager sharedManager] connectedPeripherals] makeObjectsPerformSelector:@selector(readRSSI:) withObject:timer];
 }
 

@@ -74,6 +74,7 @@
 		4E0F318417EF3CE1006FC754 /* Settings_Icon_Sinal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F316C17EF3CE1006FC754 /* Settings_Icon_Sinal@2x.png */; };
 		4E0F318517EF3CE1006FC754 /* Settings_Icon_Wallet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F316D17EF3CE1006FC754 /* Settings_Icon_Wallet@2x.png */; };
 		4E178F0717F46DF4007D5652 /* MusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E178F0617F46DF4007D5652 /* MusicViewController.m */; };
+		C3051F37181BFA920042032D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3051F36181BFA920042032D /* MobileCoreServices.framework */; };
 		C3437E9317EEC79100C67F2C /* Constants.h in Sources */ = {isa = PBXBuildFile; fileRef = C3840BB917EAA9850049FDE5 /* Constants.h */; };
 		C3437EA917EED22300C67F2C /* FPPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EA217EED22300C67F2C /* FPPopoverController.m */; };
 		C3437EAA17EED22300C67F2C /* FPPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3437EA417EED22300C67F2C /* FPPopoverView.m */; };
@@ -242,6 +243,7 @@
 		4E0F316D17EF3CE1006FC754 /* Settings_Icon_Wallet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings_Icon_Wallet@2x.png"; sourceTree = "<group>"; };
 		4E178F0517F46DF4007D5652 /* MusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicViewController.h; sourceTree = "<group>"; };
 		4E178F0617F46DF4007D5652 /* MusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicViewController.m; sourceTree = "<group>"; };
+		C3051F36181BFA920042032D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		C342179917F1D6E700B42F5E /* Main_Frame_Kid_H.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_Frame_Kid_H.png; sourceTree = "<group>"; };
 		C342179A17F1D6E700B42F5E /* Main_Frame_Kid_N.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_Frame_Kid_N.png; sourceTree = "<group>"; };
 		C3437EA117EED22300C67F2C /* FPPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverController.h; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3051F37181BFA920042032D /* MobileCoreServices.framework in Frameworks */,
 				C3855B041802562A000BDB43 /* QuartzCore.framework in Frameworks */,
 				4E040DC017F053E700C1E6A3 /* libsqlite3.0.dylib in Frameworks */,
 				C3437EB817EED2E300C67F2C /* AudioToolbox.framework in Frameworks */,
@@ -536,6 +539,7 @@
 		C3840B7F17E9D1E60049FDE5 = {
 			isa = PBXGroup;
 			children = (
+				C3051F36181BFA920042032D /* MobileCoreServices.framework */,
 				C3855B031802562A000BDB43 /* QuartzCore.framework */,
 				4E040DCC17F1362200C1E6A3 /* audio */,
 				C3840B9117E9D1E60049FDE5 /* iFind */,
@@ -1007,11 +1011,16 @@
 		C3840BAC17E9D1E60049FDE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Carl Huang (2FZNLHFD97)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Carl Huang (2FZNLHFD97)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iFind/iFind-Prefix.pch";
 				INFOPLIST_FILE = "iFind/iFind-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2F3F33C5-CBF3-4EBC-A386-0E6E4311F01B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2F3F33C5-CBF3-4EBC-A386-0E6E4311F01B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1019,15 +1028,16 @@
 		C3840BAD17E9D1E60049FDE5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Xtreme Programming Group, Inc.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Xtreme Programming Group, Inc.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Carl Huang (2FZNLHFD97)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Carl Huang (2FZNLHFD97)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iFind/iFind-Prefix.pch";
 				INFOPLIST_FILE = "iFind/iFind-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "2F3F33C5-CBF3-4EBC-A386-0E6E4311F01B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2F3F33C5-CBF3-4EBC-A386-0E6E4311F01B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

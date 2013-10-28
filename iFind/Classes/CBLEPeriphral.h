@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 typedef void (^UpdateRSSIHandler)(int rssi);
-
+typedef void (^RecieveDataHandler)(CBPeripheral * peripheral);
 @interface CBLEPeriphral : NSObject <CBPeripheralDelegate>
 
 @property (nonatomic,retain) CBPeripheral * peripheral;
@@ -21,6 +21,7 @@ typedef void (^UpdateRSSIHandler)(int rssi);
 @property (nonatomic,retain) CBCharacteristic * characteristicForAlertLevel;
 @property (nonatomic,retain) CBCharacteristic * characteristicForBattery;
 @property (nonatomic,copy) UpdateRSSIHandler updateRSSIHandler;
+@property (nonatomic,copy) RecieveDataHandler remoteControlHandler;
 -(id)initWithPeripheral:(CBPeripheral *)peripheral;
 
 -(void)discoverServices;

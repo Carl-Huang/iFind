@@ -23,6 +23,7 @@
 #import "CBLEPeriphral.h"
 //Utility class
 #import "PhotoManager.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 @interface DeviceDetailViewController ()
 {
     NSString *defaultDistanceValue;
@@ -114,8 +115,23 @@
     
     self.title = @"设置";
     [self initializationDeviceWithUUID:_blePeripheral.UUID withTag:_blePeripheral.tag];
-    [self initializationDeviceWithUUID:@"vedon" withTag:1];
+//    [self initializationDeviceWithUUID:@"vedon" withTag:1];
     [self initializationInterface];
+    
+    
+    //相片处理类
+    ConfigureImageBlock block = ^(id item,id name){
+        [userPhoto setFrame:CGRectMake(25, 30, 110, 110)];
+        [userPhoto setImage:(UIImage *)item];
+        //图片名写入数据库
+        [sqlMng updateKey:ImageName value:name withUUID:self.vUUID];
+    };
+    //    if (photoManager) {
+    //        [photoManager release];
+    //        photoManager = nil;
+    //    }
+    photoManager = [[PhotoManager alloc]initWithBlock:block];
+    photoManager.camera.mediaTypes = @[(NSString *)kUTTypeImage];
 }
 
 -(void)backToMainview
@@ -137,7 +153,7 @@
     defaultAlertTime        = AlertTimePre;
 
     if (deviceInfo) {
-        [deviceInfo release];
+//        [deviceInfo release];
         deviceInfo = nil;
     }
     //返回的是数据库中之前保存过相应的uuid设备的配置信息
@@ -726,18 +742,7 @@
 -(void)takePhoto
 {
     NSLog(@"take photo action");
-    //相片处理类
-    ConfigureImageBlock block = ^(id item,id name){
-        [userPhoto setFrame:CGRectMake(25, 30, 110, 110)];
-        [userPhoto setImage:(UIImage *)item];
-        //图片名写入数据库
-        [sqlMng updateKey:ImageName value:name withUUID:self.vUUID];
-    };
-    if (photoManager) {
-        [photoManager release];
-        photoManager = nil;
-    }
-    photoManager = [[PhotoManager alloc]initWithBlock:block];
+
 
     CustomiseActionSheet * synActionSheet = [[CustomiseActionSheet alloc] init];
     synActionSheet.titles = [NSArray arrayWithObjects:@"From Camera", @"From Album",@"Cancel", nil];

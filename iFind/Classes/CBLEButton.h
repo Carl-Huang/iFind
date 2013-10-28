@@ -20,4 +20,5 @@ typedef void (^TapHandler)(id sender);
 - (id)initWithFrame:(CGRect)frame withImage:(UIImage *)image withHighLight:(UIImage *)highlightImage withTitle:(NSString *)title withTag:(int)tag;
 - (void)setHighlight:(BOOL)isHighlight;
 - (void)setUuid:(NSString *)uuid;
+- (void)setImage:(UIImage *)image withHighLight:(UIImage *)highlightImage;
 @end
