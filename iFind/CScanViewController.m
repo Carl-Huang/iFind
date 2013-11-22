@@ -437,7 +437,8 @@ typedef enum {
     
     if([connectedPeripheral count] == 1)
     {
-        [connectedPeripheral makeObjectsPerformSelector:@selector(writeAlertLevelHigh)];
+        CBLEPeriphral * blePeripheral = [connectedPeripheral objectAtIndex:0];
+        [blePeripheral writeAlertLevelHigh];
         return ;
     }
     
