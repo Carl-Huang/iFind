@@ -137,7 +137,7 @@
     defaultAlertTime        = AlertTimePre;
 
     if (deviceInfo) {
-        [deviceInfo release];
+//        [deviceInfo release];
         deviceInfo = nil;
     }
     //返回的是数据库中之前保存过相应的uuid设备的配置信息

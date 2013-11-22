@@ -876,7 +876,6 @@
 				C385AEFA17F13DE6001DBCF0 /* CDataSource.m in Sources */,
 				4E0943AC17F2B39200384362 /* CustomiseActionSheet.m in Sources */,
 				4E178F0717F46DF4007D5652 /* MusicViewController.m in Sources */,
-				C37F4A5717F48D0200DC23AA /* MusicTableViewController.m in Sources */,
 				C376B92D17FAD4ED003BC777 /* ACPItem.m in Sources */,
 				C376B92F17FAD4ED003BC777 /* ACPScrollMenu.m in Sources */,
 				C376B95317FB16F0003BC777 /* CSettingViewController.m in Sources */,
@@ -917,7 +916,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Carl Huang (2FZNLHFD97)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Carl Huang (2FZNLHFD97)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -932,6 +932,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "BEDDAFD4-D28E-4773-86FC-58FD648B5381";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BEDDAFD4-D28E-4773-86FC-58FD648B5381";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -947,8 +949,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Xtreme Programming Group, Inc.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Xtreme Programming Group, Inc.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Carl Huang (2FZNLHFD97)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Carl Huang (2FZNLHFD97)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -956,8 +958,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "C32EBE52-640A-4B6F-B51C-E84A9888D894";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C32EBE52-640A-4B6F-B51C-E84A9888D894";
+				PROVISIONING_PROFILE = "BEDDAFD4-D28E-4773-86FC-58FD648B5381";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BEDDAFD4-D28E-4773-86FC-58FD648B5381";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -966,11 +968,16 @@
 		C3840BAC17E9D1E60049FDE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Carl Huang (2FZNLHFD97)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Carl Huang (2FZNLHFD97)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iFind/iFind-Prefix.pch";
 				INFOPLIST_FILE = "iFind/iFind-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "BEDDAFD4-D28E-4773-86FC-58FD648B5381";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BEDDAFD4-D28E-4773-86FC-58FD648B5381";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -978,15 +985,16 @@
 		C3840BAD17E9D1E60049FDE5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Xtreme Programming Group, Inc.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Xtreme Programming Group, Inc.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Carl Huang (2FZNLHFD97)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Carl Huang (2FZNLHFD97)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iFind/iFind-Prefix.pch";
 				INFOPLIST_FILE = "iFind/iFind-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "BEDDAFD4-D28E-4773-86FC-58FD648B5381";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BEDDAFD4-D28E-4773-86FC-58FD648B5381";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

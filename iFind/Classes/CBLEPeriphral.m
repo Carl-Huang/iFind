@@ -39,7 +39,7 @@ typedef enum {
 
 -(id)initWithPeripheral:(CBPeripheral *)peripheral
 {
-    NSLog(@"%@",NSStringFromSelector(_cmd));
+    //NSLog(@"%@",NSStringFromSelector(_cmd));
    if((self = [super init]))
    {
        self.peripheral = peripheral;
@@ -55,7 +55,7 @@ typedef enum {
        
        [[NSNotificationCenter defaultCenter] addObserverForName:kCallIncomingNotification object:self queue:[[NSOperationQueue alloc] init] usingBlock:^(NSNotification *note) {
     
-           [self writeAlertLevelLight];
+           [self writeAlertLevelHigh];
        }];
        
    }
@@ -65,7 +65,7 @@ typedef enum {
 
 -(void)discoverServices
 {
-    NSArray * services = @[[CBUUID UUIDWithString:Service_Immediate_Alert],[CBUUID UUIDWithString:Service_Link_Loss],[CBUUID UUIDWithString:Service_Battery]];
+    NSArray * services = @[[CBUUID UUIDWithString:Service_Immediate_Alert],[CBUUID UUIDWithString:Service_Battery]];
     [_peripheral discoverServices:services];
 }
 
@@ -86,7 +86,7 @@ typedef enum {
 //        timer = nil;
         return;
     }
-    NSLog(@"Peripheral read rssi.");
+   // NSLog(@"Peripheral read rssi.");
     [_peripheral readRSSI];
     
 }
@@ -105,7 +105,7 @@ typedef enum {
     NSLog(@"Discover services %d",[peripheral.services count]);
     for(CBService * service in peripheral.services)
     {
-        if([service.UUID isEqual:[CBUUID UUIDWithString:Service_Immediate_Alert ]])
+        if([service.UUID isEqual:[CBUUID UUIDWithString:Service_Immediate_Alert]])
         {
             [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:Characteristic_Alert_Level]] forService:service];
         }
@@ -131,13 +131,13 @@ typedef enum {
     NSLog(@"Discover characteristics %d",[service.characteristics count]);
     for(CBCharacteristic * characteristic in service.characteristics)
     {
+        [peripheral setNotifyValue:YES forCharacteristic:characteristic];
         if([characteristic.UUID isEqual:[CBUUID UUIDWithString:Characteristic_Alert_Level]])
         {
-            [peripheral readValueForCharacteristic:characteristic];
-            [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+
             if([service.UUID isEqual:[CBUUID UUIDWithString:Service_Immediate_Alert]])
             {
-                _characteristicForAlert = characteristic;
+                self.characteristicForAlert = characteristic;
                 [self writeAlertLevelHigh];
 
             }
@@ -149,10 +149,11 @@ typedef enum {
         }
         else if([characteristic.UUID isEqual:[CBUUID UUIDWithString:Characteristic_Battery_Level]])
         {
+            
             _characteristicForBattery = characteristic;
             [peripheral readValueForCharacteristic:characteristic];
         }
-
+ 
     }
 
 }
@@ -161,7 +162,7 @@ typedef enum {
 {
     if(error)
     {
-        NSLog(@"Peripheral write value %@ with error :%@",characteristic.value,[error description]);
+        NSLog(@"Peripheral write value %@ with error :%@ , characteristic uuid %@",characteristic.value,[error description],characteristic.UUID);
         return ;
     }
     NSLog(@"Did write value %@, characteristic uuid %@",characteristic.value,characteristic.UUID);
@@ -185,7 +186,7 @@ typedef enum {
         NSString * batteryLevel = [CUtilsFunc HexStringFromBinaryValue:characteristic.value];
         int level = [CUtilsFunc HexConvertIntoInt:batteryLevel];
         self.batteryLevel = level;
-        NSLog(@"Batter Level %d",level);
+        //NSLog(@"Batter Level %d",level);
     }
     
 }
@@ -193,10 +194,10 @@ typedef enum {
 -(void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
 {
     if (error) {
-        NSLog(@"Update rssi with error:%@",error);
+        //NSLog(@"Update rssi with error:%@",error);
         return ;
     }
-    NSLog(@"New RSSI:%d",peripheral.RSSI.intValue);
+    //NSLog(@"New RSSI:%d",peripheral.RSSI.intValue);
     
     self.rssi = peripheral.RSSI.intValue;
     if(self.updateRSSIHandler)
@@ -214,6 +215,8 @@ typedef enum {
         [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(writeAlertLevelHigh) object:nil];
     }
     
+
+
 }
 
 
@@ -242,30 +245,34 @@ typedef enum {
 {
     if(![_peripheral isConnected]) return ;
     NSData * data;
+    unsigned char  ch;
     switch (level) {
         case ALERT_LEVEL_NONE:
-            data = [CUtilsFunc BinaryValueFromHexString:@"00"];
+            ch = 0x00;
             break;
         case ALERT_LEVEL_MID:
-            data = [CUtilsFunc BinaryValueFromHexString:@"01"];
+            //data = [CUtilsFunc BinaryValueFromHexString:@"01"];
+            //data = [@"01" dataUsingEncoding:NSUTF8StringEncoding];
+            ch = 0x01;
             break;
         case ALERT_LEVEL_HIGH:
-            data = [CUtilsFunc BinaryValueFromHexString:@"02"];
+            ch = 0x02;
+//            data = [[CUtilsFunc BinaryValueFromHexString:@"02"] retain];
+//            data = [NSData dataWithBytes:@"02".UTF8String length:[@"02" length]];
             break;
         case ALERT_LEVEL_LIGHT:
-            data = [CUtilsFunc BinaryValueFromHexString:@"05"];
+            ch = 0x05;
+            //data = [CUtilsFunc BinaryValueFromHexString:@"05"];
+            //data = [@"05" dataUsingEncoding:NSUTF8StringEncoding];
             break;
         default:
-            data = nil;
+            ch = 0x00;
+            //data = nil;
             break;
     }
-    if(!data)
-    {
-        NSLog(@"The alert level data is nil.");
-        return ;
-    }
-    
-    [_peripheral writeValue:data forCharacteristic:_characteristicForAlert type:CBCharacteristicWriteWithResponse];
+    data = [NSData dataWithBytes:&ch length:1];
+    [_peripheral writeValue:data forCharacteristic:_characteristicForAlert type:CBCharacteristicWriteWithoutResponse];
+    NSLog(@"%@",data);
 }
 
 @end
